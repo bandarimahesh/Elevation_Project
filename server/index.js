@@ -1,14 +1,22 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const authRoute = require("./routes/authRoute.js");
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
+app.use(helmet());
+app.use(morgan("common"));
 const port = process.env.PORT || 5500;
-app.get("/", (req, res) => {
-  res.send("<h1>Hello i am from backend!</h1>");
-});
+
+// routes
+app.use("/api/auth", authRoute);
+
 app.listen(port, (req, res) => {
   console.log(`Server running on port ${port}`);
 });
