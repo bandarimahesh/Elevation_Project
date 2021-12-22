@@ -1,12 +1,17 @@
 import React from "react";
+import Footer from "../components/footer/Footer";
+import Carousel from "../components/Main/Carousel/Carousel";
+import Marketing from "../components/Main/Marketing/Marketing";
 import Navbar from "../components/navbar/Navbar";
 
 const Home = () => {
   return (
-    <div>
+    <React.Fragment>
       <Navbar />
-      <h1>Home</h1>
-    </div>
+      <Carousel />
+      <Marketing />
+      <Footer />
+    </React.Fragment>
   );
 };
 

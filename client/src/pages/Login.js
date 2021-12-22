@@ -6,18 +6,28 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
 
-  const loginFormSubmitHandler = (event) => {
+  const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
 
     try {
-      const res = axios.post("auth/login", {
-        username: username,
-        password: password,
-        type: type,
-      });
-      if (res.statusCode === 200) {
-        console.log("success", res);
-      }
+      const res = await axios.post(
+        "/auth/login",
+        {
+          username: username,
+          password: password,
+          type: type,
+        },
+        (err, data) => {
+          if (err) {
+            console.log(err.message);
+          }
+          if (data) {
+            console.log(data);
+          }
+        }
+      );
+      console.log(res.data);
+      // res.data && window.location.replace("/profile");
     } catch (error) {
       console.log(error.message);
     }

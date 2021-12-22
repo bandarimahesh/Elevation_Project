@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
   var mysqlTimestamp = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
 
   try {
-    const result = connection.query(
+    connection.query(
       "INSERT INTO user_dtls (user_name, user_pwd, user_logindate,user_logintime, user_firstname, user_lastname, user_status, user_creation,user_modified_by, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)",
       [
         username,
@@ -30,13 +30,16 @@ router.post("/register", async (req, res) => {
         new Date(),
         "admin",
         type,
-      ]
+      ],
+      (err, result) => {
+        if (err) {
+          console.log(err.message);
+        } else {
+          console.log(result);
+          res.send(result);
+        }
+      }
     );
-    if (!result) {
-      console.log("There is an error while creating the user");
-    } else {
-      console.log("Successfully created the registration");
-    }
   } catch (error) {
     console.log(error.message);
   }
@@ -48,27 +51,20 @@ router.post("/login", async (req, res) => {
   const type = req.body.type;
   const saltRound = 10;
   const saltRounds = await bcrypt.genSalt(saltRound);
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   try {
-    const result = connection.query(
-      "SELECT user_pwd FROM user_dtls where user_name= ? AND user_type= ? ",
-      [username, type],
-      (err, rows) => {
-        var output = {};
-        if (rows.length != 0) {
-          var password_hash = rows[0]["user_pwd"];
-          const verified = bcrypt.compare(password, password_hash);
-          if (verified) {
-            output["status"] = 1;
-          } else {
-            output["status"] = 0;
-            output["message"] = "Invalid password";
-          }
-        } else {
-          output["status"] = 0;
-          output["message"] = "Invalid username and password";
+    connection.query(
+      "SELECT * FROM user_dtls WHERE user_name=? AND user_pwd=? AND user_type=?",
+      [username, hashedPassword, type],
+      (err, result) => {
+        if (err) {
+          console.log(err.message);
         }
-        console.log(output);
+        if (result) {
+          res.send(result);
+          console.log("FOund user");
+        }
       }
     );
   } catch (error) {

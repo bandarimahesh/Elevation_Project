@@ -8,28 +8,25 @@ const Register = () => {
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
 
-  const registerSubmitHandler = (event) => {
+  const registerSubmitHandler = async (event) => {
     event.preventDefault();
 
     try {
-      const res = axios.post("auth/register", {
+      const res = await axios.post("auth/register", {
         username: username,
         firstName: firstName,
         lastName: lastName,
         password: password,
         type: type,
       });
-      if (res.statusCode === 200) {
-        console.log("success", res);
-      }
+      console.log(res.data);
+      res.data && window.location.replace("/login");
     } catch (error) {
       console.log(error.message);
     }
+    setUsername("");
   };
-  useEffect(() => {
-    const registerUser = async (data) => {};
-    registerUser();
-  }, []);
+
   return (
     <React.Fragment>
       <Navbar />
