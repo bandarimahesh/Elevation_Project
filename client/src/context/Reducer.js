@@ -1,4 +1,4 @@
-const Reducer = (state, action) => {
+const Reducer = (action, state) => {
   switch (action.type) {
     case "LOGIN_START":
       return {
@@ -12,15 +12,20 @@ const Reducer = (state, action) => {
         isFetching: false,
         error: null,
       };
-    case "LOGIN_FAILED":
+    case "LOGIN_FAILURE":
       return {
         user: null,
         isFetching: false,
         error: action.payload,
       };
+    case "LOGOUT":
+      return {
+        user: null,
+        isFetching: false,
+        error: null,
+      };
     default:
       return state;
   }
 };
-
 export default Reducer;

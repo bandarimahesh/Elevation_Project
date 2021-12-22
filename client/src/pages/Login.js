@@ -1,14 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "../components/navbar/Navbar";
+import { Context } from "../context/Context";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
-
+  const { dispatch, isFetching } = useContext(Context);
+  
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
 
+    dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post(
         "/auth/login",
@@ -23,12 +26,15 @@ const Login = () => {
           }
           if (data) {
             console.log(data);
+            dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
           }
         }
       );
       console.log(res.data);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       // res.data && window.location.replace("/profile");
     } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE" });
       console.log(error.message);
     }
   };
