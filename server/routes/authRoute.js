@@ -49,21 +49,26 @@ router.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const type = req.body.type;
-  const saltRound = 10;
-  const saltRounds = await bcrypt.genSalt(saltRound);
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   try {
     connection.query(
-      "SELECT * FROM user_dtls WHERE user_name=? AND user_pwd=? AND user_type=?",
-      [username, hashedPassword, type],
+      "SELECT * FROM user_dtls WHERE user_name=? AND user_type=?",
+      [username, type],
       (err, result) => {
         if (err) {
           console.log(err.message);
+          res.send("An error occurred: ");
         }
-        if (result) {
-          res.send(result);
-          console.log("FOund user");
+        if (result.length > 0) {
+          bcrypt.compare(password, result[0].user_pwd, (err, response) => {
+            if (response) {
+              res.send(result);
+            } else {
+              res.send("wrong password");
+            }
+          });
+        } else {
+          res.send("User not found");
         }
       }
     );
@@ -71,5 +76,4 @@ router.post("/login", async (req, res) => {
     console.log(error.message);
   }
 });
-
 module.exports = router;
