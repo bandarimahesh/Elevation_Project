@@ -48,12 +48,11 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  const type = req.body.type;
 
   try {
     connection.query(
-      "SELECT * FROM user_dtls WHERE user_name=? AND user_type=?",
-      [username, type],
+      "SELECT * FROM user_dtls WHERE user_name=?",
+      [username],
       (err, result) => {
         if (err) {
           console.log(err.message);

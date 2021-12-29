@@ -1,117 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import Footer from "../components/Normal/Footer/Footer";
+import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
+import RegisterForm from "../components/Normal/Forms/RegisterForm/RegisterForm";
+
 const Register = () => {
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [type, setType] = useState("");
-  const [password, setPassword] = useState("");
-
-  const registerSubmitHandler = async (event) => {
-    event.preventDefault();
-
-    try {
-      const res = await axios.post("auth/register", {
-        username: username,
-        firstName: firstName,
-        lastName: lastName,
-        password: password,
-        type: type,
-      });
-      console.log(res.data);
-      res.data && window.location.replace("/login");
-    } catch (error) {
-      console.log(error.message);
-    }
-    setUsername("");
-  };
-
   return (
     <React.Fragment>
-      <div class="container shadow min-vh-80 py-2 mt-3">
-        <h1 align="center">Sign Up</h1>
-        <form class="row g-3">
-          <div class="col-12">
-            <label for="inputEmail4" class="form-label">
-              Email
-            </label>
-            <input
-              onChange={(e) => setUsername(e.target.value)}
-              type="email"
-              class="form-control"
-              id="inputEmail4"
-            />
-          </div>
-          <div class="col-12">
-            <label for="inputEmail4" class="form-label">
-              First Name
-            </label>
-            <input
-              onChange={(e) => setFirstName(e.target.value)}
-              type="text"
-              class="form-control"
-              id="inputAddress"
-            />
-          </div>
-          <div class="col-12">
-            <label for="inputPassword4" class="form-label">
-              Last Name
-            </label>
-            <input
-              onChange={(e) => setLastName(e.target.value)}
-              type="text"
-              class="form-control"
-              id="inputAddress"
-            />
-          </div>
-          <div class="col-12">
-            <label for="inputPassword4" class="form-label">
-              Password
-            </label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              class="form-control"
-              id="inputPassword4"
-            />
-          </div>
-
-          <div class="col-12">
-            <label for="inputState" class="form-label">
-              Choose
-            </label>
-            <select
-              id="inputState"
-              class="form-select"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option>Choose a below option</option>
-              <option value="student">Student</option>
-              <option value="trainer">Trainer</option>
-              <option value="hire">Hire</option>
-            </select>
-          </div>
-
-          <div class="col-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck" />
-              <label class="form-check-label" for="gridCheck">
-                I have read all Terms & Conditions.
-              </label>
-            </div>
-          </div>
-          <div class="col-12">
-            <button
-              onClick={registerSubmitHandler}
-              type="submit"
-              class="btn btn-primary"
-            >
-              Sign Up
-            </button>
-          </div>
-        </form>
-      </div>
+      <NavBarAndRes />
+      <RegisterForm />
+      <Footer />
     </React.Fragment>
   );
 };

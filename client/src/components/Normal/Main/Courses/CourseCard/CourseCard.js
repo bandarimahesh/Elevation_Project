@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import { FcLike } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import {
   CourseCardDiv,

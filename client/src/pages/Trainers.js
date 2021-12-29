@@ -1,13 +1,11 @@
 import React from "react";
-import Dropdown from "../components/Normal/Navbar/Dropdown";
-import Navbar from "../components/Normal/Navbar/Navbar";
 import Footer from "../components/Normal/Footer/Footer";
 import Trainers from "../components/Normal/Main/Trainers/Trainers";
+import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
 const Trainer = () => {
   return (
     <>
-      <Navbar />
-      <Dropdown />
+      <NavBarAndRes />;
       <Trainers />
       <Footer />
     </>

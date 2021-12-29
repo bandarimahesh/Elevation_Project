@@ -20,23 +20,22 @@ import {
   SignUpLink,
   SignLinkB,
   SlideControls,
+  SlideTab,
+  SlideLabel,
+  InputRadioButton,
   WrapperCenter,
   WrapperRight,
   WrapperLeft,
   WrapperRightImg,
   WrapperLeftImg,
   HomeSect,
-  SlideDiv1,
-  SlideDiv2,
-  SlideDiv3,
-  SlideDiv4,
-} from "./HomeSectElements";
+} from "./LoginFormElements";
 import StudentImg from "../../../../images/student.png";
 import TraineeImg from "../../../../images/train.png";
 import HireImg from "../../../../images/hire.png";
 import TrainerImg from "../../../../images/trainer.png";
 const HomeSection = () => {
-  const { dispatch } = useContext(Context);
+  const { user, dispatch } = useContext(Context);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -68,40 +67,7 @@ const HomeSection = () => {
       console.log(error.message);
     }
   };
-  const [isActive1, setIsActive1] = useState(false);
-  const [isActive2, setIsActive2] = useState(false);
-  const [isActive3, setIsActive3] = useState(false);
-  const [isActive4, setIsActive4] = useState(false);
-
-  const isActiveToggle1 = (e) => {
-    setIsActive1(true);
-    setIsActive2(false);
-    setIsActive3(false);
-    setIsActive4(false);
-    console.log(e.target.innerHTML);
-  };
-
-  const isActiveToggle2 = (e) => {
-    setIsActive2(true);
-    setIsActive1(false);
-    setIsActive3(false);
-    setIsActive4(false);
-    console.log(e.target.innerHTML);
-  };
-  const isActiveToggle3 = (e) => {
-    setIsActive3(true);
-    setIsActive2(false);
-    setIsActive1(false);
-    setIsActive4(false);
-    console.log(e.target.innerHTML);
-  };
-  const isActiveToggle4 = (e) => {
-    setIsActive4(true);
-    setIsActive2(false);
-    setIsActive1(false);
-    setIsActive3(false);
-    console.log(e.target.innerHTML);
-  };
+  console.log(user);
   return (
     <HomeSect>
       <HomeSectionComponent>
@@ -117,39 +83,21 @@ const HomeSection = () => {
                 <TitleText></TitleText>
                 <FormContainer>
                   <SlideControls>
-                    <SlideDiv1
-                      value="student"
-                      isActive1={isActive1}
-                      onClick={isActiveToggle1}
-                    >
-                      Student
-                    </SlideDiv1>
-                    <SlideDiv2
-                      value="trainee"
-                      isActive2={isActive2}
-                      onClick={isActiveToggle2}
-                    >
-                      Trainee
-                    </SlideDiv2>
-                    <SlideDiv3
-                      value="trainer"
-                      isActive3={isActive3}
-                      onClick={isActiveToggle3}
-                    >
-                      Trainer
-                    </SlideDiv3>
-                    <SlideDiv4
-                      value="hire"
-                      isActive4={isActive4}
-                      onClick={isActiveToggle4}
-                    >
-                      Hire
-                    </SlideDiv4>
+                    <InputRadioButton />
+                    <InputRadioButton />
+                    <InputRadioButton />
+                    <InputRadioButton />
+                    <SlideLabel>Student</SlideLabel>
+                    <SlideLabel>Trainer</SlideLabel>
+                    <SlideLabel>Trainee</SlideLabel>
+                    <SlideLabel>Hire</SlideLabel>
+                    <SlideTab />
                   </SlideControls>
                   <FormInner>
                     <Form onSubmit={loginFormSubmitHandler}>
                       <Field>
                         <Input
+                          required
                           type="text"
                           placeholder="Enter your username"
                           onChange={(e) => setUsername(e.target.value)}
@@ -157,6 +105,7 @@ const HomeSection = () => {
                       </Field>
                       <Field>
                         <Input
+                          required
                           type="text"
                           placeholder="Enter your password"
                           onChange={(e) => setPassword(e.target.value)}

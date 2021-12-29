@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaBars, FaSearch } from "react-icons/fa";
 import {
   LogoContainer,
@@ -22,18 +23,38 @@ const Navbar = ({ toggleMenuItems }) => {
   return (
     <Nav>
       <LogoContainer>
-        <LogoImage src={logo} alt="" />
+        <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+          <LogoImage src={logo} alt="" />
+        </Link>
       </LogoContainer>
       <MenuContainer>
         <MenuItem>
           <NavItem>
-            <NavLink to="/">Home</NavLink>
+            <NavLink>
+              <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+                Home
+              </Link>
+            </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="about">About Us</NavLink>
+            <NavLink>About us</NavLink>
           </NavItem>
-          <NavItem>Courses</NavItem>
-          <NavItem>Contact us</NavItem>
+          <NavItem>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/courses"
+            >
+              Courses
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/trainers"
+            >
+              Trainers
+            </Link>
+          </NavItem>
         </MenuItem>
       </MenuContainer>
       <SearchBoxContainer>
@@ -44,11 +65,23 @@ const Navbar = ({ toggleMenuItems }) => {
           </SearchForm>
         </SearchBoxDiv>
         {user ? (
-          <SearchItemText>Profile</SearchItemText>
+          <>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/profile`}
+            >
+              <SearchItemText>Profile</SearchItemText>
+            </Link>
+            <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+          </>
         ) : (
-          <SearchItemText>Register</SearchItemText>
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={`/register`}
+          >
+            <SearchItemText>Register</SearchItemText>
+          </Link>
         )}
-        <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
       </SearchBoxContainer>
       <MenuBarContainer onClick={toggleMenuItems}>
         <FaBars />

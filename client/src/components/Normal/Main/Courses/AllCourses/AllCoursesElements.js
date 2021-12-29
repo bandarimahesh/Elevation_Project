@@ -1,11 +1,11 @@
 import styled from "styled-components";
-export const CourseSection = styled.section`
+export const AllCoursesSection = styled.section`
   height: auto;
   width: 90%;
   margin: 0 auto;
   padding: 50px 0px;
 `;
-export const CourseWrapper = styled.div``;
+export const AllCoursesWrapper = styled.div``;
 // page title
 export const MainTitle = styled.h1`
   color: blue;
@@ -33,19 +33,20 @@ export const LineAfter = styled.div`
   }
 `;
 
-// course selections
-export const CourseWrapper1 = styled.div`
-  display: flex;
+// AllCourses selections
+export const AllCoursesWrapper1 = styled.div`
+  display: block;
   margin: 0 auto;
   width: 95%;
   padding: 50px 0;
   align-items: center;
+  text-align: center;
 
   @media only screen and (max-width: 968px) {
     display: block;
   }
 `;
-export const CourseWrapper2 = styled.div`
+export const AllCoursesWrapper2 = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
@@ -55,9 +56,24 @@ export const LeftColHeading = styled.div`
 export const RightColOptions = styled.div`
   flex: 6;
 `;
+export const SearchBox = styled.input`
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+`;export const SearchBoxDiv = styled.div`
+  position: relative;
+`;
+export const SearchForm = styled.form`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #111;
+`;
 export const LeftColHeadingText = styled.h1`
   color: #111;
   font-size: 44px;
+  margin-bottom: 40px;
 `;
 export const LeftColOptionSelected = styled.select`
   height: 30px;
