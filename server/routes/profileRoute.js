@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 
 // update profile
-router.post("/update", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const mobile = req.body.mobile;

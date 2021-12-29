@@ -1,17 +1,20 @@
 {
   "name": "react-complete-guide",
-  "proxy": "http://localhost:5000/api/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
     "axios": "^0.24.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.1",
+    "react-scroll": "^1.8.4",
+    "styled-components": "^5.3.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

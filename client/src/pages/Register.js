@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/navbar/Navbar";
 import axios from "axios";
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -29,7 +28,6 @@ const Register = () => {
 
   return (
     <React.Fragment>
-      <Navbar />
       <div class="container shadow min-vh-80 py-2 mt-3">
         <h1 align="center">Sign Up</h1>
         <form class="row g-3">

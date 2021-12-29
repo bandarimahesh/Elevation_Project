@@ -1,13 +1,12 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import Navbar from "../components/navbar/Navbar";
 import { Context } from "../context/Context";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
-  const { dispatch, isFetching } = useContext(Context);
-  
+  const { user, dispatch, isFetching } = useContext(Context);
+
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -25,12 +24,10 @@ const Login = () => {
             console.log(err.message);
           }
           if (data) {
-            console.log(data);
-            dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+            dispatch({ type: "LOGIN_SUCCESS", payload: res });
           }
         }
       );
-      console.log(res.data);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       // res.data && window.location.replace("/profile");
     } catch (error) {
@@ -38,9 +35,10 @@ const Login = () => {
       console.log(error.message);
     }
   };
+  console.log(user);
   return (
     <React.Fragment>
-      <Navbar />
+      
       <div class="container shadow min-vh-80 py-2 mt-3">
         <h1 align="center">Sign In</h1>
         <form class="row g-3">
