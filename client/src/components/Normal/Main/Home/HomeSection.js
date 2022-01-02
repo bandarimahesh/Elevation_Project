@@ -39,6 +39,7 @@ const HomeSection = () => {
   const { dispatch } = useContext(Context);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [type, setType] = useState("student");
 
   // login function handler
   const loginFormSubmitHandler = async (event) => {
@@ -50,25 +51,27 @@ const HomeSection = () => {
         {
           username: username,
           password: password,
+          type: type,
         },
         (err, data) => {
           if (err) {
             console.log(err.message);
           }
-          if (data) {
-            dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-            console.log("Successfully logged in", res.data);
-          }
+          // if (data) {
+          //   dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+          //   console.log("Successfully logged in", res.data);
+          // }
         }
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      console.log(res.data);
       // res.data && window.location.replace("/profile");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       console.log(error.message);
     }
   };
-  const [isActive1, setIsActive1] = useState(false);
+  const [isActive1, setIsActive1] = useState(true);
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);
   const [isActive4, setIsActive4] = useState(false);
@@ -78,7 +81,8 @@ const HomeSection = () => {
     setIsActive2(false);
     setIsActive3(false);
     setIsActive4(false);
-    console.log(e.target.innerHTML);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
   };
 
   const isActiveToggle2 = (e) => {
@@ -86,21 +90,24 @@ const HomeSection = () => {
     setIsActive1(false);
     setIsActive3(false);
     setIsActive4(false);
-    console.log(e.target.innerHTML);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
   };
   const isActiveToggle3 = (e) => {
     setIsActive3(true);
     setIsActive2(false);
     setIsActive1(false);
     setIsActive4(false);
-    console.log(e.target.innerHTML);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
   };
   const isActiveToggle4 = (e) => {
     setIsActive4(true);
     setIsActive2(false);
     setIsActive1(false);
     setIsActive3(false);
-    console.log(e.target.innerHTML);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
   };
   return (
     <HomeSect>

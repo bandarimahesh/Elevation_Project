@@ -46,6 +46,7 @@ export const AllCoursesWrapper1 = styled.div`
     display: block;
   }
 `;
+
 export const AllCoursesWrapper2 = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -54,14 +55,15 @@ export const LeftColHeading = styled.div`
   flex: 6;
 `;
 export const RightColOptions = styled.div`
-  flex: 6;
+  flex: 12;
 `;
 export const SearchBox = styled.input`
   padding: 6px;
   margin-top: 8px;
   font-size: 17px;
   border: none;
-`;export const SearchBoxDiv = styled.div`
+`;
+export const SearchBoxDiv = styled.div`
   position: relative;
 `;
 export const SearchForm = styled.form`
@@ -77,7 +79,7 @@ export const LeftColHeadingText = styled.h1`
 `;
 export const LeftColOptionSelected = styled.select`
   height: 30px;
-  width: 150px;
+  width: 130px;
   border-radius: 5px;
   margin: 8px;
   font-size: 15px;

@@ -20,7 +20,7 @@ export const LeftCol = styled.div`
 `;
 export const RightCol = styled.div`
   flex: 10;
-  background-color: #l12f35;
+  background-color: #fff;
 `;
 // right section
 
@@ -124,10 +124,9 @@ export const SlideTab = styled.div`
   background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 `;
-
-export const SlideLabel = styled.label`
+export const SlideDiv1 = styled.div`
   height: 100%;
-  width: 100%;
+  width: 25%;
   font-size: 18px;
   font-weight: 500;
   text-align: center;
@@ -136,6 +135,55 @@ export const SlideLabel = styled.label`
   z-index: 1;
   color: #111;
   transition: all 0.6s ease;
+  background: ${({ isActive1 }) =>
+    isActive1 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+`;
+
+export const SlideDiv2 = styled.div`
+  height: 100%;
+  width: 25%;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 48px;
+  cursor: pointer;
+  z-index: 1;
+  color: #111;
+  transition: all 0.6s ease;
+  background: ${({ isActive2 }) =>
+    isActive2 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+`;
+export const SlideDiv3 = styled.div`
+  height: 100%;
+  width: 25%;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 48px;
+  cursor: pointer;
+  z-index: 1;
+  color: #111;
+  transition: all 0.6s ease;
+  background: ${({ isActive3 }) =>
+    isActive3 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+`;
+export const SlideDiv4 = styled.div`
+  height: 100%;
+  width: 25%;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 48px;
+  cursor: pointer;
+  z-index: 1;
+  color: #111;
+  transition: all 0.6s ease;
+  background: ${({ isActive4 }) =>
+    isActive4 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 `;
 export const FormInner = styled.div`
   display: flex;

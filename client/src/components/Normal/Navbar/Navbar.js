@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaSearch } from "react-icons/fa";
 import {
   LogoContainer,
@@ -18,8 +18,14 @@ import {
   SearchBoxDiv,
 } from "./NavbarElements";
 import logo from "../../../images/logo-rm.png";
+import { Context } from "../../../context/Context";
 const Navbar = ({ toggleMenuItems }) => {
-  const user = true;
+  let navigate = useNavigate();
+  const { user, dispatch } = useContext(Context);
+  const onLogoutHandler = () => {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
   return (
     <Nav>
       <LogoContainer>
@@ -73,6 +79,8 @@ const Navbar = ({ toggleMenuItems }) => {
               <SearchItemText>Profile</SearchItemText>
             </Link>
             <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+
+            <SearchItemText onClick={onLogoutHandler}>Logout</SearchItemText>
           </>
         ) : (
           <Link

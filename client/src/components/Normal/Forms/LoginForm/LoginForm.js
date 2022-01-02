@@ -29,15 +29,20 @@ import {
   WrapperRightImg,
   WrapperLeftImg,
   HomeSect,
+  SlideDiv1,
+  SlideDiv2,
+  SlideDiv3,
+  SlideDiv4,
 } from "./LoginFormElements";
 import StudentImg from "../../../../images/student.png";
 import TraineeImg from "../../../../images/train.png";
 import HireImg from "../../../../images/hire.png";
 import TrainerImg from "../../../../images/trainer.png";
 const HomeSection = () => {
-  const { user, dispatch } = useContext(Context);
+  const { dispatch } = useContext(Context);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [type, setType] = useState("student");
 
   // login function handler
   const loginFormSubmitHandler = async (event) => {
@@ -49,25 +54,64 @@ const HomeSection = () => {
         {
           username: username,
           password: password,
+          type: type,
         },
         (err, data) => {
           if (err) {
             console.log(err.message);
           }
-          if (data) {
-            dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-            console.log("Successfully logged in", res.data);
-          }
+          // if (data) {
+          //   dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+          //   console.log("Successfully logged in", res.data);
+          // }
         }
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      console.log(res.data);
       // res.data && window.location.replace("/profile");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       console.log(error.message);
     }
   };
-  console.log(user);
+  const [isActive1, setIsActive1] = useState(true);
+  const [isActive2, setIsActive2] = useState(false);
+  const [isActive3, setIsActive3] = useState(false);
+  const [isActive4, setIsActive4] = useState(false);
+
+  const isActiveToggle1 = (e) => {
+    setIsActive1(true);
+    setIsActive2(false);
+    setIsActive3(false);
+    setIsActive4(false);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
+  };
+
+  const isActiveToggle2 = (e) => {
+    setIsActive2(true);
+    setIsActive1(false);
+    setIsActive3(false);
+    setIsActive4(false);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
+  };
+  const isActiveToggle3 = (e) => {
+    setIsActive3(true);
+    setIsActive2(false);
+    setIsActive1(false);
+    setIsActive4(false);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
+  };
+  const isActiveToggle4 = (e) => {
+    setIsActive4(true);
+    setIsActive2(false);
+    setIsActive1(false);
+    setIsActive3(false);
+    const name = e.target.innerHTML;
+    setType(name.toLowerCase());
+  };
   return (
     <HomeSect>
       <HomeSectionComponent>
@@ -83,15 +127,34 @@ const HomeSection = () => {
                 <TitleText></TitleText>
                 <FormContainer>
                   <SlideControls>
-                    <InputRadioButton />
-                    <InputRadioButton />
-                    <InputRadioButton />
-                    <InputRadioButton />
-                    <SlideLabel>Student</SlideLabel>
-                    <SlideLabel>Trainer</SlideLabel>
-                    <SlideLabel>Trainee</SlideLabel>
-                    <SlideLabel>Hire</SlideLabel>
-                    <SlideTab />
+                    <SlideDiv1
+                      value="student"
+                      isActive1={isActive1}
+                      onClick={isActiveToggle1}
+                    >
+                      Student
+                    </SlideDiv1>
+                    <SlideDiv2
+                      value="trainee"
+                      isActive2={isActive2}
+                      onClick={isActiveToggle2}
+                    >
+                      Trainee
+                    </SlideDiv2>
+                    <SlideDiv3
+                      value="trainer"
+                      isActive3={isActive3}
+                      onClick={isActiveToggle3}
+                    >
+                      Trainer
+                    </SlideDiv3>
+                    <SlideDiv4
+                      value="hire"
+                      isActive4={isActive4}
+                      onClick={isActiveToggle4}
+                    >
+                      Hire
+                    </SlideDiv4>
                   </SlideControls>
                   <FormInner>
                     <Form onSubmit={loginFormSubmitHandler}>

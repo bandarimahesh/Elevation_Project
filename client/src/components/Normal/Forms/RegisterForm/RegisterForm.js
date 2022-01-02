@@ -18,13 +18,14 @@ import {
   FormInput,
   FormLabelDiv,
 } from "./RegisterFormElements";
+
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
-
+  const [response, setResponse] = useState("");
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -37,16 +38,18 @@ const RegisterForm = () => {
         type: type,
       });
       console.log(res.data);
-      res.data && window.location.replace("/login");
+      setResponse(res.data);
+      // res.data && window.location.replace("/login");
+      setLastName("");
     } catch (error) {
       console.log(error.message);
     }
-    setUsername("");
   };
   return (
     <React.Fragment>
       <RegisterFormSect>
         <RegisterFormSection>
+          {response}
           <RegisterFormWrapper>
             <FormInner>
               <Form onSubmit={registerSubmitHandler}>
@@ -69,6 +72,7 @@ const RegisterForm = () => {
                 <Field>
                   <Input
                     required
+                    value={lastName}
                     type="text"
                     placeholder="Enter your Last Name"
                     onChange={(e) => setLastName(e.target.value)}
