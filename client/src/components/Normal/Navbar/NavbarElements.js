@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link as LinkS } from "react-scroll";
+
 export const Nav = styled.nav`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   width: 100%;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
@@ -45,10 +51,11 @@ export const NavItem = styled.li`
   cursor: pointer;
 `;
 export const NavLink = styled(LinkS)``;
+
 export const SearchBoxContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 
   @media only screen and (max-width: 1068px) {
     display: none !important;
@@ -61,8 +68,8 @@ export const SearchBox = styled.input`
   border: none;
 `;
 export const ProfileImg = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
@@ -77,7 +84,7 @@ export const SearchForm = styled.form`
   background-color: #111;
 `;
 export const SearchItemText = styled.p`
-  margin-top: 5px;
+  margin-top: 6px;
   margin-right: 5px;
   padding: 5px 15px;
   font-size: 19px;

@@ -14,6 +14,8 @@ const Reviews = () => {
         <ReviewsWrapper>
           <ReviewsTitle>What our students Said</ReviewsTitle>
           <LineAfter />
+
+          
         </ReviewsWrapper>
       </ReviewsSection>
     </ReviewsSect>

@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Normal/Footer/Footer";
-import SingleTrainer from "../components/Normal/Main/Trainers/SingleTrainer/SingleTrainer";
 import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
+import SingleTrainer from "../components/Trainers/SingleTrainer/SingleTrainer";
 const SingleTrainerPage = () => {
   return (
     <>

@@ -25,7 +25,7 @@ const RegisterForm = () => {
   const [lastName, setLastName] = useState("");
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
-  const [response, setResponse] = useState("");
+
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -38,9 +38,6 @@ const RegisterForm = () => {
         type: type,
       });
       console.log(res.data);
-      setResponse(res.data);
-      // res.data && window.location.replace("/login");
-      setLastName("");
     } catch (error) {
       console.log(error.message);
     }
@@ -49,7 +46,6 @@ const RegisterForm = () => {
     <React.Fragment>
       <RegisterFormSect>
         <RegisterFormSection>
-          {response}
           <RegisterFormWrapper>
             <FormInner>
               <Form onSubmit={registerSubmitHandler}>
@@ -86,6 +82,14 @@ const RegisterForm = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </Field>
+                {/* <Field>
+                  <Input
+                    required
+                    type="password"
+                    placeholder="Retype your password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Field> */}
                 <Field>
                   <FormLabel>Choose : </FormLabel>
                   <FormSelect
@@ -94,9 +98,10 @@ const RegisterForm = () => {
                     onChange={(e) => setType(e.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
-                    <FormOption value="student">Student</FormOption>
+                    <FormOption value="trainee">Trainee</FormOption>
                     <FormOption value="trainer">Trainer</FormOption>
-                    <FormOption value="hire">Hire</FormOption>
+                    <FormOption value="job_seeker">Job Seeker</FormOption>
+                    <FormOption value="recruiter">Recruiter</FormOption>
                   </FormSelect>
                 </Field>
                 <FormLabelDiv>
@@ -104,7 +109,7 @@ const RegisterForm = () => {
                   <FormLabel>I have read all Terms & Conditions.</FormLabel>
                 </FormLabelDiv>
                 <Field>
-                  <InputButton type="submit" value="Login" />
+                  <InputButton type="submit" value="Register" />
                 </Field>
                 <SignUpLink>
                   Have An account ?

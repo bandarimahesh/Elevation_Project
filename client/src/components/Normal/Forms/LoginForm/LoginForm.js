@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../../../../context/Context";
 import {
@@ -20,9 +20,6 @@ import {
   SignUpLink,
   SignLinkB,
   SlideControls,
-  SlideTab,
-  SlideLabel,
-  InputRadioButton,
   WrapperCenter,
   WrapperRight,
   WrapperLeft,
@@ -38,12 +35,13 @@ import StudentImg from "../../../../images/student.png";
 import TraineeImg from "../../../../images/train.png";
 import HireImg from "../../../../images/hire.png";
 import TrainerImg from "../../../../images/trainer.png";
+
 const HomeSection = () => {
   const { dispatch } = useContext(Context);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("student");
-
+  const [type, setType] = useState("trainee");
+  const navigate = useNavigate();
   // login function handler
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
@@ -52,7 +50,7 @@ const HomeSection = () => {
       const res = await axios.post(
         "/auth/login",
         {
-          username: username,
+          username: email,
           password: password,
           type: type,
         },
@@ -60,15 +58,11 @@ const HomeSection = () => {
           if (err) {
             console.log(err.message);
           }
-          // if (data) {
-          //   dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-          //   console.log("Successfully logged in", res.data);
-          // }
         }
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       console.log(res.data);
-      // res.data && window.location.replace("/profile");
+      navigate("/");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       console.log(error.message);
@@ -128,32 +122,32 @@ const HomeSection = () => {
                 <FormContainer>
                   <SlideControls>
                     <SlideDiv1
-                      value="student"
+                      value="trainee"
                       isActive1={isActive1}
                       onClick={isActiveToggle1}
                     >
-                      Student
+                      Trainee
                     </SlideDiv1>
                     <SlideDiv2
-                      value="trainee"
+                      value="trainer"
                       isActive2={isActive2}
                       onClick={isActiveToggle2}
                     >
-                      Trainee
+                      Trainer
                     </SlideDiv2>
                     <SlideDiv3
-                      value="trainer"
+                      value="job_seeker"
                       isActive3={isActive3}
                       onClick={isActiveToggle3}
                     >
-                      Trainer
+                      Job Seeker
                     </SlideDiv3>
                     <SlideDiv4
                       value="hire"
                       isActive4={isActive4}
                       onClick={isActiveToggle4}
                     >
-                      Hire
+                      Recruiter
                     </SlideDiv4>
                   </SlideControls>
                   <FormInner>
@@ -162,8 +156,8 @@ const HomeSection = () => {
                         <Input
                           required
                           type="text"
-                          placeholder="Enter your username"
-                          onChange={(e) => setUsername(e.target.value)}
+                          placeholder="Enter your email"
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </Field>
                       <Field>

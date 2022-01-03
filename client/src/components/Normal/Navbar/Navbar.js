@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaSearch } from "react-icons/fa";
+import { FaBars, FaSearch, FaShoppingCart } from "react-icons/fa";
 import {
   LogoContainer,
   LogoImage,
@@ -43,7 +43,14 @@ const Navbar = ({ toggleMenuItems }) => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink>About us</NavLink>
+            <NavLink>
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={`/about`}
+              >
+                About us
+              </Link>
+            </NavLink>
           </NavItem>
           <NavItem>
             <Link
@@ -74,13 +81,23 @@ const Navbar = ({ toggleMenuItems }) => {
           <>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to={`/profile`}
+              to={`/${user.type}/profile/${user.id}`}
             >
               <SearchItemText>Profile</SearchItemText>
             </Link>
+            
             <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-
-            <SearchItemText onClick={onLogoutHandler}>Logout</SearchItemText>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/cart`}
+            >
+              <SearchItemText>
+                <FaShoppingCart />
+              </SearchItemText>
+            </Link>
+            <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+              <SearchItemText onClick={onLogoutHandler}>Logout</SearchItemText>
+            </Link>
           </>
         ) : (
           <Link

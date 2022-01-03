@@ -1,6 +1,11 @@
 import React from "react";
 import { LineAfter } from "../Courses/CourseElements";
-import { AboutSect, AboutSection, AboutTitle, AboutWrapper } from "./AboutElements";
+import {
+  AboutSect,
+  AboutSection,
+  AboutTitle,
+  AboutWrapper,
+} from "./AboutElements";
 
 const About = () => {
   return (

@@ -7,7 +7,7 @@ export const CourseSectionDiv = styled.div`
 
 export const CourseCardDiv = styled.div`
   width: 400px;
-  height: 400px;
+  height: auto;
   margin: 30px 20px;
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
@@ -24,13 +24,13 @@ export const CourseBody = styled.div`
   height: 100%;
   cursor: pointer;
   border-radius: 10px;
-  position: relative;
 `;
 
 export const CourseImgBox = styled.div`
   width: 99%;
   height: 60%;
   margin: 2px auto;
+  position: relative;
 `;
 export const CourseImg = styled.img`
   width: 100%;

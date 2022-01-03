@@ -17,30 +17,14 @@ import {
   TrainerTitleP,
   TrainerMore,
   TrainerDetails,
-  CourseIconLike,
   CourseAddCart,
 } from "./CourseCardElements";
 const CourseCard = () => {
-  const [isLiked, setIsLiked] = useState(true);
-
-  const onLikeFunc = () => {
-    setIsLiked(!isLiked);
-  };
   const courseId = 5;
   const trainerId = 6;
   return (
     <CourseSectionDiv>
       <CourseCardDiv>
-        {isLiked ? (
-          <CourseIconLike onClick={onLikeFunc}>
-            <i class="far fa-heart"></i>
-          </CourseIconLike>
-        ) : (
-          <CourseIconLike onClick={onLikeFunc}>
-            <i class="fas fa-heart" style={{ color: "red" }}></i>
-          </CourseIconLike>
-        )}
-
         <CourseBody>
           <Link
             style={{ textDecoration: "none", color: "black" }}

@@ -1,15 +1,16 @@
 import React from "react";
 import Footer from "../components/Normal/Footer/Footer";
+import About from "../components/Normal/Main/About/About";
 import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
-import Trainer from "../components/Trainers/Trainers";
-const Trainers = () => {
+
+const Login = () => {
   return (
-    <>
+    <React.Fragment>
       <NavBarAndRes />
-      <Trainer />
+      <About />
       <Footer />
-    </>
+    </React.Fragment>
   );
 };
 
-export default Trainers;
+export default Login;

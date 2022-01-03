@@ -1,13 +1,13 @@
 import styled from "styled-components";
 export const RegisterFormSect = styled.section`
-  height: 100vh;
+  height: auto;
   background-color: #fff;
   width: 100%;
 `;
 export const RegisterFormSection = styled.section`
   width: 90%;
   margin: 0 auto;
-  padding: 50px 0px;
+  padding: 110px 0px;
 `;
 export const RegisterFormWrapper = styled.div``;
 // page title
@@ -50,7 +50,7 @@ export const Form = styled.form`
 export const Field = styled.div`
   height: 50px;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 25px;
 `;
 export const Input = styled.input`
   height: 100%;
