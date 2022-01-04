@@ -27,32 +27,48 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" exact element={<Home />} />
-          <Route path="/about" element={<AboutUs />} />{" "}
-          <Route path="/courses" element={<AllCoursesPage />} />
-          <Route path="/login" element={<Login />} />{" "}
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/courses/:id" element={<SingleCoursePage />} />{" "}
-          <Route path="/trainers/:id" element={<SingleTrainerPage />} />{" "}
-          <Route path="/trainee/profile/:id" element={<TraineeProfilePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* all courses */}
+          <Route path="/courses" element={<AllCoursesPage />} />
+          {/* single course page */}
+          <Route path="/courses/:id" element={<SingleCoursePage />} />
+          {/* all trainers route*/}
+          <Route path="/trainers" element={<Trainers />} />
+          {/* sp single trainer page */}
+          <Route path="/trainers/:id" element={<SingleTrainerPage />} />
+
+          {/* trainee home page after login */}
           {user?.type === "trainee" ? (
             <Route path="/trainee" exact element={<TraineeHomePage />} />
           ) : (
             <Route path="/" exact element={<Home />} />
           )}
-          <Route path="/trainer" exact element={<TrainerHomePage />} />{" "}
-          <Route path="/trainers" element={<Trainers />} />
-          {user ? (
+
+          <Route path="/trainer" exact element={<TrainerHomePage />} />
+
+          {user?.type === "trainee" ? (
             <Route
-              path="/trainee/profile/:id"
+              path="/trainee/profile/update/:id"
               element={<TraineeProfilePage />}
             />
           ) : (
             <Route path="*" element={<Navigate to="/login" />} />
           )}
-          {user ? (
+
+          {/* trainer home page after login */}
+          {user?.type === "trainer" ? (
+            <Route path="/trainer" exact element={<TrainerHomePage />} />
+          ) : (
+            <Route path="/" exact element={<Home />} />
+          )}
+
+          {/* trainee home page after login */}
+          {user?.type === "trainer" ? (
             <Route
-              path="/trainer/profile/:id"
+              path="/trainer/profile/update/:id"
               element={<TrainerProfilePage />}
             />
           ) : (

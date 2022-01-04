@@ -7,7 +7,7 @@ export const TraineeSect = styled.section`
 export const TraineeWrapper = styled.div`
   width: 80%;
   height: 100%;
-  margin: 80px auto;
+  margin: 0px auto;
 `;
 export const TraineeFlex = styled.div`
   display: flex;

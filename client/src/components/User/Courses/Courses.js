@@ -4,6 +4,7 @@ import CourseCard from "./CourseCard/CourseCard";
 import {
   ClickMore,
   ClickMoreBox,
+  CourseCardFlex,
   CourseSection,
   CourseWrapper,
   CourseWrapper1,
@@ -16,6 +17,9 @@ import {
   MainTitle,
   RightColOptions,
   SelectText,
+  CourseCardTitle,
+  CourseCardDivFlex,
+  BorderDiv,
 } from "./CourseElements";
 const Courses = () => {
   return (
@@ -51,14 +55,30 @@ const Courses = () => {
           </RightColOptions>
         </CourseWrapper1>
         <CourseWrapper2>
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
+          <CourseCardFlex>
+            <CourseCardDivFlex>
+              <CourseCardTitle>
+                Software Development <br /> Training :
+              </CourseCardTitle>
+              <CourseCard /> <BorderDiv />
+              <CourseCard />
+            </CourseCardDivFlex>
+          </CourseCardFlex>
+          <CourseCardFlex>
+            <CourseCardTitle>It Skills : </CourseCardTitle>
+            <CourseCard /> <BorderDiv />
+            <CourseCard />
+          </CourseCardFlex>
+          <CourseCardFlex>
+            <CourseCardTitle>Domain Training :</CourseCardTitle>
+            <CourseCard /> <BorderDiv />
+            <CourseCard />
+          </CourseCardFlex>
         </CourseWrapper2>
       </CourseWrapper>
       <ClickMoreBox>
         <Link to={`/courses`}>
-          <ClickMore>Click To know more</ClickMore>
+          <ClickMore>Click To All our Courses</ClickMore>
         </Link>
       </ClickMoreBox>
     </CourseSection>

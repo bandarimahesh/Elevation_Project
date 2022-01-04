@@ -6,14 +6,14 @@ export const CourseSectionDiv = styled.div`
 `;
 
 export const CourseCardDiv = styled.div`
-  width: 400px;
+  width: 370px;
   height: auto;
   margin: 30px 20px;
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease-in-out;
   &:hover {
-    transform: scale(1.07);
+    transform: scale(1.05);
     border-top: 5px solid red;
   }
 `;

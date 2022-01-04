@@ -1,11 +1,14 @@
 import styled from "styled-components";
 export const CourseSection = styled.section`
   height: auto;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   padding: 50px 0px;
 `;
-export const CourseWrapper = styled.div``;
+export const CourseWrapper = styled.div`
+  width: 90%;
+  margin: 0 auto;
+`;
 // page title
 export const MainTitle = styled.h1`
   color: blue;
@@ -46,8 +49,34 @@ export const CourseWrapper1 = styled.div`
   }
 `;
 export const CourseWrapper2 = styled.div`
+  width: 95%;
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+`;
+export const BorderDiv = styled.div`
+  border-bottom: 1px solid lightgrey;
+  width: 50%;
+  text-align: center;
+  margin: 15px auto;
+`;
+export const CourseCardFlex = styled.div`
+  flex: 4;
+  border-right: 1px solid lightgrey;
+  margin-right: 20px;
+  &:nth-child(3) {
+    border-right: none;
+    margin-right: 0;
+  }
+`;
+export const CourseCardDivFlex = styled.div``;
+export const CourseCardTitle = styled.h1`
+  padding-left: 20px;
+  word-wrap: break-word;
+  font-size: 30px;
+  font-weight: 600;
 `;
 export const LeftColHeading = styled.div`
   flex: 6;

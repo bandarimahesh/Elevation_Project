@@ -20,7 +20,7 @@ import {
 } from "./RegisterFormElements";
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [type, setType] = useState("");
@@ -28,10 +28,10 @@ const RegisterForm = () => {
 
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
-
+    console.log(email, firstName, lastName, type, password);
     try {
-      const res = await axios.post("auth/register", {
-        username: username,
+      const res = await axios.post("/auth/register", {
+        email: email,
         firstName: firstName,
         lastName: lastName,
         password: password,
@@ -53,7 +53,7 @@ const RegisterForm = () => {
                   <Input
                     type="email"
                     placeholder="Enter your email"
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </Field>

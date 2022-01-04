@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { Link as LinkS } from "react-scroll";
 
 export const Nav = styled.nav`
-  position: fixed;
+  position: sticky;
   top: 0;
   right: 0;
   left: 0;
@@ -50,7 +49,7 @@ export const NavItem = styled.li`
   color: #fff;
   cursor: pointer;
 `;
-export const NavLink = styled(LinkS)``;
+export const NavLink = styled.a``;
 
 export const SearchBoxContainer = styled.div`
   display: flex;

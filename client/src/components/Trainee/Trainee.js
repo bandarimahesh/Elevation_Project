@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../../context/Context.js";
 import Form1 from "../Forms/ProfileForm/Form1.js";
 import Form2 from "../Forms/ProfileForm/Form2.js";
 import Form3 from "../Forms/ProfileForm/Form3.js";
@@ -23,7 +25,9 @@ const Trainee = () => {
   const [accountForm, setAccountForm] = useState(false);
   const [changePasswordForm, setChangePasswordForm] = useState(false);
   const [deleteAccountForm, setDeleteAccountForm] = useState(false);
-
+  const [resUser, setResUser] = useState();
+  const { user } = useContext(Context);
+  const token = user?.accessToken;
   const showPersonalForm = () => {
     setPersonalForm(!personalForm);
     setAccountForm(false);
@@ -48,7 +52,20 @@ const Trainee = () => {
     setPersonalForm(false);
     setChangePasswordForm(false);
   };
-
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const res = await axios.get(`/trainee/details/${user?.id}`, {
+          headers: { authorization: "Bearer " + token },
+        });
+        setResUser(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getUserData();
+  }, [user?.id]);
   return (
     <TraineeSect>
       <TraineeWrapper>
@@ -71,7 +88,9 @@ const Trainee = () => {
             </TraineeUl>
           </TraineeLeftCol>
           <TraineeRightCol>
-          
+            {/* <h1>{resUser[0]?.trainee_email}</h1>
+            <h1>{resUser[0]?.trainee_dob}</h1> */}
+
             {personalForm ? <Form1 /> : ""}
             {accountForm ? <Form2 /> : ""}
             {changePasswordForm ? <Form3 /> : ""}

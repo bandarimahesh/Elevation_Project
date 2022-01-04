@@ -3,8 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
 
+// register for a new user controller
 exports.register = async (req, res, next) => {
-  const email = req.body.username;
+  const email = req.body.email;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const type = req.body.type;
@@ -17,10 +18,10 @@ exports.register = async (req, res, next) => {
 
   try {
     connection.query(
-      "SELECT * FROM user_dtls WHERE user_email=? ",
+      "SELECT * FROM user_dtls WHERE user_email=?",
       [email],
       (err, user) => {
-        if (user) {
+        if (user.length > 0) {
           res.send(
             "This email address is already in use, Please use another email address"
           );
@@ -63,6 +64,7 @@ exports.register = async (req, res, next) => {
   }
 };
 
+// login for a user
 exports.login = async (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -91,9 +93,10 @@ exports.login = async (req, res, next) => {
                 {
                   id: result[0].user_dtls_id,
                   type: result[0].user_type,
-                  
+                  isSuperAdmin: result[0].user_superAdmin,
                 },
-                process.env.JWT_SECRET_KEY
+                process.env.JWT_SECRET_KEY,
+                { expiresIn: "10m" }
               );
               res.send({
                 id: result[0].user_dtls_id,
@@ -115,7 +118,26 @@ exports.login = async (req, res, next) => {
     console.log(error.message);
   }
 };
-
+exports.changePassword = async (req, res, next) => {
+  const id = req.params.id;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  const saltRounds = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(oldPassword, saltRounds);
+  try {
+    connection.query(
+      "SELECT * FROM users_dtls WHERE user_id =?",
+      [id],
+      (err, users) => {
+        if (users.length > 0) {
+          res.send("User found");
+        }
+      }
+    );
+  } catch (error) {
+    res.send(error.message);
+  }
+};
 exports.forgotpassword = (req, res, next) => {
   res.send("Forgot Password");
 };

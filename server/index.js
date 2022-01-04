@@ -4,7 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const authRoute = require("./routes/authRoute.js");
-const profileRoute = require("./routes/profileRoute.js");
+const traineeProfileRoute = require("./routes/traineeProfileRoute.js");
 dotenv.config();
 
 const app = express();
@@ -17,7 +17,7 @@ const port = process.env.PORT || 5500;
 
 // routes
 app.use("/api/auth", authRoute);
-app.use("/api/users", profileRoute);
+app.use("/api/trainee", traineeProfileRoute);
 
 app.listen(port, (req, res) => {
   console.log(`Server running on port ${port}`);

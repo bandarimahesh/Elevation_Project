@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import { Context } from "../../../context/Context";
 import {
   Form,
   FormAddress,
@@ -24,19 +25,24 @@ const SingleProfile = () => {
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
   const [profession, setProfession] = useState("");
-
+  const { user } = useContext(Context);
+  const token = user?.accessToken;
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(mobile, dob, address, experience, graduate, profession);
     try {
-      await axios.post("", {
-        mobile: mobile,
-        dob: dob,
-        address: address,
-        experience: experience,
-        graduate: graduate,
-        profession: profession,
-      });
+      const res = await axios.post(
+        `/trainee/profile/create/${user?.id}`,
+        {
+          mobile: mobile,
+          dob: dob,
+          address: address,
+          experience: experience,
+          graduate: graduate,
+          profession: profession,
+        },
+        { headers: { authorization: "Bearer " + token } }
+      );
+      console.log(res.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -48,6 +54,7 @@ const SingleProfile = () => {
           <FormDiv>
             <Form onSubmit={profileSubmitHandler}>
               <FormInput
+                required
                 type="number"
                 placeholder="Enter your Mobile Name"
                 onChange={(e) => setMobile(e.target.value)}
@@ -55,6 +62,7 @@ const SingleProfile = () => {
               <FormFlex>
                 <FormLabel htmlFor="">Enter your Dob :</FormLabel>
                 <FormInputDate
+                  required
                   type="date"
                   onChange={(e) => setDob(e.target.value)}
                 />
@@ -102,7 +110,10 @@ const SingleProfile = () => {
                   <FormOption value="5">5</FormOption>
                 </FormSelect>
               </FormFlex>
-              <FormAddress onChange={(e) => setAddress(e.target.value)}>
+              <FormAddress
+                required
+                onChange={(e) => setAddress(e.target.value)}
+              >
                 Enter your address
               </FormAddress>
               <FormBtn>Save</FormBtn>

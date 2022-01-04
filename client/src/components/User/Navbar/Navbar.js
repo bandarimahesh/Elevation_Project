@@ -90,7 +90,7 @@ const Navbar = ({ toggleMenuItems }) => {
           <>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to={`/${user.type}/profile/${user.id}`}
+              to={`/${user.type}/profile/update/${user.id}`}
             >
               <SearchItemText>Profile</SearchItemText>
             </Link>

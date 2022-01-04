@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import { Context } from "../../../context/Context";
 import {
   Form,
   FormAddress,
@@ -21,19 +22,26 @@ const Form1 = () => {
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
   const [profession, setProfession] = useState("");
+  const { user } = useContext(Context);
+  const token = user?.accessToken;
 
-  const profileSubmitHandler = async (event) => {
+  const profileAccountHandler = async (event) => {
     event.preventDefault();
-    console.log(mobile, dob, address, experience, graduate, profession);
+    console.log(address, experience, graduate, profession, mobile, dob);
     try {
-      await axios.post("", {
-        mobile: mobile,
-        dob: dob,
-        address: address,
-        experience: experience,
-        graduate: graduate,
-        profession: profession,
-      });
+      const res = await axios.put(
+        `/trainee/profile/update/${user?.id}`,
+        {
+          mobile: mobile,
+          dob: dob,
+          address: address,
+          experience: experience,
+          graduate: graduate,
+          profession: profession,
+        },
+        { headers: { authorization: "Bearer " + token } }
+      );
+      console.log(res.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -41,7 +49,7 @@ const Form1 = () => {
   return (
     <>
       <FormDiv>
-        <Form onSubmit={profileSubmitHandler}>
+        <Form onSubmit={profileAccountHandler}>
           <FormInput
             type="number"
             placeholder="Enter your Mobile Name"
@@ -56,10 +64,7 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel>Education:</FormLabel>
-            <FormSelect
-              required
-              onChange={(event) => setGraduate(event.target.value)}
-            >
+            <FormSelect onChange={(event) => setGraduate(event.target.value)}>
               <FormOption>Choose a below option</FormOption>
               <FormOption value="1">Pursing</FormOption>
               <FormOption value="2">Graduate</FormOption>
@@ -69,10 +74,7 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel> Profession:</FormLabel>
-            <FormSelect
-              required
-              onChange={(event) => setProfession(event.target.value)}
-            >
+            <FormSelect onChange={(event) => setProfession(event.target.value)}>
               <FormOption>Choose a below option</FormOption>
               <FormOption value="graduation">
                 Completed the graduation
@@ -84,10 +86,7 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel>Experience:</FormLabel>
-            <FormSelect
-              required
-              onChange={(event) => setExperience(event.target.value)}
-            >
+            <FormSelect onChange={(event) => setExperience(event.target.value)}>
               <FormOption>Choose a below option</FormOption>
               <FormOption value="0">0</FormOption>
               <FormOption value="1">1</FormOption>
