@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Form1 from "../Normal/Forms/ProfileForm/Form1.js";
-import Form2 from "../Normal/Forms/ProfileForm/Form2.js";
-import Form3 from "../Normal/Forms/ProfileForm/Form3.js";
-import Form4 from "../Normal/Forms/ProfileForm/Form4.js";
+import Form1 from "../Forms/ProfileForm/Form1.js";
+import Form2 from "../Forms/ProfileForm/Form2.js";
+import Form3 from "../Forms/ProfileForm/Form3.js";
+import Form4 from "../Forms/ProfileForm/Form4.js";
 
 import {
   Img,
@@ -71,6 +71,7 @@ const Trainee = () => {
             </TraineeUl>
           </TraineeLeftCol>
           <TraineeRightCol>
+          
             {personalForm ? <Form1 /> : ""}
             {accountForm ? <Form2 /> : ""}
             {changePasswordForm ? <Form3 /> : ""}

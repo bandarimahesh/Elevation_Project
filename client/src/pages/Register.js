@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../components/Normal/Footer/Footer";
-import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
-import RegisterForm from "../components/Normal/Forms/RegisterForm/RegisterForm";
+import Footer from "../components/User/Footer/Footer";
+import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import RegisterForm from "../components/Forms/RegisterForm/RegisterForm";
 
 const Register = () => {
   return (

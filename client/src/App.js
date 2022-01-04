@@ -16,26 +16,32 @@ import TraineeProfilePage from "./pages/TraineeProfilePage";
 import TrainerProfilePage from "./pages/TrainerProfilePage";
 import { Context } from "./context/Context";
 import AboutUs from "./pages/AboutUs";
+import Profile from "./pages/Profile";
+import TraineeHomePage from "./pages/TraineeHomePage";
+import TrainerHomePage from "./pages/TrainerHomePage";
 const App = () => {
   const { user } = useContext(Context);
+
   return (
     <React.Fragment>
       <Router>
         <Routes>
           <Route path="/" exact element={<Home />} />
-
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-
-          <Route path="/about" element={<AboutUs />} />
-
-          <Route path="/trainers" element={<Trainers />} />
-          <Route path="/trainers/:id" element={<SingleTrainerPage />} />
-
+          <Route path="/about" element={<AboutUs />} />{" "}
           <Route path="/courses" element={<AllCoursesPage />} />
-          <Route path="/courses/:id" element={<SingleCoursePage />} />
-
-          {/* depend upon type profile */}
+          <Route path="/login" element={<Login />} />{" "}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/courses/:id" element={<SingleCoursePage />} />{" "}
+          <Route path="/trainers/:id" element={<SingleTrainerPage />} />{" "}
+          <Route path="/trainee/profile/:id" element={<TraineeProfilePage />} />
+          {user?.type === "trainee" ? (
+            <Route path="/trainee" exact element={<TraineeHomePage />} />
+          ) : (
+            <Route path="/" exact element={<Home />} />
+          )}
+          <Route path="/trainer" exact element={<TrainerHomePage />} />{" "}
+          <Route path="/trainers" element={<Trainers />} />
           {user ? (
             <Route
               path="/trainee/profile/:id"
@@ -52,6 +58,7 @@ const App = () => {
           ) : (
             <Route path="*" element={<Navigate to="/login" />} />
           )}
+          <Route path="*" element={<Home />} />
         </Routes>
       </Router>
     </React.Fragment>

@@ -1,17 +1,16 @@
 import React from "react";
-import Footer from "../components/Normal/Footer/Footer";
-import Dropdown from "../components/Normal/Navbar/Dropdown";
-import AllCourses from "../components/Normal/Main/Courses/AllCourses/AllCourses";
-import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
-const AllCoursesPage = () => {
+import Footer from "../components/User/Footer/Footer";
+import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import AllCourse from "../components/User/Courses/AllCourses/AllCourses";
+
+const AllCourses = () => {
   return (
-    <>
+    <React.Fragment>
       <NavBarAndRes />
-      <Dropdown />
-      <AllCourses />
+      <AllCourse />
       <Footer />
-    </>
+    </React.Fragment>
   );
 };
 
-export default AllCoursesPage;
+export default AllCourses;

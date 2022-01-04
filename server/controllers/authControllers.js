@@ -85,16 +85,15 @@ exports.login = async (req, res, next) => {
           res.send(err.message);
         }
         if (result.length > 0) {
-
           bcrypt.compare(password, result[0].user_pwd, (err, response) => {
             if (response) {
-              
               const accessToken = jwt.sign(
                 {
                   id: result[0].user_dtls_id,
                   type: result[0].user_type,
+                  
                 },
-                process.env.LOGIN_SECRET_KEY
+                process.env.JWT_SECRET_KEY
               );
               res.send({
                 id: result[0].user_dtls_id,

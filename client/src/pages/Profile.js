@@ -1,16 +1,16 @@
 import React from "react";
 import Footer from "../components/User/Footer/Footer";
 import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
-import About from "../components/User/About/About";
+import SingleProfile from "../components/Forms/ProfileForm/SingleProfile";
 
-const AboutUs = () => {
+const Profile = () => {
   return (
     <React.Fragment>
       <NavBarAndRes />
-      <About />
+      <SingleProfile />
       <Footer />
     </React.Fragment>
   );
 };
 
-export default AboutUs;
+export default Profile;

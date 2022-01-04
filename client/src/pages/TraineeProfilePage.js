@@ -1,6 +1,6 @@
 import React from "react";
-import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
-import Footer from "../components/Normal/Footer/Footer";
+import Footer from "../components/User/Footer/Footer";
+import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
 import Trainee from "../components/Trainee/Trainee";
 const Register = () => {
   return (

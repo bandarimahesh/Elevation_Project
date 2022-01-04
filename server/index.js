@@ -17,7 +17,7 @@ const port = process.env.PORT || 5500;
 
 // routes
 app.use("/api/auth", authRoute);
-app.use("/api/users/profile", profileRoute);
+app.use("/api/users", profileRoute);
 
 app.listen(port, (req, res) => {
   console.log(`Server running on port ${port}`);

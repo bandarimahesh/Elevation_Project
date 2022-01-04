@@ -76,10 +76,11 @@ const RegisterForm = () => {
                 </Field>
                 <Field>
                   <Input
-                    required
+                    required={true}
                     type="password"
                     placeholder="Enter your password"
                     onChange={(e) => setPassword(e.target.value)}
+                    // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
                   />
                 </Field>
                 {/* <Field>

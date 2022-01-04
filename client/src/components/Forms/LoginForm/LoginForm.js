@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Context } from "../../../../context/Context";
+import { Context } from "../../../context/Context";
 import {
   HomeSectionComponent,
   HomeWrapper,
@@ -31,10 +31,10 @@ import {
   SlideDiv3,
   SlideDiv4,
 } from "./LoginFormElements";
-import StudentImg from "../../../../images/student.png";
-import TraineeImg from "../../../../images/train.png";
-import HireImg from "../../../../images/hire.png";
-import TrainerImg from "../../../../images/trainer.png";
+import StudentImg from "../../../images/student.png";
+import TraineeImg from "../../../images/train.png";
+import HireImg from "../../../images/hire.png";
+import TrainerImg from "../../../images/trainer.png";
 
 const HomeSection = () => {
   const { dispatch } = useContext(Context);
@@ -62,7 +62,7 @@ const HomeSection = () => {
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       console.log(res.data);
-      navigate("/");
+      navigate(`/${res.data.type}`);
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
       console.log(error.message);
@@ -162,10 +162,11 @@ const HomeSection = () => {
                       </Field>
                       <Field>
                         <Input
-                          required
+                          required={true}
                           type="text"
                           placeholder="Enter your password"
                           onChange={(e) => setPassword(e.target.value)}
+                          // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
                         />
                       </Field>
                       <PassLink>

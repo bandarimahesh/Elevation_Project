@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../components/Normal/Footer/Footer";
-import LoginForm from "../components/Normal/Forms/LoginForm/LoginForm";
-import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
+import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import LoginForm from "../components/Forms/LoginForm/LoginForm";
+import Footer from "../components/User/Footer/Footer";
 
 const Login = () => {
   return (

@@ -29,9 +29,18 @@ const Navbar = ({ toggleMenuItems }) => {
   return (
     <Nav>
       <LogoContainer>
-        <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
-          <LogoImage src={logo} alt="" />
-        </Link>
+        {user?.type ? (
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={`/${user?.type}`}
+          >
+            <LogoImage src={logo} alt="brand " />
+          </Link>
+        ) : (
+          <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+            <LogoImage src={logo} alt="brand " />
+          </Link>
+        )}
       </LogoContainer>
       <MenuContainer>
         <MenuItem>
@@ -85,7 +94,7 @@ const Navbar = ({ toggleMenuItems }) => {
             >
               <SearchItemText>Profile</SearchItemText>
             </Link>
-            
+
             <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
             <Link
               style={{ textDecoration: "none", color: "white" }}

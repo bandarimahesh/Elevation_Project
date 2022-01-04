@@ -8,15 +8,12 @@ import {
   FormFlex,
   FormInput,
   FormInputDate,
-  FormInputFile,
   FormLabel,
   FormOption,
   FormSelect,
 } from "./FormProfileElements";
 
 const Form1 = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
   // const [image, setImage] = useState("");
@@ -27,11 +24,9 @@ const Form1 = () => {
 
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
-
+    console.log(mobile, dob, address, experience, graduate, profession);
     try {
-      const res = await axios.post("users/profile/update", {
-        firstName: firstName,
-        lastName: lastName,
+      await axios.post("", {
         mobile: mobile,
         dob: dob,
         address: address,
@@ -39,7 +34,6 @@ const Form1 = () => {
         graduate: graduate,
         profession: profession,
       });
-      console.log(res.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -49,23 +43,23 @@ const Form1 = () => {
       <FormDiv>
         <Form onSubmit={profileSubmitHandler}>
           <FormInput
-            type="text"
-            placeholder="Enter your First Name"
-            onChang={(e) => setFirstName(e.target.value)}
-          />
-          <FormInput type="text" placeholder="Enter your Last Name" />
-          <FormInput
             type="number"
             placeholder="Enter your Mobile Name"
             onChange={(e) => setMobile(e.target.value)}
           />
           <FormFlex>
             <FormLabel htmlFor="">Enter your Dob :</FormLabel>
-            <FormInputDate type="date" />
+            <FormInputDate
+              type="date"
+              onChange={(e) => setDob(e.target.value)}
+            />
           </FormFlex>
           <FormFlex>
             <FormLabel>Education:</FormLabel>
-            <FormSelect required>
+            <FormSelect
+              required
+              onChange={(event) => setGraduate(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="1">Pursing</FormOption>
               <FormOption value="2">Graduate</FormOption>
@@ -75,7 +69,10 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel> Profession:</FormLabel>
-            <FormSelect required>
+            <FormSelect
+              required
+              onChange={(event) => setProfession(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="graduation">
                 Completed the graduation
@@ -85,11 +82,24 @@ const Form1 = () => {
               <FormOption value="skills">Learning a new skills</FormOption>
             </FormSelect>
           </FormFlex>
-          <FormAddress>Enter your address</FormAddress>
           <FormFlex>
-            <FormLabel htmlFor="">Choose Profile Picture :</FormLabel>
-            <FormInputFile type="file" placeholder="choose your profile" />
+            <FormLabel>Experience:</FormLabel>
+            <FormSelect
+              required
+              onChange={(event) => setExperience(event.target.value)}
+            >
+              <FormOption>Choose a below option</FormOption>
+              <FormOption value="0">0</FormOption>
+              <FormOption value="1">1</FormOption>
+              <FormOption value="2">2</FormOption>
+              <FormOption value="3">3</FormOption>
+              <FormOption value="4">4</FormOption>
+              <FormOption value="5">5</FormOption>
+            </FormSelect>
           </FormFlex>
+          <FormAddress onChange={(e) => setAddress(e.target.value)}>
+            Enter your address
+          </FormAddress>
           <FormBtn>Save</FormBtn>
         </Form>
       </FormDiv>

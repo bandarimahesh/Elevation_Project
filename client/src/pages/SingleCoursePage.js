@@ -1,7 +1,7 @@
 import React from "react";
-import SingleCourse from "../components/Normal/Main/Courses/CourseCard/SingleCourse/SingleCourse";
-import Footer from "../components/Normal/Footer/Footer";
-import NavBarAndRes from "../components/Normal/Navbar/NavBarAndRes";
+import Footer from "../components/User/Footer/Footer";
+import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import SingleCourse from "../components/User/Courses/CourseCard/SingleCourse/SingleCourse";
 const SingleCoursePage = () => {
   return (
     <>
