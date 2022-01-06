@@ -3,6 +3,7 @@ export const CourseSectionDiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
   margin: 0 auto;
+  display: inline-block;
 `;
 
 export const CourseCardDiv = styled.div`
@@ -17,6 +18,17 @@ export const CourseCardDiv = styled.div`
     border-top: 5px solid red;
   }
 `;
+export const DurationBoxDiv = styled.div`
+  display: flex;
+  margin: 5px;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+`;
+export const Titles = styled.h4`
+  font-weight: 500;
+`;
+export const TitlesDesc = styled.p``;
 
 // card styles
 export const CourseBody = styled.div`
@@ -28,7 +40,7 @@ export const CourseBody = styled.div`
 
 export const CourseImgBox = styled.div`
   width: 99%;
-  height: 60%;
+  height: 32%;
   margin: 2px auto;
   position: relative;
 `;
@@ -37,12 +49,13 @@ export const CourseImg = styled.img`
   height: 100%;
   object-fit: cover;
 `;
-export const CourseTitleBox = styled.div``;
+export const CourseTitleBox = styled.div`
+  padding: 10px;
+`;
 export const CourseTitleH1 = styled.h1`
   padding-right: 10px;
-  text-align: center;
-  font-size: 23px;
-  font-weight: 500;
+  font-size: 24.5px;
+  font-weight: 600;
 `;
 
 export const CourseReviewsBox = styled.div`
@@ -71,9 +84,12 @@ export const CourseIconLike = styled.div`
 export const CourseAddCart = styled.div`
   border: 1px solid blue;
   padding: 5px 10px;
-  font-size: 13px;
+  width: 90%;
+  margin: 10px auto;
+  font-size: 17px;
   border-radius: 3px;
   background: lightblue;
+  text-align: center;
   color: #111;
   &:hover {
     background: blue;
@@ -86,7 +102,7 @@ export const TrainerBox = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  padding: 10px 15px;
+  padding: 15px 15px;
 `;
 export const TrainerImg = styled.img`
   width: 50px;

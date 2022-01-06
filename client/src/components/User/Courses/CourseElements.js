@@ -55,6 +55,7 @@ export const CourseWrapper2 = styled.div`
   margin: 0 auto;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 export const BorderDiv = styled.div`
   border-bottom: 1px solid lightgrey;
@@ -64,6 +65,7 @@ export const BorderDiv = styled.div`
 `;
 export const CourseCardFlex = styled.div`
   flex: 4;
+  display: inline;
   border-right: 1px solid lightgrey;
   margin-right: 20px;
   &:nth-child(3) {

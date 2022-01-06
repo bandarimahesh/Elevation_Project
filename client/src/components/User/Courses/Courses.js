@@ -61,18 +61,15 @@ const Courses = () => {
                 Software Development <br /> Training :
               </CourseCardTitle>
               <CourseCard /> <BorderDiv />
-              <CourseCard />
             </CourseCardDivFlex>
           </CourseCardFlex>
           <CourseCardFlex>
             <CourseCardTitle>It Skills : </CourseCardTitle>
             <CourseCard /> <BorderDiv />
-            <CourseCard />
           </CourseCardFlex>
           <CourseCardFlex>
             <CourseCardTitle>Domain Training :</CourseCardTitle>
             <CourseCard /> <BorderDiv />
-            <CourseCard />
           </CourseCardFlex>
         </CourseWrapper2>
       </CourseWrapper>

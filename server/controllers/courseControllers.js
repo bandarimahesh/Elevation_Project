@@ -40,5 +40,38 @@ exports.courseControllers = async (req, res, next) => {
   }
 };
 exports.getCourseController = async (req, res, next) => {
-  res.send("hello from the new course");
+  const id = req.params.id;
+  try {
+    connection.query(
+      "SELECT * FROM courses_dtls WHERE course_id =?",
+      [id],
+      (err, result) => {
+        if (result) {
+          res.send(result);
+        }
+        if (err) {
+          res.send(err.message);
+        }
+      }
+    );
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+exports.allCourseControllers = (req, res, next) => {
+  try {
+    connection.query(
+      "SELECT * FROM courses_dtls ORDER BY course_id DESC LIMIT 10000 ;",
+      (err, result) => {
+        if (result) {
+          res.send(result);
+        }
+        if (err) {
+          res.send(err.message);
+        }
+      }
+    );
+  } catch (error) {
+    res.send(error.message);
+  }
 };
