@@ -5,7 +5,7 @@ import SingleCourse from "../components/User/Courses/CourseCard/SingleCourse/Sin
 const SingleCoursePage = () => {
   return (
     <>
-      <NavBarAndRes />;
+      <NavBarAndRes />
       <SingleCourse />
       <Footer />
     </>

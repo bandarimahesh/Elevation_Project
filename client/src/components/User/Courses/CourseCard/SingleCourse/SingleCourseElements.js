@@ -5,34 +5,14 @@ export const SingleCourseSect = styled.section`
   width: 100%;
 `;
 export const SingleCourseSection = styled.section`
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
-  padding: 50px 0px;
+  padding: 0px 0px;
+  background-color: #111;
+  height: auto;
 `;
-export const SingleCourseWrapper = styled.div``;
-// page title
-export const SingleCourseTitle = styled.h1`
-  color: blue;
-  font-size: 37px;
-  font-weight: 700;
-  text-align: center;
-`;
-export const LineAfter = styled.div`
-  &::before {
-    content: "";
-    width: 180px;
-    height: 4px;
-    display: block;
-    margin: 0 auto;
-    background-color: #9926f0;
-  }
-  &::after {
-    content: "";
-    width: 50px;
-    height: 4px;
-    padding-top: 0.1rem;
-    margin: 0 auto;
-    display: block;
-    background-color: #9926f0;
-  }
+export const SingleCourseWrapper = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 0px 0px;
 `;

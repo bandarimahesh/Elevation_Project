@@ -19,6 +19,7 @@ import {
 } from "./NavbarElements";
 import logo from "../../../images/logo-rm.png";
 import { Context } from "../../../context/Context";
+
 const Navbar = ({ toggleMenuItems }) => {
   let navigate = useNavigate();
   const { user, dispatch } = useContext(Context);
@@ -44,23 +45,40 @@ const Navbar = ({ toggleMenuItems }) => {
       </LogoContainer>
       <MenuContainer>
         <MenuItem>
+          {/* redirect to home page */}
           <NavItem>
             <NavLink>
-              <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
-                Home
-              </Link>
+              {user?.type ? (
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/${user?.type}`}
+                >
+                  Home
+                </Link>
+              ) : (
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/`}
+                >
+                  Home
+                </Link>
+              )}
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={`/about`}
-              >
-                About us
-              </Link>
-            </NavLink>
-          </NavItem>
+          {!user ? (
+            <NavItem>
+              <NavLink>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/about`}
+                >
+                  About us
+                </Link>
+              </NavLink>
+            </NavItem>
+          ) : (
+            ""
+          )}
           <NavItem>
             <Link
               style={{ textDecoration: "none", color: "white" }}

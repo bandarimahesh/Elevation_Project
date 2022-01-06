@@ -13,8 +13,8 @@ const Home = () => {
     <>
       <NavBarAndRes />
       <HomeSection />
-      <About />
       <Courses />
+      <About />
       <Trainers />
       <Reviews />
       <NewsLetter />

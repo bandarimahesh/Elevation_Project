@@ -20,7 +20,7 @@ import {
   CourseAddCart,
 } from "./CourseCardElements";
 const CourseCard = () => {
-  const courseId = 5;
+  const course_title = "course-title";
   const trainerId = 6;
   return (
     <CourseSectionDiv>
@@ -28,7 +28,7 @@ const CourseCard = () => {
         <CourseBody>
           <Link
             style={{ textDecoration: "none", color: "black" }}
-            to={`/courses/${courseId}`}
+            to={`/courses/${course_title}`}
           >
             <CourseImgBox>
               <CourseImg
@@ -39,7 +39,7 @@ const CourseCard = () => {
           </Link>
           <Link
             style={{ textDecoration: "none", color: "black" }}
-            to={`/courses/${courseId}`}
+            to={`/courses/${course_title}`}
           >
             <CourseTitleBox>
               <CourseTitleH1>The python bootcamp</CourseTitleH1>

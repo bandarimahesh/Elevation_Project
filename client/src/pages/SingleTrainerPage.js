@@ -5,7 +5,9 @@ import SingleTrainer from "../components/Trainers/SingleTrainer/SingleTrainer";
 const SingleTrainerPage = () => {
   return (
     <>
-      <NavBarAndRes />;
+      <NavBarAndRes />
+      {/* <TraineeNavBar /> */}
+      {/* <NavBarAndRes />; */}
       <SingleTrainer />
       <Footer />
     </>
