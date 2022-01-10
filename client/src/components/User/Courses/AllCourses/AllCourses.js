@@ -61,15 +61,6 @@ const AllCourses = () => {
           <CourseCard />
           <CourseCard />
           <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
         </AllCoursesWrapper2>
       </AllCoursesWrapper>
     </AllCoursesSection>

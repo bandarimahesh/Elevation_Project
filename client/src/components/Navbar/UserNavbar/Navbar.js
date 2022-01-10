@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaBars, FaShoppingCart } from "react-icons/fa";
 import {
   LogoContainer,
   LogoImage,
@@ -10,23 +10,26 @@ import {
   Nav,
   NavItem,
   NavLink,
-  SearchBox,
   SearchBoxContainer,
   SearchItemText,
   SearchForm,
   ProfileImg,
-  SearchBoxDiv,
+  SearchBoxInput,
+  FaSearchIcon,
 } from "./NavbarElements";
 import logo from "../../../images/logo-rm.png";
-import { Context } from "../../../context/Context";
+import { logOut } from "../../../redux/userRedux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = ({ toggleMenuItems }) => {
   let navigate = useNavigate();
-  const { user, dispatch } = useContext(Context);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const onLogoutHandler = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch(logOut());
     navigate("/");
   };
+
   return (
     <Nav>
       <LogoContainer>
@@ -43,6 +46,7 @@ const Navbar = ({ toggleMenuItems }) => {
           </Link>
         )}
       </LogoContainer>
+
       <MenuContainer>
         <MenuItem>
           {/* redirect to home page */}
@@ -95,15 +99,19 @@ const Navbar = ({ toggleMenuItems }) => {
               Trainers
             </Link>
           </NavItem>
+          <NavItem>
+            <Link style={{ textDecoration: "none", color: "white" }} to="/blog">
+              Blog
+            </Link>
+          </NavItem>
         </MenuItem>
       </MenuContainer>
       <SearchBoxContainer>
-        <SearchBoxDiv>
-          <SearchBox placeholder="Search"></SearchBox>
-          <SearchForm>
-            <FaSearch />
-          </SearchForm>
-        </SearchBoxDiv>
+        <SearchForm>
+          <SearchBoxInput placeholder="Search....."></SearchBoxInput>
+          <FaSearchIcon />
+        </SearchForm>
+
         {user ? (
           <>
             <Link

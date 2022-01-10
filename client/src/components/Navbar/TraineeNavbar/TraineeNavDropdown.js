@@ -1,4 +1,5 @@
 import React from "react";
+import { FaTimes } from "react-icons/fa";
 import {
   CloseIcon,
   DropDownContainer,
@@ -6,8 +7,7 @@ import {
   DropDownMenu,
   DropDownWrapper,
   Icon,
-} from "./TraineeNavbarElements";
-import { FaTimes } from "react-icons/fa";
+} from "./TraineeNavDroElements";
 
 const TraineeNavDropdown = ({ isOpen, toggleMenuItems }) => {
   return (
@@ -19,6 +19,7 @@ const TraineeNavDropdown = ({ isOpen, toggleMenuItems }) => {
       </Icon>
       <DropDownWrapper>
         <DropDownMenu>
+          trainee Dropdown
           <DropDownLink>Home</DropDownLink>
           <DropDownLink>About</DropDownLink>
           <DropDownLink>Services</DropDownLink>

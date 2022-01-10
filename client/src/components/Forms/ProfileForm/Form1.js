@@ -12,12 +12,13 @@ import {
   FormLabel,
   FormOption,
   FormSelect,
+  FormInputFile,
 } from "./FormProfileElements";
 
 const Form1 = () => {
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
-  // const [image, setImage] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [address, setAddress] = useState("");
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
@@ -27,10 +28,10 @@ const Form1 = () => {
 
   const profileAccountHandler = async (event) => {
     event.preventDefault();
-    console.log(address, experience, graduate, profession, mobile, dob);
+    console.log(address, experience, graduate, profession, mobile, dob, profilePicture);
     try {
-      const res = await axios.put(
-        `/trainee/profile/update/${user?.id}`,
+      const res = await axios.post(
+        `/trainee/profile/create/${user?.id}`,
         {
           mobile: mobile,
           dob: dob,
@@ -38,6 +39,7 @@ const Form1 = () => {
           experience: experience,
           graduate: graduate,
           profession: profession,
+          profilePicture: profilePicture,
         },
         { headers: { authorization: "Bearer " + token } }
       );
@@ -99,6 +101,14 @@ const Form1 = () => {
           <FormAddress onChange={(e) => setAddress(e.target.value)}>
             Enter your address
           </FormAddress>
+          <FormFlex>
+            <FormLabel htmlFor="">Choose your image</FormLabel>
+            <FormInputFile
+              type="file"
+              onChange={(e) => setProfilePicture(e.target.files)}
+            />
+          </FormFlex>
+
           <FormBtn>Save</FormBtn>
         </Form>
       </FormDiv>

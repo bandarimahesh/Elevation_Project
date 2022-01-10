@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CourseCard from "./CourseCard/CourseCard";
 import {
   ClickMore,
@@ -22,6 +22,8 @@ import {
   BorderDiv,
 } from "./CourseElements";
 const Courses = () => {
+  const location = useLocation();
+  console.log(location);
   return (
     <CourseSection>
       <CourseWrapper>

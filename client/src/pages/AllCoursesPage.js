@@ -1,17 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import Footer from "../components/User/Footer/Footer";
-import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
 import AllCourse from "../components/User/Courses/AllCourses/AllCourses";
-import TraineeNavBarRes from "../components/Trainee/TraineeNavbar/TraineeNavBarRes";
-import { Context } from "../context/Context";
+import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
 
 const AllCourses = () => {
-  const { user } = useContext(Context);
   return (
     <React.Fragment>
-      <NavBarAndRes />
-      {/* {user?.type === "trainee" && <TraineeNavBarRes />} */}
-      {/* {user?.type === "trainer" && <TrainerNavBarRes/>} */}
+      <NavbarRes />
       <AllCourse />
       <Footer />
     </React.Fragment>

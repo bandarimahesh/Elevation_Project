@@ -1,13 +1,11 @@
 import React from "react";
 import Footer from "../components/User/Footer/Footer";
-import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
 import SingleTrainer from "../components/Trainers/SingleTrainer/SingleTrainer";
 const SingleTrainerPage = () => {
   return (
     <>
-      <NavBarAndRes />
-      {/* <TraineeNavBar /> */}
-      {/* <NavBarAndRes />; */}
+      <NavbarRes />
       <SingleTrainer />
       <Footer />
     </>

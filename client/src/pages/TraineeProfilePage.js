@@ -1,12 +1,12 @@
 import React from "react";
 import Footer from "../components/User/Footer/Footer";
-import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
 import Trainee from "../components/Trainee/Trainee";
 
 const TraineeProfilePage = () => {
   return (
     <React.Fragment>
-      <NavBarAndRes />
+      <NavbarRes />
       <Trainee />
       <Footer />
     </React.Fragment>

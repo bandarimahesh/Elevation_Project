@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import {
   LogoContainer,
   LogoImage,
@@ -20,23 +21,28 @@ import {
   CartBox,
   FaSearchIcon,
   FaCartIcon,
+  CartQuantity,
 } from "./TraineeNavbarElements.js";
 import logo from "../../../images/logo-rm.png";
-import { Context } from "../../../context/Context";
+import { logOut } from "../../../redux/userRedux.js";
 
 const TraineeNavbar = ({ toggleMenuItems }) => {
   let navigate = useNavigate();
-  const { user, dispatch } = useContext(Context);
+  const quantity = useSelector((state) => state.cart.quantity);
+  const dispatch = useDispatch();
   const onLogoutHandler = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch(logOut());
     navigate("/");
   };
+  const user = useSelector((state) => state.user.currentUser);
+  const type = useSelector((state) => state.user.currentUser.type);
+
   return (
     <Nav>
       <LogoContainer>
         <Link
           style={{ textDecoration: "none", color: "white" }}
-          to={`/${user?.type}`}
+          to={`/${type}`}
         >
           <LogoImage src={logo} alt="brand " />
         </Link>
@@ -90,19 +96,30 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               My Learning
             </Link>
           </RightbarContainerList>
-          <RightbarContainerList>Profile</RightbarContainerList>
+          <RightbarContainerList>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/${user?.type}/profile/update/${user?.id}`}
+            >
+              Profile
+            </Link>
+          </RightbarContainerList>
           <RightbarContainerList>
             <CartBox>
               <Link
-                to={`/cart`}
+                to={`/${user?.type}/cart`}
                 style={{ textDecoration: "none", color: "white" }}
               >
                 <FaCartIcon />
               </Link>
             </CartBox>
+            <CartQuantity>{quantity}</CartQuantity>
           </RightbarContainerList>
           <RightbarContainerList onClick={onLogoutHandler}>
-            <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/login`}
+            >
               Logout
             </Link>
           </RightbarContainerList>

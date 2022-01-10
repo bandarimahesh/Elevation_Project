@@ -36,7 +36,7 @@ export const LogoImage = styled.img`
   cursor: pointer;
 `;
 export const MenuContainer = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: none;
   }
 `;
@@ -114,7 +114,6 @@ export const ProfileImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-  margin-left: 10px;
 `;
 export const SearchBoxDiv = styled.div``;
 

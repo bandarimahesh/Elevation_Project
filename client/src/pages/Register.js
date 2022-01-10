@@ -1,12 +1,12 @@
 import React from "react";
 import Footer from "../components/User/Footer/Footer";
-import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
+import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
 import RegisterForm from "../components/Forms/RegisterForm/RegisterForm";
 
 const Register = () => {
   return (
     <React.Fragment>
-      <NavBarAndRes />
+      <NavbarRes />
       <RegisterForm />
       <Footer />
     </React.Fragment>

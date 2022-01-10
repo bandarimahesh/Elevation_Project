@@ -100,9 +100,11 @@ exports.login = async (req, res, next) => {
               );
               res.send({
                 id: result[0].user_dtls_id,
+                email: result[0].user_email,
                 username: result[0].user_firstname,
                 lastname: result[0].user_lastname,
                 type: result[0].user_type,
+
                 accessToken: accessToken,
               });
             } else {

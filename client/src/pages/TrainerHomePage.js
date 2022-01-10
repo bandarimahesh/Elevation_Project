@@ -1,10 +1,10 @@
 import React from "react";
-import TrainerNavbar from "../components/Trainers/TrainerNavbar/TrainerNavBar";
+import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
 
 const TrainerHomePage = () => {
   return (
     <>
-      <TrainerNavbar />
+      <NavbarRes />
       <h1>I am in the trainer home page</h1>
     </>
   );

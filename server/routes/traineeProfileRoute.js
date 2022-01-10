@@ -3,6 +3,7 @@ const {
   createTraineeProfile,
   updateTraineeProfile,
   getOnlyUserDetails,
+  checkTraineeDetails,
 } = require("../controllers/traineeProfileController");
 const connection = require("../dbConnection");
 
@@ -25,6 +26,8 @@ router.put(
   updateTraineeProfile
 );
 
+// upload an image to the server
+
 // deleting the user account
 router.delete(
   "/profile/delete/:id",
@@ -44,6 +47,7 @@ router.delete(
   }
 );
 
+router.get("/getDetails", checkTraineeDetails);
 //get the user details
 router.get("/details/:id", verifyTokenAndAuthorization, getOnlyUserDetails);
 

@@ -68,6 +68,32 @@ exports.updateTraineeProfile = async (req, res, next) => {
   );
 };
 
+exports.checkTraineeDetails = async (req, res, next) => {
+  const username = req.body.username;
+  const id = req.body.id;
+  try {
+    connection.query(
+      "SELECT * FROM user_dtls WHERE user_dtls_id=? AND user_email=?",
+      [id, username],
+      (err, result) => {
+        if (!result) {
+          console.log(err.message);
+          res.send(err.message);
+        }
+        if (result.length > 0) {
+          res.send({
+            id: result[0].user_dtls_id,
+            email: result[0].user_email,
+          });
+        } else {
+          res.send("User not found");
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 exports.getOnlyUserDetails = async (req, res, next) => {
   const id = req.params.id;
   const sqlSelect = "SELECT * FROM trainee_dtls WHERE user_dtls_id =?";

@@ -14,14 +14,15 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import TraineeProfilePage from "./pages/TraineeProfilePage";
 import TrainerProfilePage from "./pages/TrainerProfilePage";
-import { Context } from "./context/Context";
 import AboutUs from "./pages/AboutUs";
 import Profile from "./pages/Profile";
 import TraineeHomePage from "./pages/TraineeHomePage";
 import TrainerHomePage from "./pages/TrainerHomePage";
+import Pay from "./pages/Pay";
+import { useSelector } from "react-redux";
+import Cart from "./pages/Cart";
 const App = () => {
-  const { user } = useContext(Context);
-
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <React.Fragment>
       <Router>
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/trainee/cart" element={<Cart />} />
           {/* all courses */}
           <Route path="/courses" element={<AllCoursesPage />} />
           {/* single course page */}
@@ -46,7 +48,7 @@ const App = () => {
           ) : (
             <Route path="/" exact element={<Home />} />
           )}
-
+          <Route path="/pay" element={<Pay />} />
           <Route path="/trainer" exact element={<TrainerHomePage />} />
 
           {user?.type === "trainee" ? (

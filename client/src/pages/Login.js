@@ -1,6 +1,6 @@
 import React from "react";
-import NavBarAndRes from "../components/User/Navbar/NavBarAndRes";
 import LoginForm from "../components/Forms/LoginForm/LoginForm";
+import NavBarAndRes from "../components/Navbar/UserNavbar/NavbarRes";
 import Footer from "../components/User/Footer/Footer";
 
 const Login = () => {

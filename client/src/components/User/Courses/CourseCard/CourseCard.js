@@ -27,6 +27,7 @@ const CourseCard = () => {
   const course_title = "course-title";
   const course_id = 1;
   const trainerId = 6;
+
   useEffect(() => {
     const getAllCourse = async () => {
       try {
@@ -38,7 +39,7 @@ const CourseCard = () => {
     };
     getAllCourse();
   }, [course_id]);
-  console.log(courses);
+
   return (
     <CourseSectionDiv>
       {courses?.data?.map((course) => (
@@ -46,7 +47,7 @@ const CourseCard = () => {
           <CourseBody>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course_title}`}
+              to={`/courses/${course.course_id}`}
             >
               <CourseImgBox>
                 <CourseImg
@@ -90,7 +91,12 @@ const CourseCard = () => {
               </CourseReviewsP>
               <CoursePrice>Price : $499</CoursePrice>
             </CourseReviewsBox>
-            <CourseAddCart>Register Now</CourseAddCart>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={`/courses/${course.course_id}`}
+            >
+              <CourseAddCart>Register Now</CourseAddCart>
+            </Link>
 
             <Link
               style={{ textDecoration: "none", color: "black" }}

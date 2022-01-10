@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Context } from "../../../context/Context";
+import { useDispatch, useSelector } from "react-redux";
 import {
   HomeSectionComponent,
   HomeWrapper,
@@ -35,17 +35,23 @@ import StudentImg from "../../../images/student.png";
 import TraineeImg from "../../../images/train.png";
 import HireImg from "../../../images/hire.png";
 import TrainerImg from "../../../images/trainer.png";
+import {
+  loginFailure,
+  loginStart,
+  loginSuccess,
+} from "../../../redux/userRedux";
 
 const HomeSection = () => {
-  const { dispatch } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("trainee");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // login function handler
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    dispatch(loginStart());
     try {
       const res = await axios.post(
         "/auth/login",
@@ -60,14 +66,15 @@ const HomeSection = () => {
           }
         }
       );
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      console.log(res.data);
-      navigate(`/${res.data.type}`);
+      dispatch(loginSuccess(res.data));
+      const userType = res.data.type;
+      navigate(`/${userType}`);
     } catch (error) {
-      dispatch({ type: "LOGIN_FAILURE" });
+      dispatch(loginFailure());
       console.log(error.message);
     }
   };
+
   const [isActive1, setIsActive1] = useState(true);
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);

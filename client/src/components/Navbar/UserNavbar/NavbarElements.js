@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { FaSearch } from "react-icons/fa";
 export const Nav = styled.nav`
   position: sticky;
   top: 0;
@@ -73,15 +73,7 @@ export const ProfileImg = styled.img`
   object-fit: cover;
   cursor: pointer;
 `;
-export const SearchBoxDiv = styled.div`
-  position: relative;
-`;
-export const SearchForm = styled.form`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background-color: #111;
-`;
+
 export const SearchItemText = styled.p`
   margin-top: 6px;
   margin-right: 5px;
@@ -89,6 +81,23 @@ export const SearchItemText = styled.p`
   font-size: 19px;
   font-weight: 500;
   cursor: pointer;
+`;
+export const SearchForm = styled.form`
+  position: relative;
+`;
+export const SearchBoxInput = styled.input`
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+`;
+export const FaSearchIcon = styled(FaSearch)`
+  font-size: 24px;
+  color: #111;
+  opacity: 0.8;
+  top: 12px;
+  right: 5px;
+  position: absolute;
 `;
 export const MenuBarContainer = styled.div`
   display: none;

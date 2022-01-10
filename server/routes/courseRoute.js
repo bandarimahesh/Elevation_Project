@@ -11,5 +11,6 @@ router.post("/new-course", courseControllers);
 
 router.get("/full-course/:id", getCourseController);
 
-router.get("/all-courses", allCourseControllers)
+router.get("/all-courses", allCourseControllers);
+
 module.exports = router;

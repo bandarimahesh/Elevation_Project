@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaTimes, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
 
 export const Nav = styled.nav`
   position: sticky;
@@ -36,7 +36,7 @@ export const LogoImage = styled.img`
   cursor: pointer;
 `;
 export const MenuContainer = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: none;
   }
 `;
@@ -54,6 +54,9 @@ export const NavLink = styled.a``;
 export const RightbarContainer = styled.div`
   display: flex;
   align-items: center;
+  @media only screen and (max-width: 968px) {
+    display: none;
+  }
 `;
 export const RightbarContainerMenu = styled.div`
   /* display: flex;
@@ -69,6 +72,9 @@ export const RightbarContainerList = styled.p`
   color: #fff;
   padding: 5px;
   cursor: pointer;
+  &:nth-child(4) {
+    position: relative;
+  }
   &:nth-child(5) {
     margin-right: 0;
   }
@@ -104,9 +110,23 @@ export const FaCartIcon = styled(FaShoppingCart)`
   font-size: 22px !important;
   color: #fff;
   /* padding: 0; */
+  position: relative;
 `;
 export const CartBox = styled.div`
   padding: 0 !important;
+  /* position: relative !important; */
+`;
+export const CartQuantity = styled.p`
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  width: 20px;
+  font-size: 13px;
+  text-align: center;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
 `;
 export const ProfileImg = styled.img`
   width: 30px;
@@ -114,6 +134,7 @@ export const ProfileImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+  margin-left: 10px;
 `;
 export const SearchBoxDiv = styled.div``;
 
@@ -124,53 +145,7 @@ export const MenuBarContainer = styled.div`
   align-items: center;
   margin-top: 13px;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: block;
-  }
-`;
-export const DropDownContainer = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #0d0d0d;
-  display: grid;
-  align-items: center;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  transition: all 0.5s ease-in-out;
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0%")};
-  top: ${({ isOpen }) => (isOpen ? "0%" : "-100%")};
-`;
-
-export const CloseIcon = styled(FaTimes)`
-  color: #fff;
-  font-size: 1.6rem;
-  cursor: pointer;
-`;
-export const Icon = styled.div`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-`;
-export const DropDownWrapper = styled.div``;
-export const DropDownMenu = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 70px);
-`;
-export const DropDownLink = styled.li`
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s ease-in-out;
-  list-style: none;
-  cursor: pointer;
-  font-size: 21px;
-  font-weight: 500;
-  &:hover {
-    color: #01bf71;
-    transition: all 0.4s ease-in-out;
   }
 `;
