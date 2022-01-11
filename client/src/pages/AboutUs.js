@@ -7,7 +7,7 @@ const AboutUs = () => {
   return (
     <React.Fragment>
       <NavbarRes />
-      {/* <About /> */}
+      <About />
       <Footer />
     </React.Fragment>
   );

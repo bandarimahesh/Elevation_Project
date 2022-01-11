@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../context/Context.js";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Form1 from "../Forms/ProfileForm/Form1.js";
 import Form2 from "../Forms/ProfileForm/Form2.js";
 import Form3 from "../Forms/ProfileForm/Form3.js";
@@ -26,7 +26,9 @@ const Trainee = () => {
   const [changePasswordForm, setChangePasswordForm] = useState(false);
   const [deleteAccountForm, setDeleteAccountForm] = useState(false);
   const [resUser, setResUser] = useState();
-  const { user } = useContext(Context);
+
+  const user = useSelector((state) => state.user.currentUser);
+
   const token = user?.accessToken;
   const showPersonalForm = () => {
     setPersonalForm(!personalForm);
@@ -65,7 +67,7 @@ const Trainee = () => {
       }
     };
     getUserData();
-  }, [user?.id]);
+  }, [token, user.id]);
   return (
     <TraineeSect>
       <TraineeWrapper>
@@ -88,9 +90,6 @@ const Trainee = () => {
             </TraineeUl>
           </TraineeLeftCol>
           <TraineeRightCol>
-            {/* <h1>{resUser[0]?.trainee_email}</h1>
-            <h1>{resUser[0]?.trainee_dob}</h1> */}
-
             {personalForm ? <Form1 /> : ""}
             {accountForm ? <Form2 /> : ""}
             {changePasswordForm ? <Form3 /> : ""}

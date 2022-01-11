@@ -24,6 +24,7 @@ import {
 import { addCourse } from "../../../../../../redux/cartRedux";
 import { useDispatch } from "react-redux";
 const SingleCourseHeader = ({ data }) => {
+  console.log(data);
   const dispatch = useDispatch();
   const quantity = 1;
   const addToCartHandler = () => {
@@ -36,7 +37,7 @@ const SingleCourseHeader = ({ data }) => {
       <SingleCourseSection>
         <SingleCourseWrapper>
           {data?.data?.map((course) => (
-            <SingleCourseFlex>
+            <SingleCourseFlex key={course.course_id}>
               <HeaderRightCol>
                 <SingleCourseTitle>{course.course_name}</SingleCourseTitle>
                 <CourseDescription>

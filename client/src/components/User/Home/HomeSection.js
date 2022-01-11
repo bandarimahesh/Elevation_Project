@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { Context } from "../../../context/Context";
 import LoginForm from "../../Forms/LoginForm/LoginForm";
 import Home from "./Home";
 import {
@@ -14,7 +13,7 @@ const HomeSection = () => {
   return (
     <HomeSect>
       <HomeSectionComponent>
-        <HomeWrapper>{user ? <Home /> : <LoginForm />}</HomeWrapper>
+        <HomeWrapper>{user?.type ? <Home /> : <LoginForm />}</HomeWrapper>
       </HomeSectionComponent>
     </HomeSect>
   );

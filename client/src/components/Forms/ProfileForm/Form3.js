@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Form, FormBtn, FormDiv, FormInput } from "./FormProfileElements";
-import { Context } from "../../../context/Context";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const Form3 = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const { user } = useContext(Context);
+  const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
 
   const onChangePasswordHandler = async (event) => {

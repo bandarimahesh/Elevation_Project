@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import NavBarAndRes from "../components/Navbar/UserNavbar/NavbarRes";
 import Footer from "../components/User/Footer/Footer";
@@ -28,6 +29,7 @@ const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  cursor: pointer;
 `;
 
 const TopTexts = styled.div``;
@@ -71,15 +73,6 @@ const ProductName = styled.span``;
 
 const ProductId = styled.span``;
 
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span``;
-
 const PriceDetail = styled.div`
   flex: 1;
   display: flex;
@@ -97,6 +90,14 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 5px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
+  cursor: pointer;
 `;
 
 const ProductPrice = styled.div`
@@ -141,71 +142,50 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const removeFromCart = () => {
+    dispatch(removeFromCart(cart));
+  };
   return (
     <Container>
       <NavBarAndRes />
       <Wrapper>
-        <Title>YOUR BAG</Title>
+        <Title>Your cart</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton>Choose another courses</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>You added this courses</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled">BUY NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <ProductAmount>2</ProductAmount>
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.courses.map((course) => (
+              <Product>
+                <ProductDetail>
+                  <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
+                  <Details>
+                    <ProductName>{course.course_name}</ProductName>
+                    <ProductId>{course.course_id}</ProductId>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <ProductAmount onClick={removeFromCart}>
+                      Remove from cart
+                    </ProductAmount>
+                  </ProductAmountContainer>
+                  <ProductPrice>$ 30</ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
             <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> HAKURA T-SHIRT
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <ProductAmount>1</ProductAmount>
-                </ProductAmountContainer>
-                <ProductPrice>$ 20</ProductPrice>
-              </PriceDetail>
-            </Product>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
   LogoContainer,

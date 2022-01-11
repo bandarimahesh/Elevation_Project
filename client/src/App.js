@@ -48,7 +48,9 @@ const App = () => {
           ) : (
             <Route path="/" exact element={<Home />} />
           )}
+
           <Route path="/pay" element={<Pay />} />
+
           <Route path="/trainer" exact element={<TrainerHomePage />} />
 
           {user?.type === "trainee" ? (

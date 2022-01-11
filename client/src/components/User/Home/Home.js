@@ -13,7 +13,7 @@ const Home = () => {
           flexDirection: "",
         }}
       >
-        <h1 style={{ marginTop: "50vh" }}>Home page after login</h1>
+        <h1>Home page after login</h1>
       </div>
     </div>
   );

@@ -1,14 +1,16 @@
 import styled from "styled-components";
 export const SingleProfileSect = styled.section`
-  height: 100vh;
-  background-color: #f1f1f1;
+  height: auto;
+  background-color: #fff;
   width: 100%;
 `;
 export const SingleProfileSection = styled.section`
-  width: 90%;
-  margin: 0 auto;
+  width: 70%;
+  margin: 30px auto;
   padding: 50px 0px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
 `;
+
 export const SingleProfileWrapper = styled.div``;
 // page title
 export const SingleProfileTitle = styled.h1`
@@ -38,30 +40,34 @@ export const LineAfter = styled.div`
 `;
 
 export const FormDiv = styled.div`
-  padding: 50px;
+  padding: 30px;
   text-align: center;
   margin-left: 20px;
 `;
-
+export const FormInputDiv = styled.div`
+  width: 100%;
+`;
 export const Form = styled.form``;
 export const FormInput = styled.input`
   display: block;
-  width: 90%;
+  width: 80%;
   height: 40px;
   margin-bottom: 15px;
   font-size: 19px;
+  margin-left: 25px;
   background: transparent;
   border: none;
   outline: none;
   border-bottom: 1px solid #111;
   &::placeholder {
     color: #111;
+    font-size: 15px;
     opacity: 0.9;
   }
 `;
 export const FormInputDate = styled.input`
   display: block;
-  width: 60%;
+  width: 80%;
   height: 40px;
   margin-bottom: 15px;
   font-size: 19px;
@@ -82,7 +88,7 @@ export const FormInputFile = styled.input`
   margin-top: 10px;
   border: none;
   outline: none;
-  margin-left: 25px;
+  margin-left: 15px;
   &::placeholder {
     color: #111;
     opacity: 0.9;
@@ -103,9 +109,10 @@ export const FormBtn = styled.button`
 `;
 export const FormAddress = styled.textarea`
   display: block;
-  width: 90%;
+  width: 80%;
   outline: none;
   height: 70px;
+  margin-left: 15px;
   font-size: 15px;
   &::placeholder {
     color: #111;
@@ -118,11 +125,12 @@ export const FormFlex = styled.div`
 `;
 
 export const FormLabel = styled.label`
-  font-size: 19px;
+  font-size: 21px;
+  width: 20%;
 `;
 export const FormSelect = styled.select`
   height: 36px;
-  width: 70%;
+  width: 80%;
   outline: none;
   font-size: 17px;
   border-radius: 5px;
@@ -135,3 +143,23 @@ export const FormSelect = styled.select`
   }
 `;
 export const FormOption = styled.option``;
+export const SkipBtnDiv = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
+export const SkipButton = styled.button`
+  border: none;
+  outline: none;
+  padding: 10px 30px;
+  margin-right: 20px;
+  background-color: #f33;
+  color: white;
+  align-items: end;
+  cursor: pointer;
+  text-align: right;
+
+  transition: all 0.4s ease-in-out;
+  &:hover {
+    opacity: 0.9;
+  }
+`;

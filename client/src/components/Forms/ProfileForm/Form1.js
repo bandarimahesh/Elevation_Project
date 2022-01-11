@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Context } from "../../../context/Context";
+import { useSelector } from "react-redux";
 import {
   Form,
   FormAddress,
@@ -23,12 +23,11 @@ const Form1 = () => {
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
   const [profession, setProfession] = useState("");
-  const { user } = useContext(Context);
-  const token = user?.accessToken;
 
+  const user = useSelector((state) => state.user.currentUser);
+  const token = user?.accessToken;
   const profileAccountHandler = async (event) => {
     event.preventDefault();
-    console.log(address, experience, graduate, profession, mobile, dob, profilePicture);
     try {
       const res = await axios.post(
         `/trainee/profile/create/${user?.id}`,
@@ -43,7 +42,6 @@ const Form1 = () => {
         },
         { headers: { authorization: "Bearer " + token } }
       );
-      console.log(res.data);
     } catch (error) {
       console.log(error.message);
     }
