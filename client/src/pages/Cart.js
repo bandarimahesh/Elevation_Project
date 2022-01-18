@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NavBarAndRes from "../components/Navbar/UserNavbar/NavbarRes";
 import Footer from "../components/User/Footer/Footer";
+import { removeCourse, clearCart } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -59,7 +61,7 @@ const ProductDetail = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
+  width: 150px;
 `;
 
 const Details = styled.div`
@@ -108,7 +110,10 @@ const ProductPrice = styled.div`
 const Hr = styled.hr`
   background-color: #eee;
   border: none;
+  width: 50%;
+  text-align: center;
   height: 1px;
+  margin: 10px auto 0 auto;
 `;
 
 const Summary = styled.div`
@@ -147,9 +152,14 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.currentUser);
+  console.log(cart);
   const dispatch = useDispatch();
-  const removeFromCart = () => {
-    dispatch(removeFromCart(cart));
+  const removeFromCart = (course) => {
+    dispatch(removeCourse(course));
+  };
+  const clearCartHandler = () => {
+    dispatch(clearCart());
   };
   return (
     <Container>
@@ -157,7 +167,12 @@ const Cart = () => {
       <Wrapper>
         <Title>Your cart</Title>
         <Top>
-          <TopButton>Choose another courses</TopButton>
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={`/courses`}
+          >
+            <TopButton>Choose another courses</TopButton>
+          </Link>
           <TopTexts>
             <TopText>You added this courses</TopText>
             <TopText>Your Wishlist (0)</TopText>
@@ -166,26 +181,39 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            {cart.courses.map((course) => (
-              <Product>
-                <ProductDetail>
-                  <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                  <Details>
-                    <ProductName>{course.course_name}</ProductName>
-                    <ProductId>{course.course_id}</ProductId>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <ProductAmount onClick={removeFromCart}>
-                      Remove from cart
-                    </ProductAmount>
-                  </ProductAmountContainer>
-                  <ProductPrice>$ 30</ProductPrice>
-                </PriceDetail>
-              </Product>
-            ))}
+            {cart?.courses?.length === 0 ? (
+              <>
+                <h1>No courses are added to cart </h1>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/courses`}
+                >
+                  <TopButton> Add your favorite courses</TopButton>
+                </Link>
+              </>
+            ) : (
+              cart?.courses?.map((course) => (
+                <Product key={course.course_id}>
+                  <ProductDetail>
+                    <Image src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                    <Details>
+                      <ProductName>{course.course_title}</ProductName>
+                      <ProductId>{course.course_id}</ProductId>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <ProductAmount onClick={() => removeFromCart(course)}>
+                        Remove
+                      </ProductAmount>
+                    </ProductAmountContainer>
+                    <ProductPrice>Rs:{course.course_price}</ProductPrice>
+                  </PriceDetail>
+                </Product>
+              ))
+            )}
             <Hr />
+            <TopButton onClick={() => clearCartHandler()}>Clear cart</TopButton>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
@@ -193,19 +221,19 @@ const Cart = () => {
               <SummaryItemText>Subtotal</SummaryItemText>
               <SummaryItemPrice>$ 80</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-            </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <Link to="/pay">
+              {!user ? (
+                <Link to="/login">
+                  <Button>Login</Button>
+                </Link>
+              ) : (
+                <Button>CHECKOUT NOW</Button>
+              )}
+            </Link>
           </Summary>
         </Bottom>
       </Wrapper>

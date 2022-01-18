@@ -1,6 +1,5 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import CourseCard from "./CourseCard/CourseCard";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ClickMore,
   ClickMoreBox,
@@ -20,10 +19,18 @@ import {
   CourseCardTitle,
   CourseCardDivFlex,
   BorderDiv,
+  SearchForm,
+  SearchBoxInput,
+  FaSearchIcon,
 } from "./CourseElements";
+import DomainCourses from "./CatCourses/DomainCourses";
+import SoftwareCourses from "./CatCourses/SoftwareCourses";
+import ItSkillsCourses from "./CatCourses/ItSkillsCourses";
 const Courses = () => {
-  const location = useLocation();
-  console.log(location);
+  const [searchItem, setSearchItem] = useState("");
+  const searchEngineAll = (event) => {
+    event.preventDefault();
+  };
   return (
     <CourseSection>
       <CourseWrapper>
@@ -36,24 +43,31 @@ const Courses = () => {
             </LeftColHeadingText>
           </LeftColHeading>
           <RightColOptions>
-            <SelectText>Category:</SelectText>
-            <LeftColOptionSelected>
-              <LeftColOption value="choose">Choose Below</LeftColOption>
-              <LeftColOption>Python</LeftColOption>
-              <LeftColOption>React Js</LeftColOption>
-              <LeftColOption>CSS</LeftColOption>
-              <LeftColOption>Web Development</LeftColOption>
-              <LeftColOption>Java</LeftColOption>
-            </LeftColOptionSelected>
             <SelectText>Choose the Course:</SelectText>
             <LeftColOptionSelected>
               <LeftColOption value="choose">Choose Below</LeftColOption>
+              <LeftColOption value="python">Python</LeftColOption>
+              <LeftColOption value="react">React Js</LeftColOption>
+              <LeftColOption>CSS</LeftColOption>
+              <LeftColOption>Web Development</LeftColOption>
+              <LeftColOption>Java</LeftColOption>
+            </LeftColOptionSelected>
+            <SearchForm onSubmit={searchEngineAll}>
+              <SearchBoxInput
+                placeholder="Search any course"
+                onChange={(event) => setSearchItem(event.target.value)}
+              ></SearchBoxInput>
+              <FaSearchIcon />
+            </SearchForm>
+            {/* <SelectText>Choose the Course:</SelectText>
+            <LeftColOptionSelected>
+              <LeftColOption value="choose">Choose Below</LeftColOption>
               <LeftColOption>Python</LeftColOption>
               <LeftColOption>React Js</LeftColOption>
               <LeftColOption>CSS</LeftColOption>
               <LeftColOption>Web Development</LeftColOption>
               <LeftColOption>Java</LeftColOption>
-            </LeftColOptionSelected>
+            </LeftColOptionSelected> */}
           </RightColOptions>
         </CourseWrapper1>
         <CourseWrapper2>
@@ -62,16 +76,18 @@ const Courses = () => {
               <CourseCardTitle>
                 Software Development <br /> Training :
               </CourseCardTitle>
-              <CourseCard /> <BorderDiv />
+              <SoftwareCourses searchItem={searchItem} /> <BorderDiv />
             </CourseCardDivFlex>
           </CourseCardFlex>
           <CourseCardFlex>
             <CourseCardTitle>It Skills : </CourseCardTitle>
-            <CourseCard /> <BorderDiv />
+            <ItSkillsCourses searchItem={searchItem} />
+            <BorderDiv />
           </CourseCardFlex>
           <CourseCardFlex>
             <CourseCardTitle>Domain Training :</CourseCardTitle>
-            <CourseCard /> <BorderDiv />
+            <DomainCourses searchItem={searchItem} />
+            <BorderDiv />
           </CourseCardFlex>
         </CourseWrapper2>
       </CourseWrapper>

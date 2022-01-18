@@ -6,7 +6,7 @@ import SingleCourseHeader from "./SingleCourseSections/SingleCourseHeader";
 import axios from "axios";
 const SingleCourse = () => {
   const location = useLocation();
-  const path = location.pathname.split("/")[2];
+  const path = location.pathname.split("/")[3];
   const [oneCourse, setOneCourse] = useState({});
   useEffect(() => {
     try {

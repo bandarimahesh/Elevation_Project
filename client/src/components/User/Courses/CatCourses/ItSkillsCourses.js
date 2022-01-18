@@ -22,30 +22,34 @@ import {
   Titles,
   TitlesDesc,
 } from "./CourseCardElements";
-const CourseCard = () => {
-  const [courses, setCourses] = useState([]);
+const ItSkillsCourses = ({ searchItem }) => {
+  const [catCourses, setCatCourses] = useState([]);
+  const course_title = "course-title";
   const trainerId = 6;
 
   useEffect(() => {
-    const getAllCourse = async () => {
+    const getCourseByCatCourse = async () => {
       try {
-        const response = await axios.get("/courses/all-courses");
-        setCourses(response);
+        const response = await axios.get(
+          searchItem
+            ? `/courses/search?name=${searchItem}`
+            : `/courses/category/it-skills`
+        );
+        setCatCourses(response);
       } catch (error) {
         console.log(error.message);
       }
     };
-    getAllCourse();
-  }, []);
-
+    getCourseByCatCourse();
+  }, [searchItem]);
   return (
     <CourseSectionDiv>
-      {courses?.data?.map((course) => (
+      {catCourses?.data?.map((course) => (
         <CourseCardDiv>
           <CourseBody>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_category}/${course.course_id}`}
+              to={`/courses/${course.course_id}`}
             >
               <CourseImgBox>
                 <CourseImg
@@ -56,10 +60,10 @@ const CourseCard = () => {
             </Link>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_id}`}
+              to={`/courses/${course_title}`}
             >
               <CourseTitleBox>
-                <CourseTitleH1>{course.course_name}</CourseTitleH1>
+                <CourseTitleH1>{course.course_title}</CourseTitleH1>
               </CourseTitleBox>
             </Link>
             <DurationBoxDiv>
@@ -72,11 +76,15 @@ const CourseCard = () => {
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Starts Date:</Titles>
-              <TitlesDesc>{course.course_start_dt}</TitlesDesc>
+              <TitlesDesc>
+                {new Date(course.course_start_dt).toLocaleDateString()}
+              </TitlesDesc>
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>End Date:</Titles>
-              <TitlesDesc>{course.course_end_dt}</TitlesDesc>
+              <TitlesDesc>
+                {new Date(course.course_end_dt).toLocaleDateString()}
+              </TitlesDesc>
             </DurationBoxDiv>
             <CourseReviewsBox>
               <CourseReviewsP>
@@ -87,7 +95,7 @@ const CourseCard = () => {
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
               </CourseReviewsP>
-              <CoursePrice>{course.course_price}</CoursePrice>
+              <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link
               style={{ textDecoration: "none", color: "black" }}
@@ -115,4 +123,4 @@ const CourseCard = () => {
   );
 };
 
-export default CourseCard;
+export default ItSkillsCourses;

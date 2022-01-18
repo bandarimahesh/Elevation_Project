@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const userSlice = createSlice({
   name: "user",
@@ -18,16 +19,25 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.currentUser = action.payload;
       state.error = null;
+      toast.success("You are successfully logging in you", {
+        position: "top-center",
+      });
     },
     loginFailure: (state) => {
       state.isFetching = false;
       state.currentUser = null;
       state.error = true;
+      toast.error("There is some error, please try again later", {
+        position: "top-center",
+      });
     },
     logOut: (state) => {
       state.isFetching = false;
       state.currentUser = null;
       state.error = null;
+      toast.warning("You are successfully logged out", {
+        position: "top-center",
+      });
     },
   },
 });

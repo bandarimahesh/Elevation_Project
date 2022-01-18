@@ -16,12 +16,13 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json("You are not authenticated");
   }
 };
+
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isSuperAdmin) {
       next();
     } else {
-      res.status(403).json("You are not allowed to do that");
+      res.json("You are not allowed to do that");
     }
   });
 };

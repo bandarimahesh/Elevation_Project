@@ -3,7 +3,7 @@ export const CourseSectionDiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
   margin: 0 auto;
-  /* display: inline-block; */
+  display: inline-block;
 `;
 
 export const CourseCardDiv = styled.div`

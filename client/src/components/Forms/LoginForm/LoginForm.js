@@ -103,6 +103,7 @@ const HomeSection = () => {
     setIsActive1(false);
     setIsActive4(false);
     const name = e.target.innerHTML;
+    console.log(name);
     setType(name.toLowerCase());
   };
   const isActiveToggle4 = (e) => {
@@ -143,11 +144,11 @@ const HomeSection = () => {
                       Trainer
                     </SlideDiv2>
                     <SlideDiv3
-                      value="job_seeker"
+                      value="jobseeker"
                       isActive3={isActive3}
                       onClick={isActiveToggle3}
                     >
-                      Job Seeker
+                      Job-Seeker
                     </SlideDiv3>
                     <SlideDiv4
                       value="hire"

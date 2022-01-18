@@ -14,7 +14,7 @@ const {
 
 // creating the new profile details to the trainee_dtls table
 router.post(
-  "/profile/create/:id",
+  "/profile/create",
   verifyTokenAndAuthorization,
   createTraineeProfile
 );

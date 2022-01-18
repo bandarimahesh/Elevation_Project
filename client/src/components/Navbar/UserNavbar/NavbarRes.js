@@ -5,6 +5,8 @@ import TraineeNavbar from "../TraineeNavbar/TraineeNavbar";
 import TrainerNavbar from "../TrainerNavbar/TrainerNavbar";
 import TraineeNavDropdown from "../TraineeNavbar/TraineeNavDropdown";
 import TrainerNavDropdown from "../TrainerNavbar/TrainerNavDropdown";
+import JobNavbar from "../JobSeeker/JobNavbar";
+import JobNavDropdown from "../JobSeeker/JobNavDropdown";
 import { useSelector } from "react-redux";
 const NavBarAndRes = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,15 +14,17 @@ const NavBarAndRes = () => {
     setIsOpen(!isOpen);
   };
   const user = useSelector((state) => state.user.currentUser);
+  console.log(user);
   return (
     <>
-      {!user && (
+      {!user ? (
         <>
           <Navbar toggleMenuItems={toggleMenuItems} />
           <Dropdown isOpen={isOpen} toggleMenuItems={toggleMenuItems} />
         </>
-      )}
-      {user?.type === "trainee" && (
+      ) : null}
+
+      {user?.type === "trainee" ? (
         <>
           <TraineeNavbar toggleMenuItems={toggleMenuItems} />
           <TraineeNavDropdown
@@ -28,7 +32,7 @@ const NavBarAndRes = () => {
             toggleMenuItems={toggleMenuItems}
           />
         </>
-      )}
+      ) : null}
       {user?.type === "trainer" && (
         <>
           <TrainerNavbar toggleMenuItems={toggleMenuItems} />
@@ -36,6 +40,12 @@ const NavBarAndRes = () => {
             isOpen={isOpen}
             toggleMenuItems={toggleMenuItems}
           />
+        </>
+      )}
+      {user?.type === "job-seeker" && (
+        <>
+          <JobNavbar toggleMenuItems={toggleMenuItems} />
+          <JobNavDropdown isOpen={isOpen} toggleMenuItems={toggleMenuItems} />
         </>
       )}
     </>

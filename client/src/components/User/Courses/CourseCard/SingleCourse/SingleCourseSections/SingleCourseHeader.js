@@ -23,14 +23,13 @@ import {
 } from "./HeaderElements";
 import { addCourse } from "../../../../../../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const SingleCourseHeader = ({ data }) => {
-  console.log(data);
   const dispatch = useDispatch();
-  const quantity = 1;
-  const addToCartHandler = () => {
-    dispatch(
-      addCourse({ data, quantity, price: data.data.course_price * quantity })
-    );
+  const navigate = useNavigate();
+  const addToCartHandler = (course) => {
+    dispatch(addCourse(course));
+    navigate("/trainee/cart");
   };
   return (
     <SingleCourseSect>
@@ -73,7 +72,7 @@ const SingleCourseHeader = ({ data }) => {
                     </HeaderRightPriced>
                   </FlexBox>
                   <FlexBox>
-                    <AddToCartBtn onClick={addToCartHandler}>
+                    <AddToCartBtn onClick={() => addToCartHandler(course)}>
                       Add To Cart
                     </AddToCartBtn>
                     <WishList>Like</WishList>

@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaBars, FaShoppingCart } from "react-icons/fa";
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 import {
   LogoContainer,
   LogoImage,
@@ -13,7 +13,6 @@ import {
   SearchBoxContainer,
   SearchItemText,
   SearchForm,
-  ProfileImg,
   SearchBoxInput,
   FaSearchIcon,
 } from "./NavbarElements";
@@ -22,7 +21,6 @@ import { useSelector } from "react-redux";
 
 const Navbar = ({ toggleMenuItems }) => {
   const user = useSelector((state) => state.user.currentUser);
-
   return (
     <Nav>
       <LogoContainer>
@@ -50,7 +48,6 @@ const Navbar = ({ toggleMenuItems }) => {
               </Link>
             </NavLink>
           </NavItem>
-
           <NavItem>
             <NavLink>
               <Link
@@ -61,7 +58,6 @@ const Navbar = ({ toggleMenuItems }) => {
               </Link>
             </NavLink>
           </NavItem>
-
           <NavItem>
             <Link
               style={{ textDecoration: "none", color: "white" }}
@@ -79,8 +75,19 @@ const Navbar = ({ toggleMenuItems }) => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link style={{ textDecoration: "none", color: "white" }} to="/blog">
-              Blog
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/job-seeker"
+            >
+              Jobs
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/recruiter"
+            >
+              Recruiter
             </Link>
           </NavItem>
         </MenuItem>
@@ -90,6 +97,15 @@ const Navbar = ({ toggleMenuItems }) => {
           <SearchBoxInput placeholder="Search....."></SearchBoxInput>
           <FaSearchIcon />
         </SearchForm>
+        {/* <CartBox>
+          <Link
+            to={`/${user?.type}/cart`}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <FaCartIcon />
+          </Link>
+        </CartBox>
+        <CartQuantity>{quantity}</CartQuantity> */}
         <Link
           style={{ textDecoration: "none", color: "white" }}
           to={`/register`}

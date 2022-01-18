@@ -11,6 +11,7 @@ const {
   forgotpassword,
   resetpassword,
   changePassword,
+  emailAccountActivation,
 } = require("../controllers/authControllers.js");
 
 // register for a user
@@ -19,12 +20,18 @@ router.post("/register", register);
 // login routes
 router.post("/login", login);
 
+// email account-activation
+
+// router.post("/account-activation", emailAccountActivation);
+
 // to change password when login is successful
 
 router.put("/change-password/:id", verifyTokenAndAuthorization, changePassword);
 
+
 // to forgot password
-router.post("/forgotpassword", forgotpassword);
+router.put("/forgotpassword", forgotpassword);
+
 
 // to reset password
 router.put("/resetpassword/:resetToken", resetpassword);

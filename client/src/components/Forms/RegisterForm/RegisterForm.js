@@ -25,10 +25,10 @@ const RegisterForm = () => {
   const [lastName, setLastName] = useState("");
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState("");
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(email, firstName, lastName, type, password);
+    // http:localhost:5000/api/auth/register
     try {
       const res = await axios.post("/auth/register", {
         email: email,
@@ -37,7 +37,10 @@ const RegisterForm = () => {
         password: password,
         type: type,
       });
-      console.log(res.data);
+      if (res) {
+        console.log(res);
+        setError(res.data);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -49,6 +52,7 @@ const RegisterForm = () => {
           <RegisterFormWrapper>
             <FormInner>
               <Form onSubmit={registerSubmitHandler}>
+                <p style={{ color: "red" }}>{error}</p>
                 <Field>
                   <Input
                     type="email"
@@ -101,7 +105,7 @@ const RegisterForm = () => {
                     <FormOption>Choose a below option</FormOption>
                     <FormOption value="trainee">Trainee</FormOption>
                     <FormOption value="trainer">Trainer</FormOption>
-                    <FormOption value="job_seeker">Job Seeker</FormOption>
+                    <FormOption value="job-seeker">Job Seeker</FormOption>
                     <FormOption value="recruiter">Recruiter</FormOption>
                   </FormSelect>
                 </Field>

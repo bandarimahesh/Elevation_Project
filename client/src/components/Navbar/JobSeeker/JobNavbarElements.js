@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
+
 export const Nav = styled.nav`
   position: sticky;
   top: 0;
@@ -35,7 +36,7 @@ export const LogoImage = styled.img`
   cursor: pointer;
 `;
 export const MenuContainer = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: none;
   }
 `;
@@ -50,6 +51,34 @@ export const NavItem = styled.li`
   cursor: pointer;
 `;
 export const NavLink = styled.a``;
+export const RightbarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 968px) {
+    display: none;
+  }
+`;
+export const RightbarContainerMenu = styled.div`
+  /* display: flex;
+  align-items: center; */
+`;
+
+export const RightbarContainerList = styled.p`
+  display: inline-block;
+  list-style-type: none;
+  margin: 0 5px;
+  font-size: 19px;
+  font-weight: 500;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  &:nth-child(4) {
+    position: relative;
+  }
+  &:nth-child(5) {
+    margin-right: 0;
+  }
+`;
 
 export const SearchBoxContainer = styled.div`
   display: flex;
@@ -60,34 +89,8 @@ export const SearchBoxContainer = styled.div`
     display: none !important;
   }
 `;
-export const SearchBox = styled.input`
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
-`;
-export const ProfileImg = styled.img`
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-`;
-
-export const SearchItemText = styled.p`
-  margin-top: 6px;
-  margin-right: 5px;
-  padding: 5px 15px;
-  font-size: 19px;
-  font-weight: 500;
-  cursor: pointer;
-`;
 export const SearchForm = styled.form`
   position: relative;
-`;
-export const CartBox = styled.div`
-  padding: 0 !important;
-  position: relative !important;
 `;
 export const SearchBoxInput = styled.input`
   padding: 6px;
@@ -95,11 +98,23 @@ export const SearchBoxInput = styled.input`
   font-size: 17px;
   border: none;
 `;
+export const FaSearchIcon = styled(FaSearch)`
+  font-size: 24px;
+  color: #111;
+  opacity: 0.8;
+  top: 12px;
+  right: 5px;
+  position: absolute;
+`;
 export const FaCartIcon = styled(FaShoppingCart)`
   font-size: 22px !important;
   color: #fff;
   /* padding: 0; */
   position: relative;
+`;
+export const CartBox = styled.div`
+  padding: 0 !important;
+  /* position: relative !important; */
 `;
 export const CartQuantity = styled.p`
   position: absolute;
@@ -113,14 +128,16 @@ export const CartQuantity = styled.p`
   border-radius: 50%;
   color: #fff;
 `;
-export const FaSearchIcon = styled(FaSearch)`
-  font-size: 24px;
-  color: #111;
-  opacity: 0.8;
-  top: 12px;
-  right: 5px;
-  position: absolute;
+export const ProfileImg = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-left: 10px;
 `;
+export const SearchBoxDiv = styled.div``;
+
 export const MenuBarContainer = styled.div`
   display: none;
   cursor: pointer;
@@ -128,7 +145,7 @@ export const MenuBarContainer = styled.div`
   align-items: center;
   margin-top: 13px;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: block;
   }
 `;

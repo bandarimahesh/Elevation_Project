@@ -1,3 +1,4 @@
+import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 export const AllCoursesSection = styled.section`
   height: auto;
@@ -57,20 +58,33 @@ export const LeftColHeading = styled.div`
 export const RightColOptions = styled.div`
   flex: 12;
 `;
-export const SearchBox = styled.input`
+export const RightColDiv = styled.div`
+  display: inline-block;
+  width: 33.3%;
+`;
+export const SearchBoxDiv = styled.div`
+  display: inline-block;
+  width: 33.3%;
+`;
+export const SearchForm = styled.form`
+  position: relative;
+  display: inline-block;
+`;
+export const SearchBoxInput = styled.input`
   padding: 6px;
   margin-top: 8px;
   font-size: 17px;
-  border: none;
+  border: outline;
+  width: 100%;
 `;
-export const SearchBoxDiv = styled.div`
-  position: relative;
-`;
-export const SearchForm = styled.form`
-  position: absolute;
+export const FaSearchIcon = styled(FaSearch)`
+  font-size: 24px;
+  color: #111;
+  opacity: 0.8;
   top: 12px;
-  right: 12px;
-  background-color: #111;
+  right: 5px;
+  position: absolute;
+  cursor: pointer;
 `;
 export const LeftColHeadingText = styled.h1`
   color: #111;
@@ -78,8 +92,8 @@ export const LeftColHeadingText = styled.h1`
   margin-bottom: 40px;
 `;
 export const LeftColOptionSelected = styled.select`
-  height: 30px;
-  width: 130px;
+  height: 37px;
+  width: 170px;
   border-radius: 5px;
   margin: 8px;
   font-size: 15px;

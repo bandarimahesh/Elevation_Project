@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const multer = require("multer");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const fileupload = require("express-fileupload");
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(helmet());
 app.use(fileupload());
 app.use(morgan("common"));
+
 const port = process.env.PORT || 5500;
 
 // routes

@@ -14,15 +14,15 @@ import {
   FormLabel,
   FormOption,
   FormSelect,
-  SingleProfileSect,
-  SingleProfileSection,
-  SingleProfileWrapper,
+  TrainerProfileSect,
+  TrainerProfileSection,
+  TrainerProfileWrapper,
   SkipButton,
   SkipBtnDiv,
-} from "./SingleProfileElements";
+} from "./TrainerProfileElements.js";
 import { useSelector } from "react-redux";
 
-const SingleProfile = () => {
+const TrainerProfile = () => {
   const [hideForm, setFormHide] = useState(false);
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
@@ -62,10 +62,10 @@ const SingleProfile = () => {
     setFormHide(true);
   };
   return (
-    <SingleProfileSect>
+    <TrainerProfileSect>
       {!hideForm && (
-        <SingleProfileSection>
-          <SingleProfileWrapper>
+        <TrainerProfileSection>
+          <TrainerProfileWrapper>
             <FormDiv>
               <Form onSubmit={profileSubmitHandler}>
                 <FormInputDiv>
@@ -159,14 +159,14 @@ const SingleProfile = () => {
                 <FormBtn>Save</FormBtn>
               </Form>
             </FormDiv>
-          </SingleProfileWrapper>
+          </TrainerProfileWrapper>
           <SkipBtnDiv>
             <SkipButton onClick={hideFormBtn}>Skip for now</SkipButton>
           </SkipBtnDiv>
-        </SingleProfileSection>
+        </TrainerProfileSection>
       )}
-    </SingleProfileSect>
+    </TrainerProfileSect>
   );
 };
 
-export default SingleProfile;
+export default TrainerProfile;

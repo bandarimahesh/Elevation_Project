@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import {
   LogoContainer,
   LogoImage,
@@ -18,25 +18,31 @@ import {
   RightbarContainerMenu,
   RightbarContainerList,
   SearchBoxInput,
+  CartBox,
   FaSearchIcon,
-} from "./TrainerNavbarElements.js";
+  FaCartIcon,
+  CartQuantity,
+} from "./JobNavbarElements.js";
 import logo from "../../../images/logo-rm.png";
 import { logOut } from "../../../redux/userRedux.js";
 
-const TrainerNavbar = ({ toggleMenuItems }) => {
-  const user = useSelector((state) => state.user.currentUser);
+const JobNavbar = ({ toggleMenuItems }) => {
   let navigate = useNavigate();
+  const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
   const onLogoutHandler = () => {
     dispatch(logOut());
     navigate("/");
   };
+  const user = useSelector((state) => state.user.currentUser);
+  const type = useSelector((state) => state.user.currentUser.type);
+
   return (
     <Nav>
       <LogoContainer>
         <Link
           style={{ textDecoration: "none", color: "white" }}
-          to={`/${user?.type}`}
+          to={`/${type}`}
         >
           <LogoImage src={logo} alt="brand " />
         </Link>
@@ -57,17 +63,17 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
           <NavItem>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to="/my-students"
+              to="/courses"
             >
-              My Students
+              Courses
             </Link>
           </NavItem>
           <NavItem>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to="/add-new-course"
+              to="/trainers"
             >
-              Add New Course
+              Trainers
             </Link>
           </NavItem>
         </MenuItem>
@@ -87,31 +93,38 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
               style={{ textDecoration: "none", color: "white" }}
               to={`/my-learning`}
             >
-              My Courses
+              My Learning
             </Link>
           </RightbarContainerList>
           <RightbarContainerList>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to={`/trainer/profile/${user.id}`}
+              to={`/${user?.type}/profile/update/${user?.id}`}
             >
               Profile
             </Link>
           </RightbarContainerList>
           <RightbarContainerList>
-            <Link
-              to={`/cart`}
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-            </Link>
+            <CartBox>
+              <Link
+                to={`/${user?.type}/cart`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <FaCartIcon />
+              </Link>
+            </CartBox>
+            <CartQuantity>{quantity}</CartQuantity>
           </RightbarContainerList>
           <RightbarContainerList onClick={onLogoutHandler}>
-            <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/login`}
+            >
               Logout
             </Link>
           </RightbarContainerList>
         </RightbarContainerMenu>
+        <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
       </RightbarContainer>
 
       <MenuBarContainer onClick={toggleMenuItems}>
@@ -120,4 +133,4 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
     </Nav>
   );
 };
-export default TrainerNavbar;
+export default JobNavbar;
