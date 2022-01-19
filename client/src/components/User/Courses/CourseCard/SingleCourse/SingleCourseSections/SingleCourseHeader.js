@@ -38,11 +38,8 @@ const SingleCourseHeader = ({ data }) => {
           {data?.data?.map((course) => (
             <SingleCourseFlex key={course.course_id}>
               <HeaderRightCol>
-                <SingleCourseTitle>{course.course_name}</SingleCourseTitle>
-                <CourseDescription>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Totam ratione facilis dolor ex expedita quae!
-                </CourseDescription>
+                <SingleCourseTitle>{course.course_title}</SingleCourseTitle>
+                <CourseDescription>{course.course_desc} </CourseDescription>
                 <FlexBox>
                   <Label>Rating :</Label>
                   <RatingsCourse> {course.course_rating} stars</RatingsCourse>
@@ -64,7 +61,7 @@ const SingleCourseHeader = ({ data }) => {
               </HeaderRightCol>
               <HeaderLeftCol>
                 <HeaderLeftBox>
-                  <HeaderRightImg src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                  <HeaderRightImg src="https://t3.ftcdn.net/jpg/02/84/02/36/360_F_284023634_KjMhFyIQvm6Skawcp0izYTsJKvhCPLoZ.jpg" />
                   <FlexBox>
                     <Label>Price:</Label>
                     <HeaderRightPriced>

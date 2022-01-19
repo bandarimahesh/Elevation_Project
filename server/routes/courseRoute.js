@@ -3,7 +3,7 @@ const {
   getCourseController,
   allCourseControllers,
   getCourseByCategoryDomain,
-  getCourseByCategorySoftware,
+  getCourseByCategoryRpa,
   getCourseByCategoryItSkills,
   getCourseBySearch,
   upload,
@@ -21,6 +21,6 @@ router.get("/all-courses", allCourseControllers);
 router.get("/search", getCourseBySearch);
 router.get("/category/domain", getCourseByCategoryDomain);
 router.get("/category/it-skills", getCourseByCategoryItSkills);
-router.get("/category/software", getCourseByCategorySoftware);
+router.get("/category/rpa", getCourseByCategoryRpa);
 
 module.exports = router;

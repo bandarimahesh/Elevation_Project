@@ -14,6 +14,7 @@ import {
   FormSelect,
   FormInputFile,
 } from "./FormProfileElements";
+import { toast } from "react-toastify";
 
 const Form1 = () => {
   const [mobile, setMobile] = useState("");
@@ -29,8 +30,8 @@ const Form1 = () => {
   const profileAccountHandler = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post(
-        `/trainee/profile/create/${user?.id}`,
+      const res = await axios.put(
+        `/trainee/profile/update/${user?.id}`,
         {
           mobile: mobile,
           dob: dob,
@@ -42,6 +43,11 @@ const Form1 = () => {
         },
         { headers: { authorization: "Bearer " + token } }
       );
+      if (res.data) {
+        toast.success("Successfully update your personal details", {
+          position: "top-center",
+        });
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -51,20 +57,26 @@ const Form1 = () => {
       <FormDiv>
         <Form onSubmit={profileAccountHandler}>
           <FormInput
+            required
             type="number"
             placeholder="Enter your Mobile Name"
+            minLength="10"
             onChange={(e) => setMobile(e.target.value)}
           />
           <FormFlex>
             <FormLabel htmlFor="">Enter your Dob :</FormLabel>
             <FormInputDate
+              required
               type="date"
               onChange={(e) => setDob(e.target.value)}
             />
           </FormFlex>
           <FormFlex>
             <FormLabel>Education:</FormLabel>
-            <FormSelect onChange={(event) => setGraduate(event.target.value)}>
+            <FormSelect
+              required
+              onChange={(event) => setGraduate(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="1">Pursing</FormOption>
               <FormOption value="2">Graduate</FormOption>
@@ -74,7 +86,10 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel> Profession:</FormLabel>
-            <FormSelect onChange={(event) => setProfession(event.target.value)}>
+            <FormSelect
+              required
+              onChange={(event) => setProfession(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="graduation">
                 Completed the graduation
@@ -86,7 +101,10 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel>Experience:</FormLabel>
-            <FormSelect onChange={(event) => setExperience(event.target.value)}>
+            <FormSelect
+              required
+              onChange={(event) => setExperience(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="0">0</FormOption>
               <FormOption value="1">1</FormOption>
@@ -96,7 +114,7 @@ const Form1 = () => {
               <FormOption value="5">5</FormOption>
             </FormSelect>
           </FormFlex>
-          <FormAddress onChange={(e) => setAddress(e.target.value)}>
+          <FormAddress required onChange={(e) => setAddress(e.target.value)}>
             Enter your address
           </FormAddress>
           <FormFlex>
@@ -106,8 +124,7 @@ const Form1 = () => {
               onChange={(e) => setProfilePicture(e.target.files)}
             />
           </FormFlex>
-
-          <FormBtn>Save</FormBtn>
+          <FormBtn>Update Profile</FormBtn>
         </Form>
       </FormDiv>
     </>

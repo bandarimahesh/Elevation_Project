@@ -149,8 +149,8 @@ exports.getCourseByCategoryItSkills = (req, res, next) => {
     );
   } catch (error) {}
 };
-exports.getCourseByCategorySoftware = (req, res, next) => {
-  const category = "software";
+exports.getCourseByCategoryRpa = (req, res, next) => {
+  const category = "rpa";
   try {
     connection.query(
       "SELECT * FROM courses_dtls WHERE course_category = ? LIMIT 2",

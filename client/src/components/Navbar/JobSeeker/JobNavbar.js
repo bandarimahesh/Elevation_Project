@@ -91,29 +91,10 @@ const JobNavbar = ({ toggleMenuItems }) => {
           <RightbarContainerList>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to={`/my-learning`}
-            >
-              My Learning
-            </Link>
-          </RightbarContainerList>
-          <RightbarContainerList>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
               to={`/${user?.type}/profile/update/${user?.id}`}
             >
               Profile
             </Link>
-          </RightbarContainerList>
-          <RightbarContainerList>
-            <CartBox>
-              <Link
-                to={`/${user?.type}/cart`}
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                <FaCartIcon />
-              </Link>
-            </CartBox>
-            <CartQuantity>{quantity}</CartQuantity>
           </RightbarContainerList>
           <RightbarContainerList onClick={onLogoutHandler}>
             <Link

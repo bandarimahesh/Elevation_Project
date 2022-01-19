@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Context } from "../../../context/Context";
 import {
   Form,
   FormAddress,
@@ -33,14 +32,13 @@ const SingleProfile = () => {
   const [profession, setProfession] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
+  const email = user?.email;
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(image);
     try {
       const res = await axios.post(
-        `/trainee/profile/create`,
+        `/trainee/profile/create/${user?.id}`,
         {
-          id: user.id,
           mobile: mobile,
           dob: dob,
           address: address,
@@ -51,7 +49,9 @@ const SingleProfile = () => {
         },
         { headers: { authorization: "Bearer " + token } }
       );
-      console.log(res.data);
+      if (res.data) {
+        setFormHide(true);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -61,6 +61,18 @@ const SingleProfile = () => {
     alert("Please dont skip this step.");
     setFormHide(true);
   };
+
+  useEffect(() => {
+    const checkTraineeDetails = async () => {
+      const res = await axios.get(`/trainee/profile/check`, {
+        email: email,
+      });
+      if (res.data) {
+        setFormHide(true);
+      }
+    };
+    checkTraineeDetails();
+  }, [email]);
   return (
     <SingleProfileSect>
       {!hideForm && (
@@ -72,7 +84,6 @@ const SingleProfile = () => {
                   <FormFlex>
                     <FormLabel htmlFor="">Mobile :</FormLabel>
                     <FormInput
-                      required
                       type="number"
                       placeholder="Must be 10 digits"
                       onChange={(e) => setMobile(e.target.value)}
@@ -83,7 +94,6 @@ const SingleProfile = () => {
                   <FormFlex>
                     <FormLabel htmlFor="">DoB:</FormLabel>
                     <FormInputDate
-                      required
                       type="date"
                       onChange={(e) => setDob(e.target.value)}
                     />
@@ -93,7 +103,6 @@ const SingleProfile = () => {
                 <FormFlex>
                   <FormLabel>Education:</FormLabel>
                   <FormSelect
-                    required
                     onChange={(event) => setGraduate(event.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
@@ -106,7 +115,6 @@ const SingleProfile = () => {
                 <FormFlex>
                   <FormLabel> Profession:</FormLabel>
                   <FormSelect
-                    required
                     onChange={(event) => setProfession(event.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
@@ -125,7 +133,6 @@ const SingleProfile = () => {
                 <FormFlex>
                   <FormLabel>Experience:</FormLabel>
                   <FormSelect
-                    required
                     onChange={(event) => setExperience(event.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
@@ -141,7 +148,6 @@ const SingleProfile = () => {
                   <FormFlex>
                     <FormLabel>Address</FormLabel>
                     <FormAddress
-                      required
                       onChange={(e) => setAddress(e.target.value)}
                     ></FormAddress>
                   </FormFlex>

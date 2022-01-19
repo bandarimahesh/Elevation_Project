@@ -14,7 +14,6 @@ const Form4 = () => {
             courses that you purchased.
           </h1>
           <FormAddress>Enter your feedback</FormAddress>
-
           <FormBtn>Delete Account</FormBtn>
         </Form>
       </FormDiv>

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const JobHomeSect = styled.section`
   width: 100%;
   height: 100vh;
@@ -16,12 +15,15 @@ export const JobHomeFlex = styled.div`
   align-items: center;
 `;
 export const JobHomeDiv = styled.div`
-  margin: 40px auto;
+  margin: 0px auto;
+  padding-top: 60px;
   width: 100%;
   text-align: center;
 `;
 export const JobHomeTitles = styled.h1`
   /* text-align: center; */
+  font-size: 33px;
+  font-weight: 500;
 `;
 export const JobHomeSearchForm = styled.form``;
 export const JobHomeSearchInput = styled.input`
@@ -30,7 +32,7 @@ export const JobHomeSearchInput = styled.input`
   padding: 20px;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  
+
   &::placeholder {
     font-size: 16px;
   }

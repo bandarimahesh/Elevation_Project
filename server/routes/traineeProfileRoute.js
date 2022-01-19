@@ -1,10 +1,13 @@
 const router = require("express").Router();
+
 const {
   createTraineeProfile,
   updateTraineeProfile,
   getOnlyUserDetails,
   checkTraineeDetails,
+  updateAccountDetails,
 } = require("../controllers/traineeProfileController");
+
 const connection = require("../dbConnection");
 
 const {
@@ -14,18 +17,27 @@ const {
 
 // creating the new profile details to the trainee_dtls table
 router.post(
-  "/profile/create",
+  "/profile/create/:id",
   verifyTokenAndAuthorization,
   createTraineeProfile
 );
 
-//updating the trainee details  in the database
+// get details of the trainee
+router.get("/profile/check", verifyTokenAndAuthorization, checkTraineeDetails);
+
+//updating the personal trainee details  in the database
 router.put(
   "/profile/update/:id",
   verifyTokenAndAuthorization,
   updateTraineeProfile
 );
+//updating the account details
 
+router.patch(
+  "profile/account/:id",
+  verifyTokenAndAuthorization,
+  updateAccountDetails
+);
 // upload an image to the server
 
 // deleting the user account
@@ -34,9 +46,7 @@ router.delete(
   verifyTokenAndAuthorization,
   async (req, res) => {
     const id = req.params.id;
-
     const sqlDelete = "DELETE FROM users WHERE id= ?";
-
     connection.query(sqlDelete, [id], (err, result) => {
       if (result) {
         res.send("Successfully deleted the user from the database");
@@ -49,6 +59,6 @@ router.delete(
 
 router.get("/getDetails", checkTraineeDetails);
 //get the user details
-router.get("/details/:id", verifyTokenAndAuthorization, getOnlyUserDetails);
+router.get("/details/:id", verifyToken, getOnlyUserDetails);
 
 module.exports = router;

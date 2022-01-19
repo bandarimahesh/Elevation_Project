@@ -24,7 +24,7 @@ const cartSlice = createSlice({
         const tempCourses = { ...action.payload, courseQuantity: 1 };
         state.courses.push(tempCourses);
         state.quantity += 1;
-        state.total +=
+        state.total =
           action.payload.course_price * action.payload.courseQuantity;
         toast.success("Course added successfully to the cart", {
           position: "top-center",
@@ -32,7 +32,6 @@ const cartSlice = createSlice({
         // state.total += tempCourses.price;
       }
     },
-
     removeCourse: (state, action) => {
       const newCourses = state.courses.filter(
         (course) => course.course_id !== action.payload.course_id

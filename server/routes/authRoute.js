@@ -26,12 +26,10 @@ router.post("/login", login);
 
 // to change password when login is successful
 
-router.put("/change-password/:id", verifyTokenAndAuthorization, changePassword);
-
+router.put("/change-password/:id", verifyToken, changePassword);
 
 // to forgot password
 router.put("/forgotpassword", forgotpassword);
-
 
 // to reset password
 router.put("/resetpassword/:resetToken", resetpassword);

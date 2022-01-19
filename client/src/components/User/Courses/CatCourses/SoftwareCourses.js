@@ -32,7 +32,7 @@ const SoftwareCourses = ({ searchItem }) => {
         const response = await axios.get(
           searchItem
             ? `/courses/search?name=${searchItem}`
-            : `/courses/category/software`
+            : `/courses/category/rpa`
         );
         setCatCourses(response);
       } catch (error) {
@@ -72,7 +72,7 @@ const SoftwareCourses = ({ searchItem }) => {
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Duration:</Titles>
-              <TitlesDesc> {course.course_duration}</TitlesDesc>
+              <TitlesDesc> {course.course_duration} Months</TitlesDesc>
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Starts Date:</Titles>

@@ -72,7 +72,7 @@ const ItSkillsCourses = ({ searchItem }) => {
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Duration:</Titles>
-              <TitlesDesc> {course.course_duration}</TitlesDesc>
+              <TitlesDesc> {course.course_duration} Months</TitlesDesc>
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Starts Date:</Titles>

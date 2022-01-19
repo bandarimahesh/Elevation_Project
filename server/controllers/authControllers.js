@@ -178,7 +178,7 @@ exports.login = async (req, res, next) => {
                   type: result[0].user_type,
                   isSuperAdmin: result[0].user_superAdmin,
                 },
-                process.env.JWT_SECRET_KEY,
+                process.env.JWT_LOGIN_SECRET_KEY,
                 { expiresIn: "10m" }
               );
               res.send({
@@ -210,11 +210,11 @@ exports.changePassword = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(oldPassword, saltRounds);
   try {
     connection.query(
-      "SELECT * FROM users_dtls WHERE user_id =?",
+      "SELECT * FROM user_dtls WHERE user_dtls_id =?",
       [id],
-      (err, users) => {
-        if (users.length > 0) {
-          res.send("User found");
+      (err, user) => {
+        if (user) {
+          res.send(user);
         }
       }
     );

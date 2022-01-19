@@ -73,9 +73,7 @@ const Courses = () => {
         <CourseWrapper2>
           <CourseCardFlex>
             <CourseCardDivFlex>
-              <CourseCardTitle>
-                Software Development <br /> Training :
-              </CourseCardTitle>
+              <CourseCardTitle>RPA Training :</CourseCardTitle>
               <SoftwareCourses searchItem={searchItem} /> <BorderDiv />
             </CourseCardDivFlex>
           </CourseCardFlex>

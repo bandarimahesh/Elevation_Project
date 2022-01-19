@@ -54,6 +54,7 @@ const Trainee = () => {
     setPersonalForm(false);
     setChangePasswordForm(false);
   };
+  
   useEffect(() => {
     const getUserData = async () => {
       try {

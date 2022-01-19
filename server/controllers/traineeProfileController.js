@@ -1,40 +1,55 @@
 const connection = require("../dbConnection.js");
 
+// inserting the data to the trainee details
 exports.createTraineeProfile = async (req, res, next) => {
-  const id = req.body.id;
+  const id = req.params.id;
   const mobile = req.body.mobile;
   const dob = req.body.dob;
   const graduate = req.body.graduate;
   const profession = req.body.profession;
   const experience = req.body.experience;
   const address = req.body.address;
-
+  console.log(dob);
   connection.query(
     "SELECT * FROM user_dtls WHERE user_dtls_id = ?",
     [id],
     (err, result) => {
-      if (!result) {
-        res.send(err.message);
-      }
-      if (result) {
-        // const email = result[0].user_email;
-        res.send("the user found ");
-        // connection.query(
-        //   "INSERT INTO trainee_dtls (user_dtls_id, trainee_email,trainee_mobile,trainee_dob, trainee_address, trainee_experience, trainee_graduate,trainee_profession) VALUES (?, ?, ?, ?, ?, ?,?,?)",
-        //   [id, email, mobile, dob, address, experience, graduate, profession],
-        //   (err, data) => {
-        //     if (err) {
-        //       res.send(err.message);
-        //     } else {
-        //       res.send(data);
-        //     }
-        //   }
-        // );
+      if (err) {
+        return res.send(err.message);
+      } else {
+        const email = result[0].user_email;
+        connection.query(
+          "INSERT INTO trainee_dtls (trainee_email, trainee_mobile, trainee_dob,trainee_address, trainee_experience,trainee_graduate, trainee_profession) VALUES (?,?,?,?,?,?,?)",
+          [email, mobile, dob, address, experience, graduate, profession],
+          (err, response) => {
+            if (!err) {
+              return res.send(response);
+            } else {
+              return res.send(err.message);
+            }
+          }
+        );
       }
     }
   );
 };
 
+// showing the form the profile form working
+exports.checkTraineeDetails = (req, res) => {
+  const email = req.body.email;
+  connection.query(
+    "SELECT * FROM trainee_dtls WHERE email = ?",
+    [email],
+    (err, result) => {
+      if (!err) {
+        return res.send(result);
+      } else {
+        return res.send(err.message);
+      }
+    }
+  );
+};
+// working
 exports.updateTraineeProfile = async (req, res, next) => {
   const id = req.params.id;
   const mobile = req.body.mobile;
@@ -43,27 +58,33 @@ exports.updateTraineeProfile = async (req, res, next) => {
   const profession = req.body.profession;
   const experience = req.body.experience;
   const address = req.body.address;
-  const file = req.files.file;
-
-  let uploadPath;
-  uploadPath = __dirname + "/images/" + file.name;
 
   connection.query(
-    "SELECT * FROM users_dtls WHERE user_dtls_id=? ",
+    "SELECT * FROM user_dtls WHERE user_dtls_id=? ",
     [id],
     (err, result) => {
-      if (result.length > 0) {
+      if (result) {
         const email = result[0].user_email;
-        const sqlUpdate =
-          "UPDATE trainee_dtls SET trainee_mobile=?,trainee_dob=?, trainee_address=?, trainee_experience=?, trainee_graduate=?,trainee_profession=?";
         connection.query(
-          sqlUpdate,
-          [mobile, dob, address, experience, graduate, profession],
-          (err, result) => {
-            if (result) {
-              res.send("Successfully updated the username and password");
+          "SELECT * FROM trainee_dtls WHERE trainee_email=? ",
+          [email],
+          (err, user) => {
+            if (!err) {
+              const sqlUpdate =
+                "UPDATE trainee_dtls SET trainee_mobile=?,trainee_dob=?, trainee_address=?, trainee_experience=?, trainee_graduate=?,trainee_profession=?";
+              connection.query(
+                sqlUpdate,
+                [mobile, dob, address, experience, graduate, profession],
+                (err, result) => {
+                  if (result) {
+                    res.send("Successfully updated the username and password");
+                  } else {
+                    res.send(err.message);
+                  }
+                }
+              );
             } else {
-              res.send(err.message);
+              return res.send(err.message);
             }
           }
         );
@@ -74,38 +95,29 @@ exports.updateTraineeProfile = async (req, res, next) => {
   );
 };
 
-exports.checkTraineeDetails = async (req, res, next) => {
-  const username = req.body.username;
-  const id = req.body.id;
+exports.updateAccountDetails = (req, res) => {
+  const id = req.params.id;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   try {
-    connection.query(
-      "SELECT * FROM user_dtls WHERE user_dtls_id=? AND user_email=?",
-      [id, username],
-      (err, result) => {
-        if (!result) {
-          console.log(err.message);
-          res.send(err.message);
-        }
-        if (result.length > 0) {
-          res.send({
-            id: result[0].user_dtls_id,
-            email: result[0].user_email,
-          });
-        } else {
-          res.send("User not found");
-        }
+    const sqlUpdate =  "UPDATE user_dtls SET user_firstname=?, user_lastname=? WHERE user_dtls_id =?"
+    connection.query(sqlUpdate, [firstName, lastName, id], (err, result) => {
+      if (!err) {
+        return res.send("Successfully update the account details");
+      } else {
+        return res.send(err.message);
       }
-    );
+    });
   } catch (error) {
-    console.log(error.message);
+    res.send(error.message);
   }
 };
+
 exports.getOnlyUserDetails = async (req, res, next) => {
   const id = req.params.id;
   const sqlSelect = "SELECT * FROM trainee_dtls WHERE user_dtls_id =?";
-
   connection.query(sqlSelect, [id], (err, result) => {
-    if (result.length > 0) {
+    if (result) {
       res.send(result);
     } else {
       res.send("No result found. Please update the details of the user");
