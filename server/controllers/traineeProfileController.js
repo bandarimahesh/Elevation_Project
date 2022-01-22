@@ -9,7 +9,7 @@ exports.createTraineeProfile = async (req, res, next) => {
   const profession = req.body.profession;
   const experience = req.body.experience;
   const address = req.body.address;
-  console.log(dob);
+
   connection.query(
     "SELECT * FROM user_dtls WHERE user_dtls_id = ?",
     [id],
@@ -49,6 +49,7 @@ exports.checkTraineeDetails = (req, res) => {
     }
   );
 };
+
 // working
 exports.updateTraineeProfile = async (req, res, next) => {
   const id = req.params.id;
@@ -69,7 +70,7 @@ exports.updateTraineeProfile = async (req, res, next) => {
           "SELECT * FROM trainee_dtls WHERE trainee_email=? ",
           [email],
           (err, user) => {
-            if (!err) {
+            if (user) {
               const sqlUpdate =
                 "UPDATE trainee_dtls SET trainee_mobile=?,trainee_dob=?, trainee_address=?, trainee_experience=?, trainee_graduate=?,trainee_profession=?";
               connection.query(
@@ -77,9 +78,14 @@ exports.updateTraineeProfile = async (req, res, next) => {
                 [mobile, dob, address, experience, graduate, profession],
                 (err, result) => {
                   if (result) {
-                    res.send("Successfully updated the username and password");
+                    res.send({
+                      success: "Successfully updated the personal details",
+                    });
                   } else {
-                    res.send(err.message);
+                    res.send({
+                      error:
+                        "There was an error updating the personal details,Please fill all details before updating",
+                    });
                   }
                 }
               );
@@ -95,12 +101,13 @@ exports.updateTraineeProfile = async (req, res, next) => {
   );
 };
 
-exports.updateAccountDetails = (req, res) => {
+exports.updateTraineeAccountDetails = (req, res) => {
   const id = req.params.id;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   try {
-    const sqlUpdate =  "UPDATE user_dtls SET user_firstname=?, user_lastname=? WHERE user_dtls_id =?"
+    const sqlUpdate =
+      "UPDATE user_dtls SET user_firstname=?, user_lastname=? WHERE user_dtls_id =?";
     connection.query(sqlUpdate, [firstName, lastName, id], (err, result) => {
       if (!err) {
         return res.send("Successfully update the account details");
@@ -115,12 +122,14 @@ exports.updateAccountDetails = (req, res) => {
 
 exports.getOnlyUserDetails = async (req, res, next) => {
   const id = req.params.id;
-  const sqlSelect = "SELECT * FROM trainee_dtls WHERE user_dtls_id =?";
+  const sqlSelect = "SELECT * FROM user_dtls WHERE user_dtls_id =?";
   connection.query(sqlSelect, [id], (err, result) => {
     if (result) {
-      res.send(result);
+      res.send({ success: result });
     } else {
-      res.send("No result found. Please update the details of the user");
+      res.send({
+        error: "Please update the details of the user",
+      });
     }
   });
 };

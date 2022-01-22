@@ -14,15 +14,14 @@ const NavBarAndRes = () => {
     setIsOpen(!isOpen);
   };
   const user = useSelector((state) => state.user.currentUser);
-  console.log(user);
   return (
     <>
-      {!user ? (
+      {/* {!user && (
         <>
           <Navbar toggleMenuItems={toggleMenuItems} />
           <Dropdown isOpen={isOpen} toggleMenuItems={toggleMenuItems} />
         </>
-      ) : null}
+      )} */}
 
       {user?.type === "trainee" ? (
         <>
@@ -32,7 +31,12 @@ const NavBarAndRes = () => {
             toggleMenuItems={toggleMenuItems}
           />
         </>
-      ) : null}
+      ) : (
+        <>
+          <Navbar toggleMenuItems={toggleMenuItems} />
+          <Dropdown isOpen={isOpen} toggleMenuItems={toggleMenuItems} />
+        </>
+      )}
       {user?.type === "trainer" && (
         <>
           <TrainerNavbar toggleMenuItems={toggleMenuItems} />

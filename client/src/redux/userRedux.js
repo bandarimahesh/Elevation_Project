@@ -23,10 +23,10 @@ const userSlice = createSlice({
         position: "top-center",
       });
     },
-    loginFailure: (state) => {
+    loginFailure: (state, action) => {
       state.isFetching = false;
       state.currentUser = null;
-      state.error = true;
+      state.error = action.payload;
       toast.error("There is some error, please try again later", {
         position: "top-center",
       });

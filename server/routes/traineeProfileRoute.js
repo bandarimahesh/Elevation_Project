@@ -5,7 +5,7 @@ const {
   updateTraineeProfile,
   getOnlyUserDetails,
   checkTraineeDetails,
-  updateAccountDetails,
+  updateTraineeAccountDetails,
 } = require("../controllers/traineeProfileController");
 
 const connection = require("../dbConnection");
@@ -15,7 +15,7 @@ const {
   verifyTokenAndAuthorization,
 } = require("../middleware/verifyToken");
 
-// creating the new profile details to the trainee_dtls table
+// creating the new trainee profile details to the trainee_dtls table
 router.post(
   "/profile/create/:id",
   verifyTokenAndAuthorization,
@@ -26,18 +26,10 @@ router.post(
 router.get("/profile/check", verifyTokenAndAuthorization, checkTraineeDetails);
 
 //updating the personal trainee details  in the database
-router.put(
-  "/profile/update/:id",
-  verifyTokenAndAuthorization,
-  updateTraineeProfile
-);
+router.put("/profile/update/:id", verifyToken, updateTraineeProfile);
 //updating the account details
 
-router.patch(
-  "profile/account/:id",
-  verifyTokenAndAuthorization,
-  updateAccountDetails
-);
+router.patch("profile/account/:id", verifyToken, updateTraineeAccountDetails);
 // upload an image to the server
 
 // deleting the user account
@@ -57,8 +49,9 @@ router.delete(
   }
 );
 
-router.get("/getDetails", checkTraineeDetails);
-//get the user details
+router.get("/getDetails", verifyToken, checkTraineeDetails);
+
+//get the trainee and user details
 router.get("/details/:id", verifyToken, getOnlyUserDetails);
 
 module.exports = router;

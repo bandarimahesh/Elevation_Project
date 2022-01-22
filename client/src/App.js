@@ -25,10 +25,10 @@ import AddNewCoursePage from "./pages/TrainerPages/AddNewCoursePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import JobSeekerHomePage from "./pages/JobSeekerHomePage";
-import NotFound from "./pages/Not-found";
+// import NotFound from "./pages/Not-found";
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
-  console.log(user?.type);
+  
   return (
     <React.Fragment>
       <ToastContainer />
@@ -36,7 +36,7 @@ const App = () => {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/job-seeker" element={<JobSeekerHomePage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Login />} />
 
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />

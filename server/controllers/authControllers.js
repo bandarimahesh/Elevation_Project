@@ -98,16 +98,21 @@ exports.register = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
   var mysqlTimestamp = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-
+  if (!email && !password && firstName && !lastName && !type) {
+    res.json({
+      required: "ALl details must be required",
+    });
+  }
   try {
     connection.query(
       "SELECT * FROM user_dtls WHERE user_email=?",
       [email],
       (err, user) => {
         if (user.length > 0) {
-          return res.send(
-            "This email address is already in use, Please use another email address"
-          );
+          res.json({
+            exists:
+              "This email address is already in use, Please use another email address",
+          });
           // stop executions when user has same mail
         } else {
           connection.query(
@@ -127,14 +132,16 @@ exports.register = async (req, res, next) => {
             (err, result) => {
               if (err) {
                 console.log(err.message);
-                res.send(
-                  "There was an error creating the user please try again later"
-                );
+                res.json({
+                  error:
+                    "There was an error while creating the account please try again later",
+                });
               } else {
                 console.log(result);
-                res.send(
-                  "Successfully created the new account Please check your email and activate your account"
-                );
+                res.json({
+                  success:
+                    "Successfully created the account, Please check your email and activate",
+                });
               }
             }
           );
@@ -181,20 +188,27 @@ exports.login = async (req, res, next) => {
                 process.env.JWT_LOGIN_SECRET_KEY,
                 { expiresIn: "10m" }
               );
-              res.send({
-                id: result[0].user_dtls_id,
-                email: result[0].user_email,
-                username: result[0].user_firstname,
-                lastname: result[0].user_lastname,
-                type: result[0].user_type,
-                accessToken: accessToken,
+              res.json({
+                success: {
+                  id: result[0].user_dtls_id,
+                  email: result[0].user_email,
+                  username: result[0].user_firstname,
+                  lastname: result[0].user_lastname,
+                  type: result[0].user_type,
+                  accessToken: accessToken,
+                },
               });
             } else {
-              res.status(404).send("wrong password");
+              res.json({
+                wrong: "Sorry you entered incorrect password",
+              });
             }
           });
         } else {
-          res.send("User not found");
+          res.json({
+            notFound:
+              "There is no account with that email address, Please sign Up!",
+          });
         }
       }
     );
@@ -204,17 +218,29 @@ exports.login = async (req, res, next) => {
 };
 exports.changePassword = async (req, res, next) => {
   const id = req.params.id;
-  const oldPassword = req.body.oldPassword;
-  const newPassword = req.body.newPassword;
+  const password = req.body.password;
+  if (!password) {
+    res.send({ required: "The password must be required" });
+  }
   const saltRounds = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(oldPassword, saltRounds);
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
   try {
     connection.query(
       "SELECT * FROM user_dtls WHERE user_dtls_id =?",
       [id],
       (err, user) => {
         if (user) {
-          res.send(user);
+          connection.query(
+            "UPDATE user_dtls SET user_pwd=? WHERE user_dtls_id=?",
+            [hashedPassword, id],
+            (err, response) => {
+              if (response) {
+                res.send({ success: "Successfully updated the password" });
+              } else {
+                res.send(error.message);
+              }
+            }
+          );
         }
       }
     );

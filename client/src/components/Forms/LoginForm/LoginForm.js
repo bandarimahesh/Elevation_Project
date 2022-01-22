@@ -45,6 +45,8 @@ const HomeSection = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("trainee");
+  const [error, setError] = useState("");
+  const [wrongPwd, setWrongPwd] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,29 +54,42 @@ const HomeSection = () => {
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
     dispatch(loginStart());
-    try {
-      const res = await axios.post(
-        "/auth/login",
-        {
-          username: email,
-          password: password,
-          type: type,
-        },
-        (err, data) => {
-          if (err) {
-            console.log(err.message);
-          }
+    const res = await axios.post(
+      "/auth/login",
+      {
+        username: email,
+        password: password,
+        type: type,
+      },
+      (err, data) => {
+        if (err) {
+          console.log(err.message);
         }
-      );
-      dispatch(loginSuccess(res.data));
-      const userType = res.data.type;
+      }
+    );
+    if (res.data.success) {
+      dispatch(loginSuccess(res.data.success));
+      const userType = res.data.success.type;
       navigate(`/${userType}`);
-    } catch (error) {
-      dispatch(loginFailure());
-      console.log(error.message);
+    }
+
+    if (res.data.notFound) {
+      dispatch(loginFailure(res.data.notFound));
+      setError(res.data.notFound);
+      setWrongPwd("");
+      // navigate(`/login`);
+    }
+    if (res.data.wrong) {
+      dispatch(loginFailure(res.data.wrong));
+      setWrongPwd(res.data.wrong);
+      setError("");
+      // navigate(`/login`);
     }
   };
-
+  setTimeout(() => {
+    setError("");
+    setWrongPwd("");
+  }, 5000);
   const [isActive1, setIsActive1] = useState(true);
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);
@@ -127,6 +142,8 @@ const HomeSection = () => {
               </WrapperRight>
               <WrapperCenter>
                 <TitleText></TitleText>
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                {wrongPwd && <p style={{ color: "red" }}>{wrongPwd}</p>}
                 <FormContainer>
                   <SlideControls>
                     <SlideDiv1

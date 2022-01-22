@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Form1 from "../Forms/ProfileForm/Form1.js";
 import Form2 from "../Forms/ProfileForm/Form2.js";
@@ -25,11 +24,9 @@ const Trainee = () => {
   const [accountForm, setAccountForm] = useState(false);
   const [changePasswordForm, setChangePasswordForm] = useState(false);
   const [deleteAccountForm, setDeleteAccountForm] = useState(false);
-  const [resUser, setResUser] = useState();
 
   const user = useSelector((state) => state.user.currentUser);
 
-  const token = user?.accessToken;
   const showPersonalForm = () => {
     setPersonalForm(!personalForm);
     setAccountForm(false);
@@ -40,7 +37,7 @@ const Trainee = () => {
     setAccountForm(!accountForm);
     setPersonalForm(false);
     setDeleteAccountForm(false);
-    setPersonalForm(false);
+    setChangePasswordForm(false);
   };
   const showPasswordForm = () => {
     setChangePasswordForm(!changePasswordForm);
@@ -54,21 +51,21 @@ const Trainee = () => {
     setPersonalForm(false);
     setChangePasswordForm(false);
   };
-  
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const res = await axios.get(`/trainee/details/${user?.id}`, {
-          headers: { authorization: "Bearer " + token },
-        });
-        setResUser(res.data);
-        console.log(res.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getUserData();
-  }, [token, user.id]);
+
+  // useEffect(() => {
+  //   const getUserData = async () => {
+  //     try {
+  //       const res = await axios.get(`/trainee/details/${user?.id}`, {
+  //         headers: { authorization: "Bearer " + token },
+  //       });
+  //       setResUser(res.data);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   getUserData();
+  // }, [token, user.id]);
+  // console.log(resUser);
   return (
     <TraineeSect>
       <TraineeWrapper>
@@ -76,9 +73,9 @@ const Trainee = () => {
           <TraineeLeftCol>
             <ImgBox>
               <Img src="https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-              <TraineeTitle>Mahesh Bandari</TraineeTitle>
+              <TraineeTitle>{user.username + " " + user.lastname}</TraineeTitle>
               <TraineeRole>
-                <b>Role : </b> Trainee
+                <b>Role : </b> {user.type}
               </TraineeRole>
             </ImgBox>
             <TraineeUl>

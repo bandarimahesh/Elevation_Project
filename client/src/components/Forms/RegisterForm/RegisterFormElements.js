@@ -7,7 +7,7 @@ export const RegisterFormSect = styled.section`
 export const RegisterFormSection = styled.section`
   width: 90%;
   margin: 0 auto;
-  padding: 110px 0px;
+  padding: 30px 0px;
 `;
 export const RegisterFormWrapper = styled.div``;
 // page title
@@ -52,6 +52,15 @@ export const Field = styled.div`
   width: 100%;
   margin-top: 25px;
 `;
+export const Field1 = styled.div`
+  height: auto;
+  width: 100%;
+`;
+export const PasswordDiv = styled.div`
+  height: auto;
+  padding-top: 10px;
+  padding-left: 30px;
+`;
 export const Input = styled.input`
   height: 100%;
   width: 100%;
@@ -65,6 +74,9 @@ export const Input = styled.input`
   &:focus {
     border-color: #fc83bb;
   }
+`;
+export const InputRadio = styled.input`
+  font-size: 14px;
 `;
 
 export const InputButton = styled.input`
@@ -108,6 +120,7 @@ export const SignLinkB = styled.a`
 `;
 export const FormLabel = styled.label`
   font-size: 20px;
+  margin: 10px;
 `;
 export const FormLabelDiv = styled.div`
   display: flex;

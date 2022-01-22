@@ -24,8 +24,8 @@ router.post("/login", login);
 
 // router.post("/account-activation", emailAccountActivation);
 
-// to change password when login is successful
 
+// to change password when login is successful
 router.put("/change-password/:id", verifyToken, changePassword);
 
 // to forgot password

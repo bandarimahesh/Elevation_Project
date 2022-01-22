@@ -17,6 +17,7 @@ import {
   FormOption,
   FormInput,
   FormLabelDiv,
+  PasswordDiv,
 } from "./RegisterFormElements";
 
 const RegisterForm = () => {
@@ -26,6 +27,7 @@ const RegisterForm = () => {
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
     // http:localhost:5000/api/auth/register
@@ -37,14 +39,30 @@ const RegisterForm = () => {
         password: password,
         type: type,
       });
-      if (res) {
-        console.log(res);
-        setError(res.data);
+      if (res.data.required) {
+        setError(res.data.required);
       }
+      if (res.data.exists) {
+        setError(res.data.exists);
+      }
+      if (res.data.error) {
+        setError(res.data.error);
+      }
+      if (res.data.success) {
+        setSuccess(res.data.success);
+      }
+      setEmail("");
+      setPassword("");
+      setType("");
+      setFirstName("");
+      setLastName("");
     } catch (error) {
       console.log(error.message);
     }
   };
+  setTimeout(() => {
+    setError("");
+  }, 4000);
   return (
     <React.Fragment>
       <RegisterFormSect>
@@ -52,9 +70,11 @@ const RegisterForm = () => {
           <RegisterFormWrapper>
             <FormInner>
               <Form onSubmit={registerSubmitHandler}>
-                <p style={{ color: "red" }}>{error}</p>
+                {success && <p style={{ color: "green" }}>{success}</p>}
+                {error ? <p style={{ color: "red" }}>{error}</p> : null}
                 <Field>
                   <Input
+                    value={email}
                     type="email"
                     placeholder="Enter your email"
                     onChange={(e) => setEmail(e.target.value)}
@@ -63,6 +83,7 @@ const RegisterForm = () => {
                 </Field>
                 <Field>
                   <Input
+                    value={firstName}
                     required
                     type="text"
                     placeholder="Enter your First Name"
@@ -80,23 +101,25 @@ const RegisterForm = () => {
                 </Field>
                 <Field>
                   <Input
+                    value={password}
                     required={true}
                     type="password"
                     placeholder="Enter your password"
                     onChange={(e) => setPassword(e.target.value)}
-                    // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
                   />
                 </Field>
-                {/* <Field>
-                  <Input
-                    required
-                    type="password"
-                    placeholder="Retype your password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Field> */}
+                <PasswordDiv>
+                  <ul>
+                    <li>Minimum eight letter, Maximum 16</li>
+                    <li>One Uppercase letter</li>
+                    <li>One lowercase letter</li>
+                    <li>One Number and Special characters</li>
+                  </ul>
+                </PasswordDiv>
+
                 <Field>
-                  <FormLabel>Choose : </FormLabel>
+                  <FormLabel>Choose One Option </FormLabel>
                   <FormSelect
                     required
                     value={type}

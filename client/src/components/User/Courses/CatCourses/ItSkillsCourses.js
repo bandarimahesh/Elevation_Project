@@ -49,7 +49,7 @@ const ItSkillsCourses = ({ searchItem }) => {
           <CourseBody>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_id}`}
+              to={`/courses/${course.course_category}/${course.course_id}`}
             >
               <CourseImgBox>
                 <CourseImg
@@ -60,7 +60,7 @@ const ItSkillsCourses = ({ searchItem }) => {
             </Link>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course_title}`}
+              to={`/courses/${course.course_category}/${course.course_id}`}
             >
               <CourseTitleBox>
                 <CourseTitleH1>{course.course_title}</CourseTitleH1>
@@ -99,7 +99,7 @@ const ItSkillsCourses = ({ searchItem }) => {
             </CourseReviewsBox>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_id}`}
+              to={`/courses/${course.course_category}/${course.course_id}`}
             >
               <CourseAddCart>Register Now</CourseAddCart>
             </Link>

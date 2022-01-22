@@ -62,17 +62,23 @@ const SingleProfile = () => {
     setFormHide(true);
   };
 
-  useEffect(() => {
-    const checkTraineeDetails = async () => {
-      const res = await axios.get(`/trainee/profile/check`, {
-        email: email,
-      });
-      if (res.data) {
-        setFormHide(true);
-      }
-    };
-    checkTraineeDetails();
-  }, [email]);
+  // useEffect(() => {
+  //   const checkTraineeDetails = async () => {
+  //     const res = await axios.get(
+  //       `/trainee/profile/check`,
+  //       {
+  //         email: email,
+  //       },
+  //       {
+  //         headers: { authorization: "Bearer " + token },
+  //       }
+  //     );
+  //     if (res.data) {
+  //       setFormHide(true);
+  //     }
+  //   };
+  //   checkTraineeDetails();
+  // }, [email, token]);
   return (
     <SingleProfileSect>
       {!hideForm && (

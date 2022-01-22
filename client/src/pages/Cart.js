@@ -53,6 +53,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 `;
 
 const ProductDetail = styled.div`
@@ -61,7 +62,7 @@ const ProductDetail = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
+  width: 180px;
 `;
 
 const Details = styled.div`
@@ -153,7 +154,7 @@ const Button = styled.button`
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user.currentUser);
-  console.log(cart.total);
+
   const dispatch = useDispatch();
   const removeFromCart = (course) => {
     dispatch(removeCourse(course));
@@ -161,6 +162,8 @@ const Cart = () => {
   const clearCartHandler = () => {
     dispatch(clearCart());
   };
+  console.log(cart.total);
+
   return (
     <Container>
       <NavBarAndRes />

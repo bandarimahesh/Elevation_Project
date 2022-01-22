@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const FormDiv = styled.div`
   padding: 50px;
-  text-align: center;
   margin-left: 20px;
 `;
 
@@ -12,6 +11,7 @@ export const FormInput = styled.input`
   width: 90%;
   height: 40px;
   margin-bottom: 15px;
+  margin-top: 10px;
   font-size: 19px;
   background: transparent;
   border: none;
@@ -21,6 +21,11 @@ export const FormInput = styled.input`
     color: #111;
     opacity: 0.9;
   }
+`;
+export const PasswordDiv = styled.div`
+  height: auto;
+  padding-top: 10px;
+  padding-left: 30px;
 `;
 export const FormInputDate = styled.input`
   display: block;

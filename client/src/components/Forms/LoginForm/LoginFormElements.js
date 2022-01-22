@@ -238,6 +238,7 @@ export const PassLink = styled.div`
 export const PassLinkA = styled.a`
   text-decoration: none;
   color: #fa4299;
+  cursor: pointer;
   &:hover {
     text-decoration: underline;
   }

@@ -56,10 +56,10 @@ const CourseCard = () => {
             </Link>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_id}`}
+              to={`/courses/${course.course_title}`}
             >
               <CourseTitleBox>
-                <CourseTitleH1>{course.course_name}</CourseTitleH1>
+                <CourseTitleH1>{course.course_title}</CourseTitleH1>
               </CourseTitleBox>
             </Link>
             <DurationBoxDiv>
@@ -68,15 +68,19 @@ const CourseCard = () => {
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Duration:</Titles>
-              <TitlesDesc> {course.course_duration}</TitlesDesc>
+              <TitlesDesc> {course.course_duration} Months</TitlesDesc>
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>Starts Date:</Titles>
-              <TitlesDesc>{course.course_start_dt}</TitlesDesc>
+              <TitlesDesc>
+                {new Date(course.course_start_dt).toLocaleDateString()}
+              </TitlesDesc>
             </DurationBoxDiv>
             <DurationBoxDiv>
               <Titles>End Date:</Titles>
-              <TitlesDesc>{course.course_end_dt}</TitlesDesc>
+              <TitlesDesc>
+                {new Date(course.course_end_dt).toLocaleDateString()}
+              </TitlesDesc>
             </DurationBoxDiv>
             <CourseReviewsBox>
               <CourseReviewsP>
@@ -87,7 +91,7 @@ const CourseCard = () => {
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
               </CourseReviewsP>
-              <CoursePrice>{course.course_price}</CoursePrice>
+              <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link
               style={{ textDecoration: "none", color: "black" }}

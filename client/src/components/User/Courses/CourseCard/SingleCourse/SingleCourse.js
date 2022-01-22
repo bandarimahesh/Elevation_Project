@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import CourseContent from "./SingleCourseSections/CourseContent";
-import CourseTrainerSingle from "./SingleCourseSections/CourseTrainerSingle";
 import SingleCourseHeader from "./SingleCourseSections/SingleCourseHeader";
 import axios from "axios";
 const SingleCourse = () => {
@@ -22,8 +20,8 @@ const SingleCourse = () => {
   return (
     <>
       <SingleCourseHeader data={oneCourse} />
-      <CourseContent />
-      <CourseTrainerSingle />
+      {/* <CourseContent />
+      <CourseTrainerSingle /> */}
     </>
   );
 };

@@ -17,6 +17,9 @@ import {
 import { toast } from "react-toastify";
 
 const Form1 = () => {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
@@ -27,6 +30,7 @@ const Form1 = () => {
 
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
+
   const profileAccountHandler = async (event) => {
     event.preventDefault();
     try {
@@ -43,8 +47,15 @@ const Form1 = () => {
         },
         { headers: { authorization: "Bearer " + token } }
       );
-      if (res.data) {
+      if (res.data.success) {
+        setSuccess(res.data.success);
         toast.success("Successfully update your personal details", {
+          position: "top-center",
+        });
+      }
+      if (res.data.error) {
+        setError(res.data.error);
+        toast.error("There was a problem updating your personal details", {
           position: "top-center",
         });
       }
@@ -52,12 +63,17 @@ const Form1 = () => {
       console.log(error.message);
     }
   };
+  setTimeout(() => {
+    setError("");
+    setSuccess("");
+  }, 5000);
   return (
     <>
       <FormDiv>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && <p style={{ color: "green" }}>{success}</p>}
         <Form onSubmit={profileAccountHandler}>
           <FormInput
-            required
             type="number"
             placeholder="Enter your Mobile Name"
             minLength="10"
@@ -66,17 +82,13 @@ const Form1 = () => {
           <FormFlex>
             <FormLabel htmlFor="">Enter your Dob :</FormLabel>
             <FormInputDate
-              required
               type="date"
               onChange={(e) => setDob(e.target.value)}
             />
           </FormFlex>
           <FormFlex>
             <FormLabel>Education:</FormLabel>
-            <FormSelect
-              required
-              onChange={(event) => setGraduate(event.target.value)}
-            >
+            <FormSelect onChange={(event) => setGraduate(event.target.value)}>
               <FormOption>Choose a below option</FormOption>
               <FormOption value="1">Pursing</FormOption>
               <FormOption value="2">Graduate</FormOption>
@@ -86,10 +98,7 @@ const Form1 = () => {
           </FormFlex>
           <FormFlex>
             <FormLabel> Profession:</FormLabel>
-            <FormSelect
-              required
-              onChange={(event) => setProfession(event.target.value)}
-            >
+            <FormSelect onChange={(event) => setProfession(event.target.value)}>
               <FormOption>Choose a below option</FormOption>
               <FormOption value="graduation">
                 Completed the graduation
