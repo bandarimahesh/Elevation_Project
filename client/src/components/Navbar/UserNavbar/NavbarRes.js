@@ -16,12 +16,12 @@ const NavBarAndRes = () => {
   const user = useSelector((state) => state.user.currentUser);
   return (
     <>
-      {/* {!user && (
+      {!user ? (
         <>
           <Navbar toggleMenuItems={toggleMenuItems} />
           <Dropdown isOpen={isOpen} toggleMenuItems={toggleMenuItems} />
         </>
-      )} */}
+      ) : null}
 
       {user?.type === "trainee" ? (
         <>
@@ -31,12 +31,7 @@ const NavBarAndRes = () => {
             toggleMenuItems={toggleMenuItems}
           />
         </>
-      ) : (
-        <>
-          <Navbar toggleMenuItems={toggleMenuItems} />
-          <Dropdown isOpen={isOpen} toggleMenuItems={toggleMenuItems} />
-        </>
-      )}
+      ) : null}
       {user?.type === "trainer" && (
         <>
           <TrainerNavbar toggleMenuItems={toggleMenuItems} />

@@ -6,6 +6,8 @@ const {
   getOnlyUserDetails,
   checkTraineeDetails,
   updateTraineeAccountDetails,
+  uploadUserImage,
+  getTraineeImage,
 } = require("../controllers/traineeProfileController");
 
 const connection = require("../dbConnection");
@@ -30,8 +32,12 @@ router.put("/profile/update/:id", verifyToken, updateTraineeProfile);
 //updating the account details
 
 router.patch("profile/account/:id", verifyToken, updateTraineeAccountDetails);
-// upload an image to the server
 
+// upload an image to the server
+router.put("/image/upload/:id", verifyToken, uploadUserImage);
+
+// get user image details
+router.get("/image/get/:id", verifyToken, getTraineeImage);
 // deleting the user account
 router.delete(
   "/profile/delete/:id",

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { BiHide, BiShow } from "react-icons/bi";
+
 export const HomeSect = styled.section`
   width: 100%;
   height: 100vh;
@@ -199,6 +201,20 @@ export const Field = styled.div`
   width: 100%;
   margin-top: 20px;
 `;
+export const PwdField = styled.div`
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+`;
+export const PwdIcons = styled.div`
+  top: 13px;
+  right: 15px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+`;
 export const Input = styled.input`
   height: 100%;
   width: 100%;
@@ -214,7 +230,7 @@ export const Input = styled.input`
   }
 `;
 
-export const InputButton = styled.input`
+export const InputButton = styled.button`
   height: 100%;
   width: 100%;
   outline: none;
@@ -253,4 +269,14 @@ export const SignLinkB = styled.a`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const ShowIcon = styled(BiShow)`
+  font-size: 22px;
+  color: #111;
+`;
+
+export const HideIcon = styled(BiHide)`
+  font-size: 22px;
+  color: #111;
 `;

@@ -56,9 +56,16 @@ export const FormInputFile = styled.input`
     opacity: 0.9;
   }
 `;
+export const ImgInput = styled.input`
+  margin: 40px 0 10px 0;
+  height: 40px;
+  padding: 10px 20px;
+`;
+
 export const FormBtn = styled.button`
   border: none;
   outline: none;
+  border-radius: 10px;
   padding: 10px 30px;
   margin-top: 20px;
   background-color: blue;

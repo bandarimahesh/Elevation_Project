@@ -30,6 +30,10 @@ import {
   SlideDiv2,
   SlideDiv3,
   SlideDiv4,
+  PwdField,
+  PwdIcons,
+  ShowIcon,
+  HideIcon,
 } from "./LoginFormElements";
 import StudentImg from "../../../images/student.png";
 import TraineeImg from "../../../images/train.png";
@@ -47,6 +51,8 @@ const HomeSection = () => {
   const [type, setType] = useState("trainee");
   const [error, setError] = useState("");
   const [wrongPwd, setWrongPwd] = useState("");
+  const [showIcon, setShowIcon] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -89,7 +95,7 @@ const HomeSection = () => {
   setTimeout(() => {
     setError("");
     setWrongPwd("");
-  }, 5000);
+  }, 7000);
   const [isActive1, setIsActive1] = useState(true);
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);
@@ -180,25 +186,35 @@ const HomeSection = () => {
                       <Field>
                         <Input
                           required
+                          value={email}
                           type="text"
                           placeholder="Enter your email"
                           onChange={(e) => setEmail(e.target.value)}
                         />
                       </Field>
-                      <Field>
+                      <PwdField>
                         <Input
-                          required={true}
-                          type="text"
+                          required
+                          value={password}
+                          type={showIcon ? "text" : "password"}
                           placeholder="Enter your password"
                           onChange={(e) => setPassword(e.target.value)}
-                          // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
                         />
-                      </Field>
+
+                        <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
+                          {showIcon ? <ShowIcon /> : <HideIcon />}
+                        </PwdIcons>
+                      </PwdField>
                       <PassLink>
                         <PassLinkA>Forgot Password ?</PassLinkA>
                       </PassLink>
                       <Field>
-                        <InputButton type="submit" value="Login" />
+                        <InputButton
+                          type="submit"
+                          disabled={!email || !password || !type}
+                        >
+                          Login
+                        </InputButton>
                       </Field>
                       <SignUpLink>
                         Not a Member yet ?

@@ -1,3 +1,4 @@
+import { BiHide, BiShow } from "react-icons/bi";
 import styled from "styled-components";
 export const RegisterFormSect = styled.section`
   height: auto;
@@ -9,7 +10,16 @@ export const RegisterFormSection = styled.section`
   margin: 0 auto;
   padding: 30px 0px;
 `;
-export const RegisterFormWrapper = styled.div``;
+export const RegisterFormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+export const RegisterFormLeft = styled.div`
+  flex: 6;
+`;
+export const RegisterFormRight = styled.div`
+  flex: 6;
+`;
 // page title
 export const RegisterFormTitle = styled.h1`
   color: blue;
@@ -52,14 +62,38 @@ export const Field = styled.div`
   width: 100%;
   margin-top: 25px;
 `;
+export const PwdField = styled.div`
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+`;
+export const PwdIcons = styled.div`
+  top: 13px;
+  right: 15px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+`;
+export const ShowIcon = styled(BiShow)`
+  font-size: 22px;
+  color: #111;
+`;
+
+export const HideIcon = styled(BiHide)`
+  font-size: 22px;
+  color: #111;
+`;
+
 export const Field1 = styled.div`
   height: auto;
   width: 100%;
 `;
 export const PasswordDiv = styled.div`
   height: auto;
-  padding-top: 10px;
-  padding-left: 30px;
+  padding-top: 8px;
+  padding-left: 20px;
 `;
 export const Input = styled.input`
   height: 100%;
@@ -79,7 +113,7 @@ export const InputRadio = styled.input`
   font-size: 14px;
 `;
 
-export const InputButton = styled.input`
+export const InputButton = styled.button`
   height: 100%;
   width: 100%;
   outline: none;

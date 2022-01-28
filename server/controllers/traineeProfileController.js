@@ -49,7 +49,30 @@ exports.checkTraineeDetails = (req, res) => {
     }
   );
 };
-
+exports.getTraineeImage = (req, res) => {
+  const id = req.params.id;
+  connection.query(
+    "SELECT * FROM user_dtls WHERE user_dtls_id=? ",
+    [id],
+    (err, result) => {
+      if (result) {
+        const email = result[0].user_email;
+        connection.query(
+          "SELECT * FROM trainee_dtls WHERE trainee_email=? ",
+          [email],
+          (err, user) => {
+            if (user) {
+              const image = user[0].trainee_image;
+              res.send(image);
+            }
+          }
+        );
+      } else {
+        res.send(err.message);
+      }
+    }
+  );
+};
 // working
 exports.updateTraineeProfile = async (req, res, next) => {
   const id = req.params.id;
@@ -118,6 +141,44 @@ exports.updateTraineeAccountDetails = (req, res) => {
   } catch (error) {
     res.send(error.message);
   }
+};
+// image upload
+
+exports.uploadUserImage = (req, res) => {
+  const file = req.files.image;
+  const name = req.body.name;
+  console.log(name);
+  const id = req.params.id;
+  let uploadPath;
+  console.log(file);
+
+  uploadPath = __dirname + "../../images/" + file.name;
+
+  const sqlSelect = "SELECT * FROM user_dtls WHERE user_dtls_id =?";
+
+  connection.query(sqlSelect, [id], (err, result) => {
+    if (result) {
+      const email = result[0].user_email;
+
+      file.mv(uploadPath, (err) => {
+        if (err) {
+          res.send(err.message);
+        }
+        const sqlUpdate =
+          "UPDATE trainee_dtls SET trainee_image = ? WHERE trainee_email = ?";
+        connection.query(sqlUpdate, [file.name, email], (err, result) => {
+          if (err) {
+            res.send(err.message);
+          }
+          res.send(image);
+        });
+      });
+    } else {
+      res.send({
+        error: "No user found",
+      });
+    }
+  });
 };
 
 exports.getOnlyUserDetails = async (req, res, next) => {

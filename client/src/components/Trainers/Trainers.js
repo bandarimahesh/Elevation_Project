@@ -11,7 +11,7 @@ import {
 const Trainers = () => {
   const navigate = useNavigate();
   const trainer_id = 23;
-  const goTospTrainer = (e) => {
+  const goToSpTrainer = (e) => {
     navigate(`/trainers/${trainer_id}`);
   };
   return (
@@ -19,7 +19,7 @@ const Trainers = () => {
       <TrainersSection>
         <TrainersWrapper>
           <TrainersTitle>Our Trainers</TrainersTitle>
-          <button onClick={goTospTrainer}>GO to profile</button>
+          <button onClick={goToSpTrainer}>GO to profile</button>
           <LineAfter />
         </TrainersWrapper>
       </TrainersSection>

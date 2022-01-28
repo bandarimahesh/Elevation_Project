@@ -28,6 +28,7 @@ const AddNewCourse = () => {
   const [category, setCategory] = useState("");
   const [startsDate, setStartsDate] = useState("");
   const [endsDate, setEndsDate] = useState("");
+
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
   const trainerName = user.username + " " + user.lastname;
@@ -63,7 +64,7 @@ const AddNewCourse = () => {
       <TrainerProfileSection>
         <TrainerProfileWrapper>
           <FormDiv>
-            <Form onSubmit={AddNewCourseHandler}>
+            <Form onSubmit={AddNewCourseHandler} encType="">
               <FormInputDiv>
                 <FormFlex>
                   <FormLabel htmlFor="">Course Title</FormLabel>
@@ -96,7 +97,7 @@ const AddNewCourse = () => {
                     onChange={(e) => setPrice(e.target.value)}
                   />
                 </FormFlex>
-              </FormInputDiv>{" "}
+              </FormInputDiv>
               <FormInputDiv>
                 <FormFlex>
                   <FormLabel htmlFor="">Course Starts Date</FormLabel>
@@ -106,7 +107,7 @@ const AddNewCourse = () => {
                     onChange={(e) => setStartsDate(e.target.value)}
                   />
                 </FormFlex>
-              </FormInputDiv>{" "}
+              </FormInputDiv>
               <FormInputDiv>
                 <FormFlex>
                   <FormLabel htmlFor="">Course End Date</FormLabel>

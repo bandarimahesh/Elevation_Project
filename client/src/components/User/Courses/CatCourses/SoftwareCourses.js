@@ -98,8 +98,9 @@ const SoftwareCourses = ({ searchItem }) => {
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link
+              target={`-blank`}
               style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_category}/${course.course_id}`}
+              to={`https://learn.elevashun.com/s/store/courses/description/RPA-hands-on-live-training-Program-with-live-projects`}
             >
               <CourseAddCart>Register Now</CourseAddCart>
             </Link>

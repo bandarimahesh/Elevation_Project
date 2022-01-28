@@ -26,6 +26,8 @@ export const TraineeLeftCol = styled.div`
 export const ImgBox = styled.div`
   margin-bottom: 20px;
 `;
+export const ImgForm = styled.form``;
+
 export const Img = styled.img`
   width: 300px;
   height: 300px;

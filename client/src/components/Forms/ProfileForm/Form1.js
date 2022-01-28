@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 const Form1 = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
   const [profilePicture, setProfilePicture] = useState("");

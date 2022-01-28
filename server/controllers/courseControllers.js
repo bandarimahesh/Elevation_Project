@@ -149,6 +149,7 @@ exports.getCourseByCategoryItSkills = (req, res, next) => {
     );
   } catch (error) {}
 };
+
 exports.getCourseByCategoryRpa = (req, res, next) => {
   const category = "rpa";
   try {

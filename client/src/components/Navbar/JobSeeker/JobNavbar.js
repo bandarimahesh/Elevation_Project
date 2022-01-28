@@ -18,17 +18,13 @@ import {
   RightbarContainerMenu,
   RightbarContainerList,
   SearchBoxInput,
-  CartBox,
   FaSearchIcon,
-  FaCartIcon,
-  CartQuantity,
 } from "./JobNavbarElements.js";
 import logo from "../../../images/logo-rm.png";
 import { logOut } from "../../../redux/userRedux.js";
 
 const JobNavbar = ({ toggleMenuItems }) => {
   let navigate = useNavigate();
-  const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
   const onLogoutHandler = () => {
     dispatch(logOut());
