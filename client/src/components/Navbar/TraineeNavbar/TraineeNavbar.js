@@ -88,14 +88,18 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               </SearchForm>
             </SearchBoxDiv>
           </RightbarContainerList>
+
           <RightbarContainerList>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to={`/my-learning`}
-            >
-              My Learning
-            </Link>
+            {user?.role === 1 && (
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={`/user/admin/dashboard`}
+              >
+                Admin
+              </Link>
+            )}
           </RightbarContainerList>
+
           <RightbarContainerList>
             <Link
               style={{ textDecoration: "none", color: "white" }}

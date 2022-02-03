@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import SingleCoursePage from "./pages/SingleCoursePage";
-import Trainers from "./pages/Trainers";
 import SingleTrainerPage from "./pages/SingleTrainerPage";
 import AllCoursesPage from "./pages/AllCoursesPage";
 import Register from "./pages/Register";
@@ -27,6 +26,8 @@ import "react-toastify/dist/ReactToastify.css";
 import JobSeekerHomePage from "./pages/JobSeekerHomePage";
 import NotFound from "./pages/Not-found";
 import JoinNow from "./pages/TrainerPages/JoinNow";
+import AllTrainerPage from "./pages/AllTrainersPage";
+import Dashboard from "./pages/Dashboard";
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
 
@@ -51,7 +52,7 @@ const App = () => {
           <Route path="/courses/it-skills/:id" element={<SingleCoursePage />} />
           <Route path="/courses/rpa/:id" element={<SingleCoursePage />} />
           {/* all trainers route*/}
-          <Route path="/trainers" element={<Trainers />} />
+          <Route path="/trainers" element={<AllTrainerPage />} />
           {/* sp single trainer page */}
           <Route path="/trainers/:id" element={<SingleTrainerPage />} />
           {/* trainee home page after login */}
@@ -96,6 +97,11 @@ const App = () => {
           <Route path="*" element={<Home />} />
           {/* Trainer section */}
           <Route path="/add-new-course" element={<AddNewCoursePage />} />
+          {user?.role === 1 ? (
+            <Route path="/user/admin/dashboard" element={<Dashboard />} />
+          ) : (
+            <Route path="/login" element={<Navigate to="/login" />} />
+          )}
         </Routes>
       </Router>
     </React.Fragment>

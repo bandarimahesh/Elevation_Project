@@ -1,15 +1,15 @@
 import React from "react";
 import Footer from "../components/User/Footer/Footer";
 import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
-import Trainer from "../components/Trainers/Trainers";
-const Trainers = () => {
+import AllTrainers from "../components/Trainers/AllTrainers";
+const AllTrainerPage = () => {
   return (
     <>
       <NavbarRes />
-      <Trainer />
+      <AllTrainers />
       <Footer />
     </>
   );
 };
 
-export default Trainers;
+export default AllTrainerPage;

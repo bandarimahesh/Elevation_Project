@@ -9,7 +9,6 @@ const {
   uploadUserImage,
   getTraineeImage,
 } = require("../controllers/traineeProfileController");
-
 const connection = require("../dbConnection");
 
 const {
@@ -28,16 +27,25 @@ router.post(
 router.get("/profile/check", verifyTokenAndAuthorization, checkTraineeDetails);
 
 //updating the personal trainee details  in the database
-router.put("/profile/update/:id", verifyToken, updateTraineeProfile);
-//updating the account details
+router.put(
+  "/profile/update/:id",
+  verifyToken,
+  updateTraineeProfile
+);
 
-router.patch("profile/account/:id", verifyToken, updateTraineeAccountDetails);
+//updating the account details
+router.put(
+  "/profile/account/:id",
+  verifyToken,
+  updateTraineeAccountDetails
+);
 
 // upload an image to the server
 router.put("/image/upload/:id", verifyToken, uploadUserImage);
 
 // get user image details
 router.get("/image/get/:id", verifyToken, getTraineeImage);
+
 // deleting the user account
 router.delete(
   "/profile/delete/:id",
@@ -59,5 +67,7 @@ router.get("/getDetails", verifyToken, checkTraineeDetails);
 
 //get the trainee and user details
 router.get("/details/:id", verifyToken, getOnlyUserDetails);
+
+// get all the trainer Details
 
 module.exports = router;

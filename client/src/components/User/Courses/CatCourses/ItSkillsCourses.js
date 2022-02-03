@@ -24,7 +24,6 @@ import {
 } from "./CourseCardElements";
 const ItSkillsCourses = ({ searchItem }) => {
   const [catCourses, setCatCourses] = useState([]);
-  const course_title = "course-title";
   const trainerId = 6;
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const ItSkillsCourses = ({ searchItem }) => {
   return (
     <CourseSectionDiv>
       {catCourses?.data?.map((course) => (
-        <CourseCardDiv>
+        <CourseCardDiv key={course.course_id}>
           <CourseBody>
             <Link
               style={{ textDecoration: "none", color: "black" }}

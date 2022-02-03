@@ -1,7 +1,6 @@
 import styled from "styled-components";
 export const AboutSect = styled.section`
   height: 100vh;
-  background-color: #f1f1f1;
   width: 100%;
 `;
 export const AboutSection = styled.section`

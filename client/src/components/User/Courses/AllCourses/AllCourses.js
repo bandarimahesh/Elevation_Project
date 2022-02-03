@@ -21,11 +21,12 @@ import {
 import CourseCard from "../CourseCard/CourseCard";
 import axios from "axios";
 const AllCourses = () => {
-  const [cat, setCat] = useState();
+  // const [cat, setCat] = useState();
   const [searchItem, setSearchItem] = useState("");
   const searchEngineAll = async (event) => {
     event.preventDefault();
     const response = await axios.get("api/courses/");
+    console.log(response.data);
   };
   return (
     <AllCoursesSection>
@@ -65,6 +66,7 @@ const AllCourses = () => {
               <SearchForm>
                 <SearchBoxInput
                   placeholder="Search any course"
+                  value={searchItem}
                   onChange={(event) => setSearchItem(event.target.value)}
                 ></SearchBoxInput>
                 <FaSearchIcon onClick={searchEngineAll} />

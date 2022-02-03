@@ -162,7 +162,6 @@ const Cart = () => {
   const clearCartHandler = () => {
     dispatch(clearCart());
   };
-  console.log(cart.total);
 
   return (
     <Container>

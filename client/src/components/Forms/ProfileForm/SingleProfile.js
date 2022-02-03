@@ -9,7 +9,6 @@ import {
   FormInput,
   FormInputDate,
   FormInputDiv,
-  FormInputFile,
   FormLabel,
   FormOption,
   FormSelect,
@@ -25,7 +24,6 @@ const SingleProfile = () => {
   const [hideForm, setFormHide] = useState(false);
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
-  const [image, setImage] = useState("");
   const [address, setAddress] = useState("");
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
@@ -33,6 +31,26 @@ const SingleProfile = () => {
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
   const email = user?.email;
+
+  useEffect(() => {
+    const checkTraineeDetails = async () => {
+      const res = await axios.get(
+        `/trainee/profile/check`,
+        {
+          email: email,
+        },
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      );
+      // if (res.data) {
+      //   setFormHide(false);
+      // }
+      console.log(res.data);
+    };
+    checkTraineeDetails();
+  }, [email, token]);
+
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -45,7 +63,6 @@ const SingleProfile = () => {
           experience: experience,
           graduate: graduate,
           profession: profession,
-          file: image,
         },
         { headers: { authorization: "Bearer " + token } }
       );
@@ -62,23 +79,6 @@ const SingleProfile = () => {
     setFormHide(true);
   };
 
-  useEffect(() => {
-    const checkTraineeDetails = async () => {
-      const res = await axios.get(
-        `/trainee/profile/check`,
-        {
-          email: email,
-        },
-        {
-          headers: { authorization: "Bearer " + token },
-        }
-      );
-      if (res.data) {
-        setFormHide(true);
-      }
-    };
-    checkTraineeDetails();
-  }, [email, token]);
   return (
     <SingleProfileSect>
       {!hideForm && (
@@ -156,16 +156,6 @@ const SingleProfile = () => {
                     <FormAddress
                       onChange={(e) => setAddress(e.target.value)}
                     ></FormAddress>
-                  </FormFlex>
-                </FormInputDiv>
-                <FormInputDiv>
-                  <FormFlex>
-                    <FormLabel>Profile Picture:</FormLabel>
-                    <FormInputFile
-                      type="file"
-                      name="file"
-                      onChange={(event) => setImage(event.target.files)}
-                    />
                   </FormFlex>
                 </FormInputDiv>
                 <FormBtn>Save</FormBtn>

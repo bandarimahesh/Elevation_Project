@@ -1,10 +1,10 @@
 import React from "react";
-import { LineAfter } from "../Courses/CourseElements";
 import {
   AboutSect,
   AboutSection,
   AboutTitle,
   AboutWrapper,
+  LineAfter,
 } from "./AboutElements";
 
 const About = () => {
@@ -15,6 +15,7 @@ const About = () => {
           <AboutTitle>About Us</AboutTitle>
           <LineAfter />
         </AboutWrapper>
+
       </AboutSection>
     </AboutSect>
   );

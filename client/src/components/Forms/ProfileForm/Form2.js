@@ -12,8 +12,8 @@ const Form2 = () => {
   const changePersonalDetails = async (event) => {
     event.preventDefault();
     try {
-      const result = await axios.patch(
-        `/api/profile/account/${user?.id}`,
+      const result = await axios.put(
+        `/trainee/profile/account/${user?.id}`,
         { firstName: firstName, lastName: lastName },
         {
           headers: { authorization: "Bearer " + token },

@@ -10,6 +10,7 @@ export const TrainerHomeSection = styled.section`
   /* background-attachment: fixed; */
   opacity: 0.9;
   z-index: -10;
+  object-fit: cover;
 `;
 export const TrainerHomeSect = styled.div`
   width: 90%;

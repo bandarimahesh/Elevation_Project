@@ -83,14 +83,7 @@ const CourseCard = () => {
               </TitlesDesc>
             </DurationBoxDiv>
             <CourseReviewsBox>
-              <CourseReviewsP>
-                {course.course_rating}
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </CourseReviewsP>
+              <CourseReviewsP>{course.course_rating}</CourseReviewsP>
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link
@@ -99,7 +92,6 @@ const CourseCard = () => {
             >
               <CourseAddCart>Register Now</CourseAddCart>
             </Link>
-
             <Link
               style={{ textDecoration: "none", color: "black" }}
               to={`/trainers/${trainerId}`}

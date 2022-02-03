@@ -6,7 +6,7 @@ import Courses from "../components/User/Courses/Courses";
 import Trainers from "../components/Trainers/Trainers";
 import Reviews from "../components/User/Reviews/Reviews";
 import NewsLetter from "../components/User/NewsLetter/NewsLetter";
-import OurClients from "../components/User/OurClients/OurClients";
+// import OurClients from "../components/User/OurClients/OurClients";
 import Footer from "../components/User/Footer/Footer";
 const Home = () => {
   return (
@@ -16,9 +16,9 @@ const Home = () => {
       <Courses />
       <About />
       <Trainers />
+      <NewsLetter /> 
       <Reviews />
-      <NewsLetter />
-      <OurClients />
+      {/* <OurClients /> */}
       <Footer />
     </>
   );

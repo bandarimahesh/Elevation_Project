@@ -13,7 +13,6 @@ const storage = multer.diskStorage({
 
 exports.upload = multer({ storage: storage }).single("image");
 
-
 exports.addNewCourseControllers = async (req, res, next) => {
   console.log(file);
   // const title = req.body.title;
@@ -184,4 +183,71 @@ exports.getCourseBySearch = (req, res) => {
       }
     );
   } catch (error) {}
+};
+exports.getMasterCourseByTitles = (req, res) => {
+  const query = req.query.category;
+  try {
+    connection.query(
+      "SELECT * FROM course_master WHERE course_master_cat_name = ?",
+      [query],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json("Not found anything");
+        }
+        if (result) {
+          return res.status(200).send(result);
+        }
+      }
+    );
+  } catch (error) {}
+};
+
+exports.addJoinNowCourse = (req, res) => {
+  const {
+    email,
+    firstName,
+    lastName,
+    mobileNumber,
+    experience,
+    masterCourseNameId,
+  } = req.body;
+
+  try {
+    connection.query(
+      "SELECT * FROM course_master WHERE course_master_name_id = ?",
+      [masterCourseNameId],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json("Not found anything");
+        }
+        if (result) {
+          const courseCatId = result[0].course_master_cat_id;
+          connection.query(
+            "INSERT INTO trainer_details_post_reg (trainer_email,trainer_firstname,trainer_lastname,trainer_mobile, trainer_course_id,trainer_exp_yrs,trainer_course_cat_id) VALUES(?,?,?,?,?,?,?)",
+            [
+              email,
+              firstName,
+              lastName,
+              mobileNumber,
+              masterCourseNameId,
+              experience,
+              courseCatId,
+            ],
+            (err, result) => {
+              if (err) {
+                return res.send(err.message);
+              } else {
+                return res.send({
+                  success:
+                    "Successfully submitted the form , wait for the email to be sent",
+                });
+              }
+            }
+          );
+        }
+      }
+    );
+  } catch (error) {
+    return res.send({ error: error.message });
+  }
 };

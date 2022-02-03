@@ -23,7 +23,6 @@ import {
   TitlesDesc,
 } from "./CourseCardElements";
 const SoftwareCourses = ({ searchItem }) => {
-  console.log(searchItem);
   const [catCourses, setCatCourses] = useState([]);
   const trainerId = 6;
   useEffect(() => {
@@ -45,7 +44,7 @@ const SoftwareCourses = ({ searchItem }) => {
   return (
     <CourseSectionDiv>
       {catCourses?.data?.map((course) => (
-        <CourseCardDiv>
+        <CourseCardDiv key={course.course_id}>
           <CourseBody>
             <Link
               style={{ textDecoration: "none", color: "black" }}
@@ -87,14 +86,7 @@ const SoftwareCourses = ({ searchItem }) => {
               </TitlesDesc>
             </DurationBoxDiv>
             <CourseReviewsBox>
-              <CourseReviewsP>
-                {course.course_rating}
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </CourseReviewsP>
+              <CourseReviewsP>{course.course_rating}</CourseReviewsP>
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link

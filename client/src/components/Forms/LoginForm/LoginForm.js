@@ -75,6 +75,7 @@ const HomeSection = () => {
     );
     if (res.data.success) {
       dispatch(loginSuccess(res.data.success));
+      localStorage.setItem("login", res.data);
       const userType = res.data.success.type;
       navigate(`/${userType}`);
     }

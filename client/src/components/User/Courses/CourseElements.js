@@ -134,7 +134,7 @@ export const SelectText = styled.p`
 
 export const ClickMoreBox = styled.div`
   margin: 0 auto;
-  height: 200px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;

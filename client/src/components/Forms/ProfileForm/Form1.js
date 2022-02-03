@@ -21,12 +21,10 @@ const Form1 = () => {
   const [success, setSuccess] = useState("");
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
   const [address, setAddress] = useState("");
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
   const [profession, setProfession] = useState("");
-
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
 
@@ -42,7 +40,6 @@ const Form1 = () => {
           experience: experience,
           graduate: graduate,
           profession: profession,
-          profilePicture: profilePicture,
         },
         { headers: { authorization: "Bearer " + token } }
       );
@@ -61,11 +58,16 @@ const Form1 = () => {
     } catch (error) {
       console.log(error.message);
     }
+    setProfession("");
+    setDob("");
+    setMobile("");
+    setGraduate("");
+    setExperience("");
   };
   setTimeout(() => {
     setError("");
     setSuccess("");
-  }, 5000);
+  }, 8000);
   return (
     <>
       <FormDiv>
@@ -125,13 +127,6 @@ const Form1 = () => {
           <FormAddress required onChange={(e) => setAddress(e.target.value)}>
             Enter your address
           </FormAddress>
-          <FormFlex>
-            <FormLabel htmlFor="">Choose your image</FormLabel>
-            <FormInputFile
-              type="file"
-              onChange={(e) => setProfilePicture(e.target.files)}
-            />
-          </FormFlex>
           <FormBtn>Update Profile</FormBtn>
         </Form>
       </FormDiv>

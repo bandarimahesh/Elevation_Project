@@ -10,6 +10,7 @@ import {
 
 const HomeSection = () => {
   const user = useSelector((state) => state.user.currentUser);
+
   return (
     <HomeSect>
       <HomeSectionComponent>

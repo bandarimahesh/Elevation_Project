@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BiHide, BiShow } from "react-icons/bi";
 
 export const FormDiv = styled.div`
   padding: 50px;
@@ -110,3 +111,27 @@ export const FormSelect = styled.select`
   }
 `;
 export const FormOption = styled.option``;
+
+export const PwdField = styled.div`
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+`;
+export const PwdIcons = styled.div`
+  top: 13px;
+  right: 70px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+`;
+export const ShowIcon = styled(BiShow)`
+  font-size: 22px;
+  color: #111;
+`;
+
+export const HideIcon = styled(BiHide)`
+  font-size: 22px;
+  color: #111;
+`;

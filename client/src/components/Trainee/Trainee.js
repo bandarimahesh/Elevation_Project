@@ -70,19 +70,21 @@ const Trainee = () => {
       const res = await axios.get(`/trainee/image/get/${user?.id}`, {
         headers: { authorization: "Bearer " + token },
       });
-      console.log(`http://localhost:5000/images/${res.data}`);
+      console.log(res.data);
     };
     onImageGetHandler();
   }, [user.id, token]);
+  const PF = "http://localhost:5000/images/header-home3.png";
   return (
     <TraineeSect>
       <TraineeWrapper>
         <TraineeFlex>
           <TraineeLeftCol>
             <ImgBox>
-              <Img src="https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-
-              <TraineeTitle>{user.username + " " + user.lastname}</TraineeTitle>
+              <Img src={PF} />
+              <TraineeTitle>
+                {user.firstname + " " + user.lastname}
+              </TraineeTitle>
               <TraineeRole>
                 <b>Role : </b> {user.type}
               </TraineeRole>

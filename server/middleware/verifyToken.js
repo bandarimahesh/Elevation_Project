@@ -9,13 +9,14 @@ const verifyToken = (req, res, next) => {
         req.user = user;
         next();
       } else {
-        return res.send("Token is invalid");
+        return res.send(err.message);
       }
     });
   } else {
     return res.send("You are not authenticated");
   }
 };
+
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isSuperAdmin) {

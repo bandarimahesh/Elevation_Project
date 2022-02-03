@@ -27,6 +27,7 @@ import { Link, useNavigate } from "react-router-dom";
 const SingleCourseHeader = ({ data }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const addToCartHandler = (course) => {
     dispatch(addCourse(course));
     navigate("/trainee/cart");

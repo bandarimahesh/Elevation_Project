@@ -1,11 +1,15 @@
 import styled from "styled-components";
 export const TrainersSect = styled.section`
-  height: 100vh;
-  background-color: lightblue;
+  height: auto !important;
   width: 100%;
+  background-image: url("https://image.freepik.com/free-vector/abstract-background-with-squares_23-2148995948.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 50px;
 `;
 export const TrainersSection = styled.section`
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   padding: 50px 0px;
 `;
@@ -34,5 +38,23 @@ export const LineAfter = styled.div`
     margin: 0 auto;
     display: block;
     background-color: #9926f0;
+  }
+`;
+
+export const ClickMoreBox = styled.div`
+  margin: 80px auto 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const ClickMore = styled.button`
+  text-align: center;
+  width: 200px;
+  cursor: pointer;
+  height: 40px;
+  border: 1px solid #111;
+  &:hover {
+    background-color: lightblue;
   }
 `;

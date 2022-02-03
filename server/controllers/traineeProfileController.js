@@ -37,8 +37,9 @@ exports.createTraineeProfile = async (req, res, next) => {
 // showing the form the profile form working
 exports.checkTraineeDetails = (req, res) => {
   const email = req.body.email;
+  const id = req.params.id;
   connection.query(
-    "SELECT * FROM trainee_dtls WHERE email = ?",
+    "SELECT * FROM trainee_dtls WHERE trainee_email = ?",
     [email],
     (err, result) => {
       if (!err) {
@@ -49,6 +50,7 @@ exports.checkTraineeDetails = (req, res) => {
     }
   );
 };
+
 exports.getTraineeImage = (req, res) => {
   const id = req.params.id;
   connection.query(
@@ -57,16 +59,17 @@ exports.getTraineeImage = (req, res) => {
     (err, result) => {
       if (result) {
         const email = result[0].user_email;
-        connection.query(
-          "SELECT * FROM trainee_dtls WHERE trainee_email=? ",
-          [email],
-          (err, user) => {
-            if (user) {
-              const image = user[0].trainee_image;
-              res.send(image);
-            }
-          }
-        );
+        res.send(email);
+
+        // connection.query(
+        //   "SELECT * FROM trainee_dtls WHERE trainee_email=? ",
+        //   [email],
+        //   (err, user) => {
+        //     if (user) {
+        //       res.send(user);
+        //     }
+        //   }
+        // );
       } else {
         res.send(err.message);
       }
@@ -128,30 +131,28 @@ exports.updateTraineeAccountDetails = (req, res) => {
   const id = req.params.id;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
-  try {
-    const sqlUpdate =
-      "UPDATE user_dtls SET user_firstname=?, user_lastname=? WHERE user_dtls_id =?";
-    connection.query(sqlUpdate, [firstName, lastName, id], (err, result) => {
-      if (!err) {
-        return res.send("Successfully update the account details");
-      } else {
-        return res.send(err.message);
-      }
-    });
-  } catch (error) {
-    res.send(error.message);
-  }
+  console.log(firstName + " " + lastName);
+  // try {
+  //   const sqlUpdate =
+  //     "UPDATE user_dtls SET user_firstname=?, user_lastname=? WHERE user_dtls_id =?";
+  //   connection.query(sqlUpdate, [firstName, lastName, id], (err, result) => {
+  //     if (!err) {
+  //       return res.send("Successfully update the account details");
+  //     } else {
+  //       return res.send(err.message);
+  //     }
+  //   });
+  // } catch (error) {
+  //   res.send(error.message);
+  // }
 };
 // image upload
 
 exports.uploadUserImage = (req, res) => {
   const file = req.files.image;
-  const name = req.body.name;
-  console.log(name);
   const id = req.params.id;
-  let uploadPath;
-  console.log(file);
 
+  let uploadPath;
   uploadPath = __dirname + "../../images/" + file.name;
 
   const sqlSelect = "SELECT * FROM user_dtls WHERE user_dtls_id =?";
@@ -159,7 +160,6 @@ exports.uploadUserImage = (req, res) => {
   connection.query(sqlSelect, [id], (err, result) => {
     if (result) {
       const email = result[0].user_email;
-
       file.mv(uploadPath, (err) => {
         if (err) {
           res.send(err.message);
@@ -170,7 +170,7 @@ exports.uploadUserImage = (req, res) => {
           if (err) {
             res.send(err.message);
           }
-          res.send(image);
+          res.send("uploaded");
         });
       });
     } else {

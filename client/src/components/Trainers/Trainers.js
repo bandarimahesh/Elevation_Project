@@ -1,27 +1,29 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   TrainersSect,
   TrainersSection,
   TrainersTitle,
   TrainersWrapper,
   LineAfter,
+  ClickMoreBox,
+  ClickMore,
 } from "./TrainersElements";
-
+import TrainerCard from "./TrainerCard/TrainerCard";
 const Trainers = () => {
-  const navigate = useNavigate();
-  const trainer_id = 23;
-  const goToSpTrainer = (e) => {
-    navigate(`/trainers/${trainer_id}`);
-  };
   return (
     <TrainersSect>
       <TrainersSection>
         <TrainersWrapper>
-          <TrainersTitle>Our Trainers</TrainersTitle>
-          <button onClick={goToSpTrainer}>GO to profile</button>
+          <TrainersTitle>Meet Our Trainers</TrainersTitle>
           <LineAfter />
         </TrainersWrapper>
+        <TrainerCard />
+        <ClickMoreBox>
+          <Link to={`/trainers`}>
+            <ClickMore>Click To Meet all our Trainers</ClickMore>
+          </Link>
+        </ClickMoreBox>
       </TrainersSection>
     </TrainersSect>
   );

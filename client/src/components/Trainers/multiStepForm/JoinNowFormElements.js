@@ -14,19 +14,34 @@ export const RegisterFormWrapper = styled.div`
   justify-content: center;
 `;
 export const Form = styled.form`
-  width: 500px;
+  width: 600px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 `;
 export const Field = styled.div`
-  height: 50px;
+  height: auto;
   width: 100%;
-  margin-top: 25px;
+  margin: 25px;
 `;
+export const FormLabel = styled.label`
+  font-size: 20px;
+  margin: 10px auto;
+  width: 100%;
+  display: block;
+`;
+export const FormSelect = styled.select`
+  height: 40px;
+  width: 100%;
+  font-size: 18px;
+  border-radius: 5px;
+  &:focus {
+    border-color: #fc83bb;
+  }
+`;
+export const FormOption = styled.option``;
 export const Input = styled.input`
-  height: 100%;
+  height: 40px;
   width: 100%;
   outline: none;
-  padding-left: 15px;
   font-size: 17px;
   border-radius: 5px;
   border: 1px solid lightgrey;
@@ -38,10 +53,10 @@ export const Input = styled.input`
   }
 `;
 export const NextButton = styled.button`
-  height: 100%;
-  width: 45%;
+  height: 40px;
+  width: 100%;
   outline: none;
-  margin-left: 5%;
+  margin-top: 10px;
   font-size: 17px;
   border-radius: 5px;
   border: 1px solid lightgrey;

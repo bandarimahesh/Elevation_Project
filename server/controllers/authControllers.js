@@ -182,8 +182,9 @@ exports.login = async (req, res, next) => {
               const accessToken = jwt.sign(
                 {
                   id: result[0].user_dtls_id,
+                  email: result[0].user_email,
                   type: result[0].user_type,
-                  isSuperAdmin: result[0].user_superAdmin,
+                  isSuperAdmin: result[0].user_is_superadmin,
                 },
                 process.env.JWT_LOGIN_SECRET_KEY,
                 { expiresIn: "10m" }
@@ -192,9 +193,10 @@ exports.login = async (req, res, next) => {
                 success: {
                   id: result[0].user_dtls_id,
                   email: result[0].user_email,
-                  username: result[0].user_firstname,
+                  firstname: result[0].user_firstname,
                   lastname: result[0].user_lastname,
                   type: result[0].user_type,
+                  role: result[0].user_is_superadmin,
                   accessToken: accessToken,
                 },
               });
@@ -216,6 +218,7 @@ exports.login = async (req, res, next) => {
     console.log(error.message);
   }
 };
+
 exports.changePassword = async (req, res, next) => {
   const id = req.params.id;
   const password = req.body.password;

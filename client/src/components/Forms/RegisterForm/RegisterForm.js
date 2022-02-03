@@ -73,6 +73,7 @@ const RegisterForm = () => {
       setType("");
       setFirstName("");
       setLastName("");
+      setConfirmPassword("");
     } catch (error) {
       console.log(error.message);
     }
