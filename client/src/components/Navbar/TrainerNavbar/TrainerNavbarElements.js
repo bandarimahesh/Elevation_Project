@@ -37,10 +37,14 @@ export const LogoImage = styled.img`
 `;
 export const MenuContainer = styled.div`
   @media only screen and (max-width: 968px) {
+    display: none !important;
+  }
+`;
+export const MenuItem = styled.ul`
+  @media only screen and (max-width: 968px) {
     display: none;
   }
 `;
-export const MenuItem = styled.ul``;
 export const NavItem = styled.li`
   list-style-type: none;
   display: inline-block;
@@ -54,6 +58,9 @@ export const NavLink = styled.a``;
 export const RightbarContainer = styled.div`
   display: flex;
   align-items: center;
+  @media only screen and (max-width: 968px) {
+    display: none;
+  }
 `;
 export const RightbarContainerMenu = styled.div`
   /* display: flex;
@@ -74,15 +81,6 @@ export const RightbarContainerList = styled.p`
   }
 `;
 
-export const SearchBoxContainer = styled.div`
-  display: flex;
-  align-items: center;
-  /* justify-content: center; */
-
-  @media only screen and (max-width: 1068px) {
-    display: none !important;
-  }
-`;
 export const SearchForm = styled.form`
   position: relative;
 `;
@@ -115,7 +113,11 @@ export const ProfileImg = styled.img`
   object-fit: cover;
   cursor: pointer;
 `;
-export const SearchBoxDiv = styled.div``;
+export const SearchBoxDiv = styled.div`
+  @media only screen and (max-width: 968px) {
+    display: none;
+  }
+`;
 
 export const MenuBarContainer = styled.div`
   display: none;
@@ -124,14 +126,14 @@ export const MenuBarContainer = styled.div`
   align-items: center;
   margin-top: 13px;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: block;
   }
 `;
 export const DropDownContainer = styled.div`
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: #0d0d0d;
   display: grid;
   align-items: center;
@@ -157,7 +159,7 @@ export const DropDownWrapper = styled.div``;
 export const DropDownMenu = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 70px);
+  grid-template-rows: repeat(8, 70px);
 `;
 export const DropDownLink = styled.li`
   color: #fff;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import {
   CourseCardDiv,
@@ -88,10 +89,10 @@ const ItSkillsCourses = ({ searchItem }) => {
             <CourseReviewsBox>
               <CourseReviewsP>
                 {course.course_rating}
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
               </CourseReviewsP>
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>

@@ -1,24 +1,12 @@
 import React from "react";
-import {
-  JobHomeSect,
-  JobHomePageDiv,
-  JobHomePageWrapper,
-  JobHomeDiv,
-  JobHomeTitles,
-  JobHomeSearchForm,
-  JobHomeSearchInput,
-  JobHomeSearchBtn,
-} from "./JobHomeElements";
+import { JobHomeSect, JobHomePageDiv } from "./JobHomeElements";
 
 const JobHomePage = () => {
-  const jobSearchHandler = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <JobHomeSect>
       <JobHomePageDiv>
-        <JobHomePageWrapper>
+        Home job seeker
+        {/* <JobHomePageWrapper>
           <JobHomeDiv>
             <JobHomeTitles>Find the Job that you are looking for</JobHomeTitles>
           </JobHomeDiv>
@@ -32,7 +20,7 @@ const JobHomePage = () => {
               <JobHomeSearchBtn>Search</JobHomeSearchBtn>
             </JobHomeSearchForm>
           </JobHomeDiv>
-        </JobHomePageWrapper>
+        </JobHomePageWrapper> */}
       </JobHomePageDiv>
     </JobHomeSect>
   );

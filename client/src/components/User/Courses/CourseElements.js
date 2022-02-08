@@ -5,6 +5,13 @@ export const CourseSection = styled.section`
   width: 100%;
   margin: 0 auto;
   padding: 50px 0px;
+
+  /* @media only screen and (max-width: 768px) {
+    font-size: 17px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 15px;
+  } */
 `;
 export const CourseWrapper = styled.div`
   width: 90%;
@@ -16,6 +23,21 @@ export const MainTitle = styled.h1`
   font-size: 37px;
   font-weight: 700;
   text-align: center;
+  @media only screen and (max-width: 1068px) {
+    font-size: 37px;
+  }
+  /* @media only screen and (max-width: 968px) {
+    font-size: 30px;
+  } */
+  /* @media only screen and (max-width: 768px) {
+    font-size: 17px;
+  } */
+  @media only screen and (max-width: 568px) {
+    font-size: 35px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 33px;
+  }
 `;
 export const LineAfter = styled.div`
   &::before {
@@ -45,7 +67,7 @@ export const CourseWrapper1 = styled.div`
   padding: 50px 0;
   align-items: center;
 
-  @media only screen and (max-width: 968px) {
+  @media only screen and (max-width: 868px) {
     display: block;
   }
 `;
@@ -54,9 +76,13 @@ export const CourseWrapper2 = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   flex-wrap: wrap;
+  @media only screen and (min-width: 1168px) {
+    border-right: none;
+    margin-right: 0;
+  }
 `;
 export const BorderDiv = styled.div`
   border-bottom: 1px solid lightgrey;
@@ -73,6 +99,11 @@ export const CourseCardFlex = styled.div`
     border-right: none;
     margin-right: 0;
   }
+
+  @media only screen and (max-width: 968px) {
+    border-right: none;
+    margin-right: 0;
+  }
 `;
 export const CourseCardDivFlex = styled.div``;
 export const CourseCardTitle = styled.h1`
@@ -80,17 +111,40 @@ export const CourseCardTitle = styled.h1`
   word-wrap: break-word;
   font-size: 30px;
   font-weight: 600;
+  @media only screen and (max-width: 968px) {
+    font-size: 32px;
+    margin: 0px;
+  }
 `;
 export const LeftColHeading = styled.div`
   flex: 6;
 `;
 export const RightColOptions = styled.div`
   flex: 6;
+  @media only screen and (max-width: 868px) {
+    flex: 12;
+  }
 `;
 export const LeftColHeadingText = styled.h1`
   color: #111;
   font-size: 44px;
   margin-left: 20px;
+  @media only screen and (max-width: 1068px) {
+    font-size: 42px;
+  }
+  @media only screen and (max-width: 968px) {
+    font-size: 42px;
+    margin-left: 0px;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 40px;
+  }
+  @media only screen and (max-width: 568px) {
+    font-size: 35px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 30px;
+  }
 `;
 export const LeftColOptionSelected = styled.select`
   height: 37px;
@@ -99,6 +153,11 @@ export const LeftColOptionSelected = styled.select`
   margin: 10px;
   font-size: 15px;
   cursor: pointer;
+  @media only screen and (max-width: 968px) {
+    width: 100%;
+    margin-top: 10px;
+    margin: 0px;
+  }
 `;
 export const LeftColOption = styled.option`
   cursor: pointer;
@@ -115,6 +174,18 @@ export const SearchBoxInput = styled.input`
   margin-top: 8px;
   font-size: 17px;
   border: outline;
+  @media only screen and (max-width: 768px) {
+    max-width: 700px;
+    min-width: 500px;
+  }
+  @media only screen and (max-width: 568px) {
+    max-width: 500px;
+    min-width: 300px;
+  }
+  @media only screen and (max-width: 468px) {
+    max-width: 400px;
+    min-width: 300px;
+  }
 `;
 export const FaSearchIcon = styled(FaSearch)`
   font-size: 24px;
@@ -130,6 +201,9 @@ export const SelectText = styled.p`
   font-size: 21px;
   font-weight: 500;
   margin-right: 12px;
+  @media only screen and (max-width: 968px) {
+    margin: 10px 0px;
+  }
 `;
 
 export const ClickMoreBox = styled.div`

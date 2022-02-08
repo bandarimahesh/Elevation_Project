@@ -35,7 +35,7 @@ export const LogoImage = styled.img`
   cursor: pointer;
 `;
 export const MenuContainer = styled.div`
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: none;
   }
 `;
@@ -48,6 +48,9 @@ export const NavItem = styled.li`
   font-weight: 500;
   color: #fff;
   cursor: pointer;
+  @media only screen and (max-width: 968px) {
+    margin: 0 18px;
+  }
 `;
 export const NavLink = styled.a``;
 
@@ -128,7 +131,7 @@ export const MenuBarContainer = styled.div`
   align-items: center;
   margin-top: 13px;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 968px) {
     display: block;
   }
 `;

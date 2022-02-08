@@ -7,6 +7,9 @@ export const TrainersSect = styled.section`
   background-repeat: no-repeat;
   background-position: center;
   margin-bottom: 50px;
+  @media only screen and (max-width: 968px) {
+    background-repeat: repeat;
+  }
 `;
 export const TrainersSection = styled.section`
   width: 80%;

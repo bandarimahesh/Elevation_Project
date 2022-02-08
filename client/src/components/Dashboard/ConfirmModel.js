@@ -1,7 +1,7 @@
 import React from "react";
 
-const ConfirmModel = () => {
-  return <div>Yes or no</div>;
+const ConfirmModel = ({ children }) => {
+  return <div>{children}</div>;
 };
 
 export default ConfirmModel;

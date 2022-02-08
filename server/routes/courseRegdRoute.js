@@ -1,5 +1,19 @@
-const connection = require("../dbConnection");
+const {
+  createNewCourse,
+  getAllTheCourses,
+  editCourse,
+  deleteCourse,
+} = require("../controllers/courseNewController");
+const { verifyTokenAndAuthorization } = require("../middleware/verifyToken");
 const router = require("express").Router();
-// add new course details and trainee details
-router.post("/new-course/register", registerNewCourseController);
-// remove course details and trainee details
+
+
+// adding new course route
+router.post("/add/:id", verifyTokenAndAuthorization, createNewCourse);
+// getting the all the courses in dashboard
+router.get("/dashboard/courses", verifyTokenAndAuthorization, getAllTheCourses);
+// edit specific course
+router.put("/edit/:id", verifyTokenAndAuthorization, editCourse);
+// delete specific course
+router.delete("/delete/:id", verifyTokenAndAuthorization, deleteCourse);
+module.exports = router;

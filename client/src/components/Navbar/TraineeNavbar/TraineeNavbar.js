@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,21 +22,39 @@ import {
   FaSearchIcon,
   FaCartIcon,
   CartQuantity,
+  ProfileBoxRes,
+  ProfileBoxRes1,
+  CartQuantity1,
+  ProfileImg1,
 } from "./TraineeNavbarElements.js";
 import logo from "../../../images/logo-rm.png";
 import { logOut } from "../../../redux/userRedux.js";
+import axios from "axios";
 
 const TraineeNavbar = ({ toggleMenuItems }) => {
   let navigate = useNavigate();
+  const [traineeDetails, setTraineeDetails] = useState([]);
+
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser);
+  const type = useSelector((state) => state.user.currentUser.type);
   const dispatch = useDispatch();
-  const onLogoutHandler = () => {
+
+  const onLogoutHandler = async () => {
     dispatch(logOut());
     navigate("/");
   };
-  const user = useSelector((state) => state.user.currentUser);
-  const type = useSelector((state) => state.user.currentUser.type);
-
+  const token = user?.accessToken;
+  useEffect(() => {
+    const onImageGetHandler = async () => {
+      const res = await axios.get(`/trainee/details/get/${user?.id}`, {
+        headers: { authorization: "Bearer " + token },
+      });
+      setTraineeDetails(res.data);
+    };
+    onImageGetHandler();
+  }, [user.id, token]);
+  const PF = "http://localhost:5000/images/";
   return (
     <Nav>
       <LogoContainer>
@@ -88,7 +106,6 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               </SearchForm>
             </SearchBoxDiv>
           </RightbarContainerList>
-
           <RightbarContainerList>
             {user?.role === 1 && (
               <Link
@@ -99,7 +116,6 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               </Link>
             )}
           </RightbarContainerList>
-
           <RightbarContainerList>
             <Link
               style={{ textDecoration: "none", color: "white" }}
@@ -127,13 +143,39 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               Logout
             </Link>
           </RightbarContainerList>
+          {traineeDetails?.map((trainee) => (
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/${user?.type}/profile/update/${user?.id}`}
+            >
+              <ProfileImg src={PF + trainee.trainee_image} alt="" />
+            </Link>
+          ))}
         </RightbarContainerMenu>
-        <ProfileImg src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
       </RightbarContainer>
-
-      <MenuBarContainer onClick={toggleMenuItems}>
-        <FaBars />
-      </MenuBarContainer>
+      <ProfileBoxRes>
+        <ProfileBoxRes1>
+          <CartBox>
+            <Link
+              to={`/${user?.type}/cart`}
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <FaCartIcon /> <CartQuantity1>{quantity}</CartQuantity1>
+            </Link>
+          </CartBox>
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={`/${user?.type}/profile/update/${user?.id}`}
+          >
+            {traineeDetails?.map((trainee) => (
+              <ProfileImg1 src={PF + trainee.trainee_image} alt="" />
+            ))}
+          </Link>
+          <MenuBarContainer onClick={toggleMenuItems} logout={onLogoutHandler}>
+            <FaBars />
+          </MenuBarContainer>
+        </ProfileBoxRes1>
+      </ProfileBoxRes>
     </Nav>
   );
 };

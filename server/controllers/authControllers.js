@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
 const mailgun = require("mailgun-js");
+const { sendEmail } = require("../middleware/sendEmail.js");
 const DOMAIN = "sandbox8aea151c6fc5467c9d2f3f60cecd828f.mailgun.org";
 const mg = mailgun({ apiKey: process.env.MAIL_GUN_API_KEY, domain: DOMAIN });
 
@@ -92,13 +93,13 @@ exports.register = async (req, res, next) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const type = req.body.type;
-
+  const lowEmail = email.toLowerCase();
   const saltRound = 10;
   const saltRounds = await bcrypt.genSalt(saltRound);
   const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
   var mysqlTimestamp = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-  if (!email && !password && firstName && !lastName && !type) {
+  if (!lowEmail && !password && firstName && !lastName && !type) {
     res.json({
       required: "ALl details must be required",
     });
@@ -106,7 +107,7 @@ exports.register = async (req, res, next) => {
   try {
     connection.query(
       "SELECT * FROM user_dtls WHERE user_email=?",
-      [email],
+      [lowEmail],
       (err, user) => {
         if (user.length > 0) {
           res.json({
@@ -118,7 +119,7 @@ exports.register = async (req, res, next) => {
           connection.query(
             "INSERT INTO user_dtls (user_email, user_pwd, user_logindate,user_logintime, user_firstname, user_lastname, user_status, user_creation,user_modified_by, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)",
             [
-              email,
+              lowEmail,
               hashedPassword,
               new Date(),
               mysqlTimestamp,
@@ -154,9 +155,46 @@ exports.register = async (req, res, next) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  const refreshToken = req.body.token;
+  refreshTokenArray = refreshTokenArray.filter(
+    (token) => token !== refreshToken
+  );
+  res.send({ logout: "You are successfully logged out" });
+};
+//array
+
+let refreshTokenArray = [];
+
+exports.refreshToken = async (req, res, next) => {
+  let refreshToken = req.body.token;
+
+  if (!refreshToken) {
+    return res.send({ error: "You are not authenticated." });
+  }
+  if (!refreshTokenArray.includes(refreshToken)) {
+    res.send({ error: "Invalid refresh token." });
+  }
+
+  jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN, (err, user) => {
+    if (err) res.send({ error: err.message });
+
+    refreshTokenArray.filter((token) => token !== refreshToken);
+
+    const newAccessToken = jwt.sign(user, process.env.JWT_LOGIN_SECRET_KEY, {
+      expiresIn: "10m",
+    });
+    const newRefreshToken = jwt.sign(user, process.env.JWT_REFRESH_TOKEN);
+
+    refreshTokenArray.push(newRefreshToken);
+    res.json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+  });
+};
+
 // login for a user
 exports.login = async (req, res, next) => {
   const username = req.body.username;
+  const lowEmail = username.toLowerCase();
   const password = req.body.password;
   const type = req.body.type;
 
@@ -165,20 +203,18 @@ exports.login = async (req, res, next) => {
       .status(500)
       .send("Please enter a username, password and usertype to login");
   }
-
   try {
     connection.query(
       "SELECT * FROM user_dtls WHERE user_email=? AND user_type=?",
-      [username, type],
+      [lowEmail, type],
       (err, result) => {
         if (!result) {
-          console.log(err.message);
-          // res.send("Please check your all your fields");
           res.status(403).send(err.message);
         }
         if (result.length > 0) {
           bcrypt.compare(password, result[0].user_pwd, (err, response) => {
             if (response) {
+              const id = result[0].user_dtls_id;
               const accessToken = jwt.sign(
                 {
                   id: result[0].user_dtls_id,
@@ -187,8 +223,19 @@ exports.login = async (req, res, next) => {
                   isSuperAdmin: result[0].user_is_superadmin,
                 },
                 process.env.JWT_LOGIN_SECRET_KEY,
-                { expiresIn: "10m" }
+                { expiresIn: "1d" }
               );
+              const refreshToken = jwt.sign(
+                {
+                  id: result[0].user_dtls_id,
+                  email: result[0].user_email,
+                  type: result[0].user_type,
+                  isSuperAdmin: result[0].user_is_superadmin,
+                },
+                process.env.JWT_REFRESH_TOKEN
+              );
+              refreshTokenArray.push(refreshToken);
+
               res.json({
                 success: {
                   id: result[0].user_dtls_id,
@@ -198,6 +245,7 @@ exports.login = async (req, res, next) => {
                   type: result[0].user_type,
                   role: result[0].user_is_superadmin,
                   accessToken: accessToken,
+                  refreshToken: refreshToken,
                 },
               });
             } else {
@@ -254,21 +302,101 @@ exports.changePassword = async (req, res, next) => {
 
 exports.forgotpassword = (req, res, next) => {
   const email = req.body.email;
+  if (!email) return;
+  const lowEmail = email.toLowerCase();
+
   connection.query(
     "SELECT * FROM user_dtls WHERE user_email=?",
-    [email],
+    [lowEmail],
     (err, result) => {
       if (err) {
-        return res.send("No email found with this email address");
+        return res.send({ error: err.message });
+      }
+      if (!result.length) {
+        res.send({
+          error: "There is no account with this email address. Please sign up!",
+        });
       }
       if (result.length > 0) {
+        const forgotPasswordToken = jwt.sign(
+          {
+            id: result[0].user_dtls_id,
+            email: result[0].user_email,
+            type: result[0].user_type,
+          },
+          process.env.JWT_FORGOT_PASSWORD_TOKEN,
+          { expiresIn: "15m" }
+        );
+        const url = `${process.env.FRONT_END_LINK}/user/activate/reset-password/${forgotPasswordToken}`;
+        const data = sendEmail(
+          url,
+          "Forgot password link",
+          "Click to reset password"
+        );
+        mg.messages().send(data, function (error, body) {
+          if (error) {
+            res.send({ error: "There was an error sending the link" });
+          }
+          if (body) {
+            res.send({
+              success:
+                "Email has been sent to your register account,Link will be expired in 10 minutes",
+            });
+          }
+        });
       }
     }
   );
 };
 
-exports.resetpassword = (req, res, next) => {
-  res.send("Reset Password");
+exports.resetpassword = async (req, res, next) => {
+  const password = req.body.password;
+
+  if (!password) {
+    res.send({ error: "The password must be required" });
+  }
+  const saltRounds = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      jwt.verify(token, process.env.JWT_FORGOT_PASSWORD_TOKEN, (err, user) => {
+        if (!err) {
+          const id = user.id;
+          connection.query(
+            "SELECT * FROM user_dtls WHERE user_dtls_id =?",
+            [id],
+            (err, user) => {
+              if (user) {
+                connection.query(
+                  "UPDATE user_dtls SET user_pwd=? WHERE user_dtls_id=?",
+                  [hashedPassword, id],
+                  (err, response) => {
+                    if (response) {
+                      res.send({
+                        success: "Successfully updated the password",
+                      });
+                    } else {
+                      res.send({
+                        error: "There was an error updating the password",
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          );
+        } else {
+          return res.send({ token: "Token is invalid or expired" });
+        }
+      });
+    } else {
+      return res.send({ token: "You are not authenticated" });
+    }
+  } catch (error) {
+    res.send(error.message);
+  }
 };
 
 // // email account activation

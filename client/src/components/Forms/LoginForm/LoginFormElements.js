@@ -1,71 +1,57 @@
 import styled from "styled-components";
 import { BiHide, BiShow } from "react-icons/bi";
 
-export const HomeSect = styled.section`
-  width: 100%;
-  height: 100vh;
-`;
 export const HomeSectionComponent = styled.div`
-  width: 90%;
-  height: 95vh;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
-  padding: 0 100px;
+  background-image: url("https://res.cloudinary.com/ddzagipmh/image/upload/v1644037126/17973908_zwmwyf.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media only screen and (min-width: 1068px) {
+    padding: 0 100px;
+  }
+  @media only screen and (max-width: 1068px) {
+    width: 100%;
+  }
+  @media only screen and (max-width: 968px) {
+    padding: 0 50px;
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 0 20px;
+  }
+  @media only screen and (max-width: 468px) {
+    padding: 0;
+  }
 `;
-export const HomeWrapper = styled.div`
-  display: flex;
+export const LoginWrapper = styled.div`
+  display: flex; /* establish flex container */
+  flex-direction: column; /* make main axis vertical */
+  justify-content: center; /* center items vertically, in this case */
   align-items: center;
-  justify-content: center;
-`;
-
-export const LeftCol = styled.div`
-  flex: 2;
-`;
-export const RightCol = styled.div`
-  flex: 10;
-  background-color: #fff;
-`;
-// right section
-
-export const MainTitleBox = styled.div`
-  margin: 200px 0 0 50px;
-`;
-export const MainTitle = styled.h1`
-  color: #fff;
-  font-size: 37px;
-  font-weight: 700;
-`;
-export const MainDescription = styled.p`
-  color: #fff;
-  font-size: 18px;
-  font-weight: 400;
-  margin: 30px auto;
-`;
-export const MainRegButton = styled.button`
-  outline: none;
-  padding-left: 15px;
-  font-size: 17px;
-  border-radius: 5px;
-  border: 1px solid lightgrey;
-  color: #fff;
-  border-bottom-width: 2px;
-  transition: all 0.4s ease;
-  font-size: 20px;
-  font-weight: 500;
-  padding: 13px 20px;
-  border: none;
-  cursor: pointer;
-  background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
 `;
 
 // left section
 export const Wrapper = styled.div`
-  margin-top: 100px;
   display: flex !important;
   justify-content: center;
   align-items: center;
+  width: 80%;
+  height: 80%;
+  margin: 100px 0 auto;
+  @media only screen and (max-width: 1068px) {
+    width: 100%;
+  }
+  @media only screen and (max-width: 968px) {
+    display: block;
+  }
 `;
 export const WrapperRight = styled.div`
   flex: 2;
+  @media only screen and (max-width: 868px) {
+    display: none;
+  }
 `;
 export const WrapperRightImg = styled.img`
   width: 180px;
@@ -75,22 +61,25 @@ export const WrapperRightImg = styled.img`
 export const WrapperLeftImg = styled.img``;
 export const WrapperLeft = styled.div`
   flex: 2;
+  @media only screen and (max-width: 868px) {
+    display: none;
+  }
 `;
 
 export const WrapperCenter = styled.div`
   flex: 8;
-  width: 560px;
+  width: 100%;
   padding: 30px;
   height: 100%;
   border-radius: 5px;
   /* box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1); */
   overflow: hidden;
   margin: 0 auto;
+  @media only screen and (max-width: 968px) {
+    flex: 12;
+  }
 `;
-export const TitleText = styled.div`
-  display: flex;
-  width: 400%;
-`;
+
 export const Title = styled.div`
   width: 50%;
   font-size: 35px;
@@ -113,9 +102,7 @@ export const SlideControls = styled.div`
   border-radius: 5px;
   overflow: hidden;
 `;
-export const InputRadioButton = styled.input`
-  display: none;
-`;
+
 export const SlideTab = styled.div`
   position: absolute;
   left: 0;
@@ -129,7 +116,7 @@ export const SlideTab = styled.div`
 export const SlideDiv1 = styled.div`
   height: 100%;
   width: 25%;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
   text-align: center;
   line-height: 48px;
@@ -140,12 +127,18 @@ export const SlideDiv1 = styled.div`
   background: ${({ isActive1 }) =>
     isActive1 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  @media only screen and (max-width: 768px) {
+    font-size: 17px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 15px;
+  }
 `;
 
 export const SlideDiv2 = styled.div`
   height: 100%;
   width: 25%;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
   text-align: center;
   line-height: 48px;
@@ -156,11 +149,17 @@ export const SlideDiv2 = styled.div`
   background: ${({ isActive2 }) =>
     isActive2 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  @media only screen and (max-width: 768px) {
+    font-size: 17px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 15px;
+  }
 `;
 export const SlideDiv3 = styled.div`
   height: 100%;
   width: 25%;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
   text-align: center;
   line-height: 48px;
@@ -171,11 +170,17 @@ export const SlideDiv3 = styled.div`
   background: ${({ isActive3 }) =>
     isActive3 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  @media only screen and (max-width: 768px) {
+    font-size: 17px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 15px;
+  }
 `;
 export const SlideDiv4 = styled.div`
   height: 100%;
   width: 25%;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
   text-align: center;
   line-height: 48px;
@@ -186,6 +191,12 @@ export const SlideDiv4 = styled.div`
   background: ${({ isActive4 }) =>
     isActive4 ? "-webkit-linear-gradient(left, #3e5ce4, #4282fa)" : "none"};
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  @media only screen and (max-width: 768px) {
+    font-size: 17px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 15px;
+  }
 `;
 export const FormInner = styled.div`
   display: flex;
@@ -193,7 +204,7 @@ export const FormInner = styled.div`
 `;
 
 export const Form = styled.form`
-  width: 500px;
+  width: 100%;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 `;
 export const Field = styled.div`
@@ -247,6 +258,9 @@ export const InputButton = styled.button`
   border: none;
   cursor: pointer;
   background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 export const PassLink = styled.div`
   margin-top: 5px;

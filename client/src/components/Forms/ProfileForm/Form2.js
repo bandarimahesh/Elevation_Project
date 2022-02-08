@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Form, FormBtn, FormDiv, FormInput } from "./FormProfileElements";
+import {
+  CloseButton,
+  Form,
+  FormBtn,
+  FormDiv,
+  FormInput,
+} from "./FormProfileElements";
+import { toast } from "react-toastify";
+
 import axios from "axios";
-const Form2 = () => {
+const Form2 = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
 
@@ -13,13 +22,24 @@ const Form2 = () => {
     event.preventDefault();
     try {
       const result = await axios.put(
-        `/trainee/profile/account/${user?.id}`,
+        `/${user?.type}/profile/account/${user?.id}`,
         { firstName: firstName, lastName: lastName },
         {
           headers: { authorization: "Bearer " + token },
         }
       );
-      console.log(result.data);
+      if (result.data.success) {
+        setSuccess(result.data.success);
+        toast.success("Successfully update your personal details", {
+          position: "top-center",
+        });
+      }
+      if (result.data.error) {
+        setError(result.data.error);
+        toast.error("There was a problem updating your personal details", {
+          position: "top-center",
+        });
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -27,7 +47,10 @@ const Form2 = () => {
 
   return (
     <>
+      <CloseButton onClick={props.personal} />
       <FormDiv>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && <p style={{ color: "green" }}>{success}</p>}
         <Form onSubmit={changePersonalDetails}>
           <FormInput
             onChange={(event) => setFirstName(event.target.value)}

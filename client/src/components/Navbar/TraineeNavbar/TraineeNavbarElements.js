@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
-
+import { FaSearch } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
 export const Nav = styled.nav`
   position: sticky;
   top: 0;
@@ -49,14 +49,19 @@ export const NavItem = styled.li`
   font-weight: 500;
   color: #fff;
   cursor: pointer;
+  @media only screen and (max-width: 1068px) {
+    margin: 0 18px;
+  }
 `;
 export const NavLink = styled.a``;
 export const RightbarContainer = styled.div`
-  display: flex;
-  align-items: center;
   @media only screen and (max-width: 968px) {
     display: none;
   }
+`;
+export const RightbarContainer1 = styled.div`
+  display: flex;
+  align-items: center;
 `;
 export const RightbarContainerMenu = styled.div`
   /* display: flex;
@@ -75,7 +80,7 @@ export const RightbarContainerList = styled.p`
   &:nth-child(4) {
     position: relative;
   }
-  &:nth-child(5) {
+  &:nth-child(6) {
     margin-right: 0;
   }
 `;
@@ -84,7 +89,6 @@ export const SearchBoxContainer = styled.div`
   display: flex;
   align-items: center;
   /* justify-content: center; */
-
   @media only screen and (max-width: 1068px) {
     display: none !important;
   }
@@ -106,15 +110,15 @@ export const FaSearchIcon = styled(FaSearch)`
   right: 5px;
   position: absolute;
 `;
-export const FaCartIcon = styled(FaShoppingCart)`
-  font-size: 22px !important;
+export const FaCartIcon = styled(FiShoppingCart)`
+  height: 25px;
+  width: 25px;
   color: #fff;
-  /* padding: 0; */
   position: relative;
 `;
 export const CartBox = styled.div`
   padding: 0 !important;
-  /* position: relative !important; */
+  position: relative !important;
 `;
 export const CartQuantity = styled.p`
   position: absolute;
@@ -127,6 +131,20 @@ export const CartQuantity = styled.p`
   height: 20px;
   border-radius: 50%;
   color: #fff;
+  cursor: pointer;
+`;
+export const CartQuantity1 = styled.p`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  width: 20px;
+  font-size: 13px;
+  text-align: center;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
 `;
 export const ProfileImg = styled.img`
   width: 30px;
@@ -134,18 +152,40 @@ export const ProfileImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-  margin-left: 10px;
+  
 `;
-export const SearchBoxDiv = styled.div``;
+export const SearchBoxDiv = styled.div`
+  @media only screen and (max-width: 1068px) {
+    display: none !important;
+  }
+`;
 
-export const MenuBarContainer = styled.div`
+export const ProfileBoxRes = styled.div`
   display: none;
+  @media only screen and (max-width: 968px) {
+    display: block;
+  }
+`;
+export const ProfileBoxRes1 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+export const ProfileImg1 = styled.img`
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0px 20px;
+  cursor: pointer;
+  @media only screen and (max-width: 968px) {
+    display: block;
+  }
+`;
+export const MenuBarContainer = styled.div`
   cursor: pointer;
   font-size: 1.8rem;
   align-items: center;
   margin-top: 13px;
-
-  @media only screen and (max-width: 968px) {
-    display: block;
-  }
 `;

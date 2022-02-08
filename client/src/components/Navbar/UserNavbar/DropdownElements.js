@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 export const DropDownContainer = styled.div`
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: #0d0d0d;
   display: grid;
   align-items: center;
@@ -29,7 +29,7 @@ export const DropDownWrapper = styled.div``;
 export const DropDownMenu = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 70px);
+  grid-template-rows: repeat(7, 70px);
 `;
 export const DropDownLink = styled.li`
   color: #fff;

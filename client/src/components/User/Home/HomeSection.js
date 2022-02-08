@@ -4,20 +4,13 @@ import LoginForm from "../../Forms/LoginForm/LoginForm";
 import Home from "./Home";
 import {
   HomeSect,
-  HomeSectionComponent,
-  HomeWrapper,
+  
 } from "./HomeSectElements";
 
 const HomeSection = () => {
   const user = useSelector((state) => state.user.currentUser);
 
-  return (
-    <HomeSect>
-      <HomeSectionComponent>
-        <HomeWrapper>{user?.type ? <Home /> : <LoginForm />}</HomeWrapper>
-      </HomeSectionComponent>
-    </HomeSect>
-  );
+  return <HomeSect>{user?.type ? <Home /> : <LoginForm />}</HomeSect>;
 };
 
 export default HomeSection;

@@ -30,7 +30,7 @@ export const DropDownWrapper = styled.div``;
 export const DropDownMenu = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(6, 70px);
+  grid-template-rows: repeat(8, 70px);
 `;
 export const DropDownLink = styled.li`
   color: #fff;

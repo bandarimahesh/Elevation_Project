@@ -1,19 +1,17 @@
 const {
-  addNewCourseControllers,
   getCourseController,
   allCourseControllers,
   getCourseByCategoryDomain,
   getCourseByCategoryRpa,
   getCourseByCategoryItSkills,
   getCourseBySearch,
-  upload,
   getMasterCourseByTitles,
   addJoinNowCourse,
 } = require("../controllers/courseControllers");
+
 const { verifyToken } = require("../middleware/verifyToken");
 const router = require("express").Router();
 
-router.post("/new-course", upload, addNewCourseControllers);
 // sp course
 
 router.get("/full-course/:id", getCourseController);

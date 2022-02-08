@@ -20,7 +20,6 @@ import {
 import { useSelector } from "react-redux";
 
 const AddNewCourse = () => {
-  const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
   const [courseName, setCourseName] = useState("");
   const [price, setPrice] = useState("");
@@ -28,32 +27,42 @@ const AddNewCourse = () => {
   const [category, setCategory] = useState("");
   const [startsDate, setStartsDate] = useState("");
   const [endsDate, setEndsDate] = useState("");
-
+  const [image, setImage] = useState("");
+  const [spayeeLink, setSpayeeLink] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
-  const trainerName = user.username + " " + user.lastname;
 
   const AddNewCourseHandler = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append("image", file);
+    let data = new FormData();
+    data.append("image", image);
+    data.append("title", title);
+    data.append("courseName", courseName);
+    data.append("price", price);
+    data.append("category", category);
+    data.append("tags", tags);
+    data.append("startsDate", startsDate);
+    data.append("endsDate", endsDate);
+    data.append("spayeeLink", spayeeLink);
+    data.append("description", description);
+    console.log(data);
 
     try {
-      const res = await axios.post(
-        `/courses/new-course`,
-        {
-          formData,
+      const res = await axios.post(`/courses/new/add/${user?.id}`, data, {
+        headers: {
+          authorization: "Bearer " + token,
         },
-        {
-          headers: {
-            authorization: "Bearer " + token,
-            contentType: "multipart/form-data",
-            Accept: "multipart/form-data",
-          },
-        }
-      );
-      console.log(res.data);
+      });
+      if (res.data.success) {
+        setSuccess(res.data.success);
+      }
+      if (res.data.error) {
+        setError(res.data.error);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -64,7 +73,13 @@ const AddNewCourse = () => {
       <TrainerProfileSection>
         <TrainerProfileWrapper>
           <FormDiv>
-            <Form onSubmit={AddNewCourseHandler} encType="">
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {success && <p style={{ color: "green" }}>{success}</p>}
+            <Form
+              onSubmit={AddNewCourseHandler}
+              method="POST"
+              encType="multipart/form-data"
+            >
               <FormInputDiv>
                 <FormFlex>
                   <FormLabel htmlFor="">Course Title</FormLabel>
@@ -124,9 +139,11 @@ const AddNewCourse = () => {
                   required
                   onChange={(event) => setCategory(event.target.value)}
                 >
-                  <FormOption>Choose a below option</FormOption>{" "}
-                  <FormOption value="software">Software</FormOption>
-                  <FormOption value="domain">Domain</FormOption>
+                  <FormOption>Choose a below option</FormOption>
+                  <FormOption value="software-development">
+                    Software Development
+                  </FormOption>
+                  <FormOption value="domain-skills">Domain Skills</FormOption>
                   <FormOption value="it-skills">It Skills</FormOption>
                 </FormSelect>
               </FormFlex>
@@ -142,12 +159,34 @@ const AddNewCourse = () => {
               </FormInputDiv>
               <FormInputDiv>
                 <FormFlex>
+                  <FormLabel htmlFor="">Spayee Link</FormLabel>
+                  <FormInputDate
+                    required
+                    type="text"
+                    name="spayeeLink"
+                    onChange={(e) => setSpayeeLink(e.target.value)}
+                  />
+                </FormFlex>
+              </FormInputDiv>
+              <FormInputDiv>
+                <FormFlex>
                   <FormLabel>Course Image</FormLabel>
                   <FormInputFile
                     type="file"
                     name="image"
-                    onChange={(event) => setFile(event.target.files[0])}
+                    onChange={(event) => setImage(event.target.files[0])}
                   />
+                </FormFlex>
+              </FormInputDiv>
+              <FormInputDiv>
+                <FormFlex>
+                  <FormLabel>Description</FormLabel>
+                  <FormAddress
+                    required
+                    name="description"
+                    placeholder=" Give a Brief Description about the course"
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></FormAddress>
                 </FormFlex>
               </FormInputDiv>
               <FormBtn type="submit">Save</FormBtn>

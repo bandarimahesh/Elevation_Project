@@ -15,36 +15,12 @@ export const FooterSection = styled.section`
 `;
 export const FooterWrapper = styled.div`
   display: flex;
+  @media only screen and (max-width: 968px) {
+    display: block;
+  }
 `;
 // page title
-export const FooterTitle = styled.h1`
-  color: blue;
-  font-size: 37px;
-  font-weight: 700;
-  text-align: center;
-`;
-export const LineAfter = styled.div`
-  &::before {
-    content: "";
-    width: 180px;
-    height: 4px;
-    display: block;
-    margin: 0 auto;
-    background-color: #9926f0;
-  }
-  &::after {
-    content: "";
-    width: 50px;
-    height: 4px;
-    padding-top: 0.1rem;
-    margin: 0 auto;
-    display: block;
-    background-color: #9926f0;
-  }
-`;
-export const Container = styled.div`
-  display: flex;
-`;
+
 export const Left = styled.div`
   flex: 1;
   display: flex;

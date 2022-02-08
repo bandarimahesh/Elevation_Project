@@ -17,62 +17,70 @@ import {
   SingleProfileWrapper,
   SkipButton,
   SkipBtnDiv,
+  FormInputFile,
 } from "./SingleProfileElements";
 import { useSelector } from "react-redux";
+import GoToTop from "../../GoToTop";
 
 const SingleProfile = () => {
   const [hideForm, setFormHide] = useState(false);
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
+  const [image, setImage] = useState("");
   const [address, setAddress] = useState("");
   const [experience, setExperience] = useState("");
   const [graduate, setGraduate] = useState("");
   const [profession, setProfession] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
-  const email = user?.email;
-
-  useEffect(() => {
-    const checkTraineeDetails = async () => {
-      const res = await axios.get(
-        `/trainee/profile/check`,
-        {
-          email: email,
-        },
-        {
-          headers: { authorization: "Bearer " + token },
-        }
-      );
-      // if (res.data) {
-      //   setFormHide(false);
-      // }
-      console.log(res.data);
-    };
-    checkTraineeDetails();
-  }, [email, token]);
 
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
+    let data = new FormData();
+    data.append("image", image);
+    data.append("mobile", mobile);
+    data.append("dob", dob);
+    data.append("address", address);
+    data.append("experience", experience);
+    data.append("graduate", graduate);
+    data.append("profession", profession);
     try {
       const res = await axios.post(
         `/trainee/profile/create/${user?.id}`,
-        {
-          mobile: mobile,
-          dob: dob,
-          address: address,
-          experience: experience,
-          graduate: graduate,
-          profession: profession,
-        },
+        data,
         { headers: { authorization: "Bearer " + token } }
       );
-      if (res.data) {
-        setFormHide(true);
+      if (res.data.success) {
+        setSuccess(res.data.success);
+      }
+      if (res.data.error) {
+        setFormHide(false);
+        setError(res.data.error);
       }
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  useEffect(() => {
+    const checkTraineeDetails = async () => {
+      const res = await axios.get(`/trainee/profile/check/${user?.id}`, {
+        headers: { authorization: "Bearer " + token },
+      });
+      if (res.data.found) {
+        setFormHide(true);
+        console.log(res.data.found);
+      }
+      if (res.data.notFound) {
+        setFormHide(false);
+        console.log(res.data.notFound);
+      }
+    };
+    checkTraineeDetails();
+  }, [user?.id, token]);
+
   const hideFormBtn = (e) => {
     e.preventDefault();
     alert("Please dont skip this step.");
@@ -83,6 +91,8 @@ const SingleProfile = () => {
     <SingleProfileSect>
       {!hideForm && (
         <SingleProfileSection>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {success && <p style={{ color: "green" }}>{success}</p>}
           <SingleProfileWrapper>
             <FormDiv>
               <Form onSubmit={profileSubmitHandler}>
@@ -90,6 +100,7 @@ const SingleProfile = () => {
                   <FormFlex>
                     <FormLabel htmlFor="">Mobile :</FormLabel>
                     <FormInput
+                      name="mobile"
                       type="number"
                       placeholder="Must be 10 digits"
                       onChange={(e) => setMobile(e.target.value)}
@@ -100,15 +111,16 @@ const SingleProfile = () => {
                   <FormFlex>
                     <FormLabel htmlFor="">DoB:</FormLabel>
                     <FormInputDate
+                      name="dob"
                       type="date"
                       onChange={(e) => setDob(e.target.value)}
                     />
                   </FormFlex>
                 </FormInputDiv>
-
                 <FormFlex>
                   <FormLabel>Education:</FormLabel>
                   <FormSelect
+                    name="graduate"
                     onChange={(event) => setGraduate(event.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
@@ -121,6 +133,7 @@ const SingleProfile = () => {
                 <FormFlex>
                   <FormLabel> Profession:</FormLabel>
                   <FormSelect
+                    name="profession"
                     onChange={(event) => setProfession(event.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
@@ -139,6 +152,7 @@ const SingleProfile = () => {
                 <FormFlex>
                   <FormLabel>Experience:</FormLabel>
                   <FormSelect
+                    name="experience"
                     onChange={(event) => setExperience(event.target.value)}
                   >
                     <FormOption>Choose a below option</FormOption>
@@ -154,8 +168,19 @@ const SingleProfile = () => {
                   <FormFlex>
                     <FormLabel>Address</FormLabel>
                     <FormAddress
+                      name="address"
                       onChange={(e) => setAddress(e.target.value)}
                     ></FormAddress>
+                  </FormFlex>
+                </FormInputDiv>
+                <FormInputDiv>
+                  <FormFlex>
+                    <FormLabel>Profile Picture:</FormLabel>
+                    <FormInputFile
+                      type="file"
+                      name="image"
+                      onChange={(e) => setImage(e.target.files[0])}
+                    />
                   </FormFlex>
                 </FormInputDiv>
                 <FormBtn>Save</FormBtn>
@@ -167,6 +192,7 @@ const SingleProfile = () => {
           </SkipBtnDiv>
         </SingleProfileSection>
       )}
+      <GoToTop />
     </SingleProfileSect>
   );
 };

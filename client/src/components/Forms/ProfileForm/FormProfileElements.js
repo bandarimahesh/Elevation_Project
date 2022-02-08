@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BiHide, BiShow } from "react-icons/bi";
-
+import { AiOutlineClose } from "react-icons/ai";
 export const FormDiv = styled.div`
   padding: 50px;
   margin-left: 20px;
@@ -130,7 +130,14 @@ export const ShowIcon = styled(BiShow)`
   font-size: 22px;
   color: #111;
 `;
-
+export const CloseButton = styled(AiOutlineClose)`
+  font-size: 25px;
+  color: #111;
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+`;
 export const HideIcon = styled(BiHide)`
   font-size: 22px;
   color: #111;

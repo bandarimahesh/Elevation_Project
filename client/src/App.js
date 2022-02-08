@@ -17,7 +17,6 @@ import AboutUs from "./pages/AboutUs";
 import Profile from "./pages/Profile";
 import TraineeHomePage from "./pages/TraineeHomePage";
 import TrainerHomePage from "./pages/TrainerHomePage";
-import Pay from "./pages/Pay";
 import { useSelector } from "react-redux";
 import Cart from "./pages/Cart";
 import AddNewCoursePage from "./pages/TrainerPages/AddNewCoursePage";
@@ -28,6 +27,12 @@ import NotFound from "./pages/Not-found";
 import JoinNow from "./pages/TrainerPages/JoinNow";
 import AllTrainerPage from "./pages/AllTrainersPage";
 import Dashboard from "./pages/Dashboard";
+import ScrollButton from "./components/ScrollToTop";
+import RecruiterHomePage from "./pages/RecruiterHomePage";
+import Terms from "./pages/T&C";
+import PrivacyPage from "./pages/PrivacyPage";
+import ForgotPwdPage from "./pages/ForgotPwdPage";
+import ResetPwdPage from "./pages/ResetPwdPage";
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
 
@@ -38,13 +43,20 @@ const App = () => {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/job-seeker" element={<JobSeekerHomePage />} />
+          <Route path="/recruiter" element={<RecruiterHomePage />} />
           <Route path="*" element={<NotFound />} />
-
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/trainee/cart" element={<Cart />} />
+          <Route path="/terms-conditions" element={<Terms />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/forgot-password" element={<ForgotPwdPage />} />
+          <Route
+            path={`/user/activate/reset-password/:id`}
+            element={<ResetPwdPage />}
+          />
           {/* all courses */}
           <Route path="/courses" element={<AllCoursesPage />} />
           {/* single course page */}
@@ -62,7 +74,7 @@ const App = () => {
           ) : (
             <Route path="/" exact element={<Home />} />
           )}
-          <Route path="/pay" element={<Pay />} />
+
           <Route path="/trainer/join-now" element={<JoinNow />} />
           {user?.type === "trainee" ? (
             <Route
@@ -82,7 +94,7 @@ const App = () => {
           {/* trainee home page after login */}
           {user?.type === "trainer" ? (
             <Route
-              path="/trainer/profile/:id"
+              path="/trainer/profile/update/:id"
               element={<TrainerProfilePage />}
             />
           ) : (
@@ -96,14 +108,25 @@ const App = () => {
           )}
           <Route path="*" element={<Home />} />
           {/* Trainer section */}
-          <Route path="/add-new-course" element={<AddNewCoursePage />} />
+          <Route
+            path="/user/admin/dashboard/add-new-course"
+            element={<AddNewCoursePage />}
+          />
           {user?.role === 1 ? (
             <Route path="/user/admin/dashboard" element={<Dashboard />} />
           ) : (
             <Route path="/login" element={<Navigate to="/login" />} />
           )}
+
+          {/* recruiter home page */}
+          {user?.type === "recruiter" ? (
+            <Route path="/recruiter" exact element={<RecruiterHomePage />} />
+          ) : (
+            <Route path="/" exact element={<Home />} />
+          )}
         </Routes>
       </Router>
+      <ScrollButton />
     </React.Fragment>
   );
 };

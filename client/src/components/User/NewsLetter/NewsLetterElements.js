@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const NewsLetterSect = styled.section`
   height: 60vh;
-  background: url("https://images.pexels.com/photos/247791/pexels-photo-247791.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background: url("https://images.pexels.com/photos/3769120/pexels-photo-3769120.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -48,7 +48,6 @@ export const NewsLetterForm = styled.div`
 
 export const Form = styled.form``;
 export const Input = styled.input`
-  width: 700px;
   height: 50px;
   margin: 0 auto;
   /* border: none; */
@@ -57,6 +56,7 @@ export const Input = styled.input`
   border-bottom: 1px solid #fff;
   font-size: 19px;
   background-color: transparent;
+  min-width: 300px;
   &::placeholder {
     color: #fff;
   }

@@ -9,11 +9,11 @@ const verifyToken = (req, res, next) => {
         req.user = user;
         next();
       } else {
-        return res.send(err.message);
+        return res.send({ token: "Token is invalid or expired" });
       }
     });
   } else {
-    return res.send("You are not authenticated");
+    return res.send({ token: "You are not authenticated" });
   }
 };
 
@@ -27,4 +27,8 @@ const verifyTokenAndAuthorization = (req, res, next) => {
   });
 };
 
-module.exports = { verifyToken, verifyTokenAndAuthorization };
+module.exports = {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  
+};

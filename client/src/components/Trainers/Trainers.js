@@ -10,6 +10,7 @@ import {
   ClickMore,
 } from "./TrainersElements";
 import TrainerCard from "./TrainerCard/TrainerCard";
+import GoToTop from "../GoToTop";
 const Trainers = () => {
   return (
     <TrainersSect>
@@ -25,6 +26,7 @@ const Trainers = () => {
           </Link>
         </ClickMoreBox>
       </TrainersSection>
+      <GoToTop />
     </TrainersSect>
   );
 };

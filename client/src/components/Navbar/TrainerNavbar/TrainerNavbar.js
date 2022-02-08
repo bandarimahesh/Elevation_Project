@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
@@ -22,8 +22,11 @@ import {
 } from "./TrainerNavbarElements.js";
 import logo from "../../../images/logo-rm.png";
 import { logOut } from "../../../redux/userRedux.js";
+import axios from "axios";
 
 const TrainerNavbar = ({ toggleMenuItems }) => {
+  const [trainerDetails, setTrainerDetails] = useState([]);
+
   const user = useSelector((state) => state.user.currentUser);
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,6 +34,17 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
     dispatch(logOut());
     navigate("/");
   };
+  const token = user?.accessToken;
+  // useEffect(() => {
+  //   const onImageGetHandler = async () => {
+  //     const res = await axios.get(`/trainee/details/get/${user?.id}`, {
+  //       headers: { authorization: "Bearer " + token },
+  //     });
+  //     setTrainerDetails(res.data);
+  //   };
+  //   onImageGetHandler();
+  // }, [user.id, token]);
+  const PF = "http://localhost:5000/images/";
   return (
     <Nav>
       <LogoContainer>
@@ -62,14 +76,6 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
               My Students
             </Link>
           </NavItem>
-          <NavItem>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to="/add-new-course"
-            >
-              Add New Course
-            </Link>
-          </NavItem>
         </MenuItem>
       </MenuContainer>
       <RightbarContainer>
@@ -93,7 +99,7 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
           <RightbarContainerList>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to={`/trainer/profile/${user.id}`}
+              to={`/trainer/profile/update/${user.id}`}
             >
               Profile
             </Link>
@@ -113,10 +119,10 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
           </RightbarContainerList>
         </RightbarContainerMenu>
       </RightbarContainer>
-
       <MenuBarContainer onClick={toggleMenuItems}>
         <FaBars />
       </MenuBarContainer>
+      {/* mahesh@12A */}
     </Nav>
   );
 };

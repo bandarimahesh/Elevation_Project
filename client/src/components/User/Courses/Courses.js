@@ -26,6 +26,7 @@ import {
 import DomainCourses from "./CatCourses/DomainCourses";
 import SoftwareCourses from "./CatCourses/SoftwareCourses";
 import ItSkillsCourses from "./CatCourses/ItSkillsCourses";
+import GoToTop from "../../GoToTop";
 const Courses = () => {
   const [searchItem, setSearchItem] = useState("");
   const searchEngineAll = (event) => {
@@ -94,6 +95,7 @@ const Courses = () => {
           <ClickMore>Click To All our Courses</ClickMore>
         </Link>
       </ClickMoreBox>
+      <GoToTop />
     </CourseSection>
   );
 };

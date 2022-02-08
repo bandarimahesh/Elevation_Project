@@ -12,6 +12,9 @@ export const TrainersWrapper1 = styled.div`
 export const TrainerDiv = styled.div`
   width: 330px;
   cursor: pointer;
+  @media only screen and (max-width: 1068px) {
+    margin: 20px;
+  }
 `;
 export const TrainerUpDiv = styled.div`
   width: 100%;
@@ -36,6 +39,10 @@ export const TrainerRole = styled.h6`
   font-size: 16px;
   padding: 0px 10px;
   font-weight: 500;
+  @media only screen and (max-width: 468px) {
+    font-size: 18px;
+    padding: 0px 0px;
+  }
 `;
 export const TrainerName = styled.h1`
   font-size: 32px;

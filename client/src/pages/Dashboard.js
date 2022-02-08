@@ -1,10 +1,12 @@
 import React from "react";
 import Dashboard1 from "../components/Dashboard/Dashboard";
+import Footer from "../components/User/Footer/Footer";
 const Dashboard = () => {
   return (
-    <div>
+    <>
       <Dashboard1 />
-    </div>
+      <Footer />
+    </>
   );
 };
 

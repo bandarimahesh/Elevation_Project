@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  CloseButton,
   Form,
   FormBtn,
   FormDiv,
@@ -12,7 +13,7 @@ import {
 } from "./FormProfileElements";
 import axios from "axios";
 import { useSelector } from "react-redux";
-const Form3 = () => {
+const Form3 = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -59,6 +60,7 @@ const Form3 = () => {
   }, 5000);
   return (
     <>
+      <CloseButton onClick={props.personal} />
       <FormDiv>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}

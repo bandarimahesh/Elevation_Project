@@ -3,12 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
-  HomeSectionComponent,
-  HomeWrapper,
   Wrapper,
-  LeftCol,
-  RightCol,
-  TitleText,
   FormContainer,
   FormInner,
   Form,
@@ -25,7 +20,6 @@ import {
   WrapperLeft,
   WrapperRightImg,
   WrapperLeftImg,
-  HomeSect,
   SlideDiv1,
   SlideDiv2,
   SlideDiv3,
@@ -34,11 +28,15 @@ import {
   PwdIcons,
   ShowIcon,
   HideIcon,
+  HomeSectionComponent,
+  LoginWrapper,
 } from "./LoginFormElements";
-import StudentImg from "../../../images/student.png";
-import TraineeImg from "../../../images/train.png";
-import HireImg from "../../../images/hire.png";
+import StudentImg from "../../../images/student-rm.png";
+import TraineeImg from "../../../images/trainer-rm.png";
+import HireImg from "../../../images/hire-rm.png";
 import TrainerImg from "../../../images/trainer.png";
+import GoToTop from "../../GoToTop.js";
+// import jwtDecode from "jwt-decode";
 import {
   loginFailure,
   loginStart,
@@ -52,9 +50,38 @@ const HomeSection = () => {
   const [error, setError] = useState("");
   const [wrongPwd, setWrongPwd] = useState("");
   const [showIcon, setShowIcon] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // refresh token function for
+
+  // const refreshToken = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       "/auth/login",
+  //       {
+  //         headers: { authorization: "Bearer " + token },
+  //       },
+  //       (err, data) => {
+  //         if (err) {
+  //           console.log(err.message);
+  //         }
+  //       }
+  //     );
+  //     if (res.data) {
+  //       console.log(res.data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+  // axios.interceptors.request.use(async (config) => {
+  //   let currentDate = new Date();
+  //   const decodedToken = jwtDecode(user?.accessToken);
+  //   if (decodedToken.exp * 1000 < currentDate.getTime) {
+  //     await refreshToken();
+  //   }
+  // });
 
   // login function handler
   const loginFormSubmitHandler = async (event) => {
@@ -97,6 +124,7 @@ const HomeSection = () => {
     setError("");
     setWrongPwd("");
   }, 7000);
+
   const [isActive1, setIsActive1] = useState(true);
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);
@@ -136,111 +164,110 @@ const HomeSection = () => {
     const name = e.target.innerHTML;
     setType(name.toLowerCase());
   };
-  return (
-    <HomeSect>
-      <HomeSectionComponent>
-        <HomeWrapper>
-          <LeftCol></LeftCol>
-          <RightCol>
-            <Wrapper>
-              <WrapperRight>
-                <WrapperRightImg src={StudentImg} />
-                <WrapperRightImg src={TraineeImg} />
-              </WrapperRight>
-              <WrapperCenter>
-                <TitleText></TitleText>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                {wrongPwd && <p style={{ color: "red" }}>{wrongPwd}</p>}
-                <FormContainer>
-                  <SlideControls>
-                    <SlideDiv1
-                      value="trainee"
-                      isActive1={isActive1}
-                      onClick={isActiveToggle1}
-                    >
-                      Trainee
-                    </SlideDiv1>
-                    <SlideDiv2
-                      value="trainer"
-                      isActive2={isActive2}
-                      onClick={isActiveToggle2}
-                    >
-                      Trainer
-                    </SlideDiv2>
-                    <SlideDiv3
-                      value="jobseeker"
-                      isActive3={isActive3}
-                      onClick={isActiveToggle3}
-                    >
-                      Job-Seeker
-                    </SlideDiv3>
-                    <SlideDiv4
-                      value="hire"
-                      isActive4={isActive4}
-                      onClick={isActiveToggle4}
-                    >
-                      Recruiter
-                    </SlideDiv4>
-                  </SlideControls>
-                  <FormInner>
-                    <Form onSubmit={loginFormSubmitHandler}>
-                      <Field>
-                        <Input
-                          required
-                          value={email}
-                          type="text"
-                          placeholder="Enter your email"
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </Field>
-                      <PwdField>
-                        <Input
-                          required
-                          value={password}
-                          type={showIcon ? "text" : "password"}
-                          placeholder="Enter your password"
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
 
-                        <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
-                          {showIcon ? <ShowIcon /> : <HideIcon />}
-                        </PwdIcons>
-                      </PwdField>
-                      <PassLink>
-                        <PassLinkA>Forgot Password ?</PassLinkA>
-                      </PassLink>
-                      <Field>
-                        <InputButton
-                          type="submit"
-                          disabled={!email || !password || !type}
-                        >
-                          Login
-                        </InputButton>
-                      </Field>
-                      <SignUpLink>
-                        Not a Member yet ?
-                        <Link
-                          to={`/register`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <SignLinkB> Sign up Right now</SignLinkB>
-                        </Link>
-                      </SignUpLink>
-                    </Form>
-                  </FormInner>
-                </FormContainer>
-              </WrapperCenter>
-              <WrapperLeft>
-                <WrapperLeftImg />
-                <WrapperRightImg src={TrainerImg} />
-                <WrapperRightImg src={HireImg} />
-              </WrapperLeft>
-            </Wrapper>
-          </RightCol>
-          <LeftCol></LeftCol>
-        </HomeWrapper>
-      </HomeSectionComponent>
-    </HomeSect>
+  return (
+    <HomeSectionComponent>
+      <LoginWrapper>
+        <Wrapper>
+          <WrapperRight>
+            <WrapperRightImg src={StudentImg} />
+            <WrapperRightImg src={TraineeImg} />
+          </WrapperRight>
+          <WrapperCenter>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {wrongPwd && <p style={{ color: "red" }}>{wrongPwd}</p>}
+            <FormContainer>
+              <SlideControls>
+                <SlideDiv1
+                  value="trainee"
+                  isActive1={isActive1}
+                  onClick={isActiveToggle1}
+                >
+                  Trainee
+                </SlideDiv1>
+                <SlideDiv2
+                  value="trainer"
+                  isActive2={isActive2}
+                  onClick={isActiveToggle2}
+                >
+                  Trainer
+                </SlideDiv2>
+                <SlideDiv3
+                  value="jobseeker"
+                  isActive3={isActive3}
+                  onClick={isActiveToggle3}
+                >
+                  Job-Seeker
+                </SlideDiv3>
+                <SlideDiv4
+                  value="hire"
+                  isActive4={isActive4}
+                  onClick={isActiveToggle4}
+                >
+                  Recruiter
+                </SlideDiv4>
+              </SlideControls>
+              <FormInner>
+                <Form onSubmit={loginFormSubmitHandler}>
+                  <Field>
+                    <Input
+                      required
+                      value={email}
+                      type="text"
+                      placeholder="Enter your email"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Field>
+                  <PwdField>
+                    <Input
+                      required
+                      value={password}
+                      type={showIcon ? "text" : "password"}
+                      placeholder="Enter your password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
+                      {showIcon ? <ShowIcon /> : <HideIcon />}
+                    </PwdIcons>
+                  </PwdField>
+                  <PassLink>
+                    <PassLinkA>
+                      <Link
+                        to="/forgot-password"
+                        style={{ textDecoration: "none", color: "#fa4299" }}
+                      >
+                        Forgot Password ?
+                      </Link>
+                    </PassLinkA>
+                  </PassLink>
+                  <Field>
+                    <InputButton
+                      type="submit"
+                      disabled={!email || !password || !type}
+                    >
+                      Login
+                    </InputButton>
+                  </Field>
+                  <SignUpLink>
+                    Not a Member yet ?
+                    <Link to={`/register`} style={{ textDecoration: "none" }}>
+                      <SignLinkB> Sign up Right now</SignLinkB>
+                    </Link>
+                  </SignUpLink>
+                </Form>
+              </FormInner>
+            </FormContainer>
+          </WrapperCenter>
+          <WrapperLeft>
+            <WrapperLeftImg />
+            <WrapperRightImg src={TrainerImg} />
+            <WrapperRightImg src={HireImg} />
+          </WrapperLeft>
+        </Wrapper>
+      </LoginWrapper>
+      <GoToTop />
+    </HomeSectionComponent>
   );
 };
 

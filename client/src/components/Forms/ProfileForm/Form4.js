@@ -1,12 +1,19 @@
 import React from "react";
 // import { useSelector } from "react-redux";
-import { Form, FormAddress, FormBtn, FormDiv } from "./FormProfileElements";
+import {
+  CloseButton,
+  Form,
+  FormAddress,
+  FormBtn,
+  FormDiv,
+} from "./FormProfileElements";
 
-const Form4 = () => {
+const Form4 = (props) => {
   // const user = useSelector((state) => state.user.currentUser);
   // const token = user?.accessToken;
   return (
     <>
+      <CloseButton onClick={props.personal} />
       <FormDiv>
         <Form>
           <h1>

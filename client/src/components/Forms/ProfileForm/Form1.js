@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import {
+  CloseButton,
   Form,
   FormAddress,
   FormBtn,
@@ -12,11 +13,10 @@ import {
   FormLabel,
   FormOption,
   FormSelect,
-  FormInputFile,
 } from "./FormProfileElements";
 import { toast } from "react-toastify";
 
-const Form1 = () => {
+const Form1 = (props) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [mobile, setMobile] = useState("");
@@ -70,6 +70,7 @@ const Form1 = () => {
   }, 8000);
   return (
     <>
+      <CloseButton onClick={props.personal} />
       <FormDiv>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}

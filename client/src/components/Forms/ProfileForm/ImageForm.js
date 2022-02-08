@@ -1,30 +1,42 @@
 import React, { useState } from "react";
-import { Form, FormBtn, FormDiv, ImgInput } from "./FormProfileElements";
+import {
+  CloseButton,
+  Form,
+  FormBtn,
+  FormDiv,
+  ImgInput,
+} from "./FormProfileElements";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
-const ImageForm = () => {
+const ImageForm = (props) => {
   const [image, setImage] = useState("");
+  const [success, setSuccess] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
-
+  console.log(user.type);
   const onImageUploadHandler = (event) => {
     event.preventDefault();
 
     let data = new FormData();
     data.append("image", image);
-    const res = axios.put(`/trainee/image/upload/${user?.id}`, data, {
+
+    const res = axios.put(`/${user?.type}/image/upload/${user?.id}`, data, {
       headers: { authorization: "Bearer " + token },
     });
     if (res.data) {
+      setSuccess(res.data);
       console.log(res.data);
     }
   };
   return (
     <>
+      <CloseButton onClick={props.personal} />
       <FormDiv>
+        {success && <p style={{ color: "green" }}>{success}</p>}
         <Form onSubmit={onImageUploadHandler} encType="multipart/form-data">
           <h1>Choose Picture from your local storage</h1>
+
           <ImgInput
             type="file"
             name="image"

@@ -1,4 +1,5 @@
 import React from "react";
+import GoToTop from "../GoToTop";
 import TraineeCard from "./TrainerCard/TrainerCard";
 import {
   AllTrainersDiv,
@@ -11,6 +12,7 @@ const AllTrainers = () => {
       <AllTrainersDiv>
         <TraineeCard /> <TraineeCard /> <TraineeCard />
       </AllTrainersDiv>
+      <GoToTop />
     </AllTrainersSection>
   );
 };

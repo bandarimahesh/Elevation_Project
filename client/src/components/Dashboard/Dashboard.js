@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Dashboard.css";
 import {
   LineStyle,
@@ -19,7 +19,18 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import UsersTable from "./UsersTable";
+import AllCourse from "./AllCourse";
 const Dashboard = () => {
+  const [showCourses, setShowCourse] = useState(false);
+  const [showAllTrainers, setShowAllTrainers] = useState(true);
+  const ShowCourseHandler = (event) => {
+    setShowCourse(!showCourses);
+    setShowAllTrainers(false);
+  };
+  const ShowTrainersHandler = (event) => {
+    setShowAllTrainers(!showAllTrainers);
+    setShowCourse(false);
+  };
   return (
     <>
       <div className="topbar">
@@ -53,45 +64,44 @@ const Dashboard = () => {
             <div className="sidebarMenu">
               <h3 className="sidebarTitle">Dashboard</h3>
               <ul className="sidebarList">
-                <Link to="/" className="link">
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/"
+                  className="link"
+                >
                   <li className="sidebarListItem active">
                     <LineStyle className="sidebarIcon" />
                     Home
                   </li>
                 </Link>
-                <li className="sidebarListItem">
-                  <Timeline className="sidebarIcon" />
-                  Analytics
-                </li>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/user/admin/dashboard/add-new-course"
+                  className="link"
+                >
+                  <li className="sidebarListItem">
+                    <Timeline className="sidebarIcon" />
+                    Add New Course
+                  </li>
+                </Link>
                 <li className="sidebarListItem">
                   <TrendingUp className="sidebarIcon" />
-                  Sales
+                  Timeline
                 </li>
               </ul>
             </div>
             <div className="sidebarMenu">
               <h3 className="sidebarTitle">Quick Menu</h3>
               <ul className="sidebarList">
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to="/user/admin/dashboard/users"
-                  className="link"
-                >
-                  <li className="sidebarListItem">
-                    <PermIdentity className="sidebarIcon" />
-                    Users
-                  </li>
-                </Link>
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to="/products"
-                  className="link"
-                >
-                  <li className="sidebarListItem">
-                    <Storefront className="sidebarIcon" />
-                    Courses
-                  </li>
-                </Link>
+                <li className="sidebarListItem" onClick={ShowTrainersHandler}>
+                  <PermIdentity className="sidebarIcon" />
+                  All Trainers
+                </li>
+                <li className="sidebarListItem" onClick={ShowCourseHandler}>
+                  <Storefront className="sidebarIcon" />
+                  All Courses
+                </li>
+
                 <li className="sidebarListItem">
                   <AttachMoney className="sidebarIcon" />
                   Transactions
@@ -138,7 +148,9 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <UsersTable />
+
+        {showCourses && <AllCourse />}
+        {showAllTrainers && <UsersTable />}
       </div>
     </>
   );

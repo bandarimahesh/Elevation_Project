@@ -40,7 +40,7 @@ const SoftwareCourses = ({ searchItem }) => {
     };
     getCourseByCatCourse();
   }, [searchItem]);
-
+  const PF = "http://localhost:5000/images/";
   return (
     <CourseSectionDiv>
       {catCourses?.data?.map((course) => (
@@ -52,7 +52,11 @@ const SoftwareCourses = ({ searchItem }) => {
             >
               <CourseImgBox>
                 <CourseImg
-                  src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src={
+                    course.course_image
+                      ? PF + course.course_image
+                      : "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500s"
+                  }
                   alt="course picture"
                 />
               </CourseImgBox>
@@ -86,7 +90,14 @@ const SoftwareCourses = ({ searchItem }) => {
               </TitlesDesc>
             </DurationBoxDiv>
             <CourseReviewsBox>
-              <CourseReviewsP>{course.course_rating}</CourseReviewsP>
+              <CourseReviewsP>
+                {course.course_rating}
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </CourseReviewsP>
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link

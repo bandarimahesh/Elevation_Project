@@ -4,6 +4,10 @@ export const RegisterFormSect = styled.section`
   height: auto;
   background-color: #fff;
   width: 100%;
+  /* background-image: url("https://res.cloudinary.com/ddzagipmh/image/upload/v1644037126/17973908_zwmwyf.jpg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 export const RegisterFormSection = styled.section`
   width: 90%;

@@ -86,7 +86,14 @@ const DomainCourses = ({ searchItem }) => {
               </TitlesDesc>
             </DurationBoxDiv>
             <CourseReviewsBox>
-              <CourseReviewsP>{course.course_rating}</CourseReviewsP>
+              <CourseReviewsP>
+                {course.course_rating}
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i className="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </CourseReviewsP>
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
             <Link

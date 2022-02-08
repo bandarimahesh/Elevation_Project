@@ -1,4 +1,5 @@
 import React from "react";
+import GoToTop from "../../GoToTop";
 import {
   AboutSect,
   AboutSection,
@@ -15,8 +16,8 @@ const About = () => {
           <AboutTitle>About Us</AboutTitle>
           <LineAfter />
         </AboutWrapper>
-
       </AboutSection>
+      <GoToTop />
     </AboutSect>
   );
 };

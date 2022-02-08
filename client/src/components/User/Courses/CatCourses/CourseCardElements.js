@@ -3,7 +3,7 @@ export const CourseSectionDiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
   margin: 0 auto;
-  display: inline-block;
+  display: block;
 `;
 
 export const CourseCardDiv = styled.div`
@@ -17,6 +17,24 @@ export const CourseCardDiv = styled.div`
     transform: scale(1.05);
     border-top: 5px solid red;
   }
+  @media only screen and (max-width: 968px) {
+    width: 700px;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 600px;
+  }
+  @media only screen and (max-width: 668px) {
+    width: 500px;
+    margin: 20px;
+  }
+  @media only screen and (max-width: 498px) {
+    width: 400px;
+    margin: 10px;
+  }
+  @media only screen and (max-width: 368px) {
+    width: 350px;
+    margin: 10px;
+  }
 `;
 export const DurationBoxDiv = styled.div`
   display: flex;
@@ -27,8 +45,21 @@ export const DurationBoxDiv = styled.div`
 `;
 export const Titles = styled.h4`
   font-weight: 500;
+  @media only screen and (max-width: 968px) {
+    font-size: 22px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 19px;
+  }
 `;
-export const TitlesDesc = styled.p``;
+export const TitlesDesc = styled.p`
+  @media only screen and (max-width: 968px) {
+    font-size: 21px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 19px;
+  }
+`;
 
 // card styles
 export const CourseBody = styled.div`
@@ -40,9 +71,12 @@ export const CourseBody = styled.div`
 
 export const CourseImgBox = styled.div`
   width: 99%;
-  height: 32%;
+  height: 230px;
   margin: 2px auto;
   position: relative;
+  @media only screen and (max-width: 968px) {
+    height: 300px;
+  }
 `;
 export const CourseImg = styled.img`
   width: 100%;
@@ -51,11 +85,18 @@ export const CourseImg = styled.img`
 `;
 export const CourseTitleBox = styled.div`
   padding: 10px;
+  width: 100%;
 `;
 export const CourseTitleH1 = styled.h1`
   padding-right: 10px;
   font-size: 24.5px;
   font-weight: 600;
+  @media only screen and (max-width: 968px) {
+    font-size: 27.5px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 24px;
+  }
 `;
 
 export const CourseReviewsBox = styled.div`
@@ -69,18 +110,22 @@ export const CourseReviewsP = styled.p`
   color: gold;
   font-size: 18px;
   font-weight: 500;
+  @media only screen and (max-width: 968px) {
+    font-size: 27px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 22px;
+  }
 `;
-export const CoursePrice = styled.h4``;
+export const CoursePrice = styled.h4`
+  @media only screen and (max-width: 968px) {
+    font-size: 27px;
+  }
+  @media only screen and (max-width: 468px) {
+    font-size: 21px;
+  }
+`;
 
-export const CourseIconLike = styled.div`
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  z-index: 10;
-  color: #fff;
-  font-size: 21px;
-  cursor: pointer;
-`;
 export const CourseAddCart = styled.div`
   border: 1px solid blue;
   padding: 5px 10px;
@@ -94,6 +139,9 @@ export const CourseAddCart = styled.div`
   &:hover {
     background: blue;
     color: white;
+  }
+  @media only screen and (max-width: 968px) {
+    padding: 7px 10px;
   }
 `;
 
@@ -119,6 +167,9 @@ export const TrainerDetails = styled.div`
 export const TrainerTitleP = styled.p`
   margin-left: 15px;
   font-size: 13px;
+  @media only screen and (max-width: 968px) {
+    font-size: 21px;
+  }
 `;
 export const TrainerMore = styled.p`
   border: 1px solid #111;

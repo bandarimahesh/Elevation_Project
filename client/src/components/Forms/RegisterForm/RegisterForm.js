@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import GoogleLogin from "react-google-login";
 import {
   RegisterFormSect,
   RegisterFormSection,
@@ -24,8 +23,9 @@ import {
   ShowIcon,
   HideIcon,
   RegisterFormLeft,
-  RegisterFormRight,
+ 
 } from "./RegisterFormElements";
+import GoToTop from "../../GoToTop";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
@@ -48,6 +48,7 @@ const RegisterForm = () => {
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
     // http:localhost:5000/api/auth/register
+
     try {
       const res = await axios.post("/auth/register", {
         email: email,
@@ -82,12 +83,6 @@ const RegisterForm = () => {
     setError("");
   }, 4000);
 
-  const responseSuccessGoogle = (response) => {
-    console.log(response);
-  };
-  const responseFailureGoogle = (response) => {
-    console.log(response);
-  };
   return (
     <React.Fragment>
       <RegisterFormSect>
@@ -242,18 +237,10 @@ const RegisterForm = () => {
                 </Form>
               </FormInner>
             </RegisterFormLeft>
-            <RegisterFormRight>
-              <GoogleLogin
-                clientId="891191045055-s1oqh8ebas7ul36fh4lvvm4ejg1m8fb5.apps.googleusercontent.com"
-                buttonText="Login with google"
-                onSuccess={responseSuccessGoogle}
-                onFailure={responseFailureGoogle}
-                cookiePolicy={"single_host_origin"}
-              />
-            </RegisterFormRight>
           </RegisterFormWrapper>
         </RegisterFormSection>
       </RegisterFormSect>
+      <GoToTop />
     </React.Fragment>
   );
 };

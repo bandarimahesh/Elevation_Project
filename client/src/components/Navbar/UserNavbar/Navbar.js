@@ -85,7 +85,7 @@ const Navbar = ({ toggleMenuItems }) => {
           <NavItem>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to="/recruiter"
+              to={`/recruiter`}
             >
               Recruiter
             </Link>
@@ -97,15 +97,6 @@ const Navbar = ({ toggleMenuItems }) => {
           <SearchBoxInput placeholder="Search....."></SearchBoxInput>
           <FaSearchIcon />
         </SearchForm>
-        {/* <CartBox>
-          <Link
-            to={`/${user?.type}/cart`}
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            <FaCartIcon />
-          </Link>
-        </CartBox>
-        <CartQuantity>{quantity}</CartQuantity> */}
         <Link
           style={{ textDecoration: "none", color: "white" }}
           to={`/register`}
