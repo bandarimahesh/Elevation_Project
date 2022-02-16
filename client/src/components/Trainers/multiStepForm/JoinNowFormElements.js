@@ -8,6 +8,9 @@ export const RegisterFormSection = styled.section`
   width: 90%;
   margin: 0 auto;
   padding: 30px 0px;
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 `;
 export const RegisterFormWrapper = styled.div`
   display: flex;
@@ -20,7 +23,7 @@ export const Form = styled.form`
 export const Field = styled.div`
   height: auto;
   width: 100%;
-  margin: 25px;
+  margin: 20px;
 `;
 export const FormLabel = styled.label`
   font-size: 20px;
@@ -31,6 +34,7 @@ export const FormLabel = styled.label`
 export const FormSelect = styled.select`
   height: 40px;
   width: 100%;
+
   font-size: 18px;
   border-radius: 5px;
   &:focus {
@@ -47,10 +51,16 @@ export const Input = styled.input`
   border: 1px solid lightgrey;
   border-bottom-width: 2px;
   transition: all 0.4s ease;
+  padding: 5px;
 
   &:focus {
     border-color: #fc83bb;
   }
+`;
+export const FormAddress = styled.textarea`
+  height: 60px;
+  width: 100%;
+  font-size: 19px;
 `;
 export const NextButton = styled.button`
   height: 40px;

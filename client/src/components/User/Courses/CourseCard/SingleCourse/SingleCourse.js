@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SingleCourseHeader from "./SingleCourseSections/SingleCourseHeader";
 import axios from "axios";
+import GoToTop from "../../../../GoToTop";
 const SingleCourse = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[3];
+  console.log(path);
   const [oneCourse, setOneCourse] = useState({});
   useEffect(() => {
     try {
@@ -22,6 +24,7 @@ const SingleCourse = () => {
       <SingleCourseHeader data={oneCourse} />
       {/* <CourseContent />
       <CourseTrainerSingle /> */}
+      <GoToTop />
     </>
   );
 };

@@ -4,6 +4,7 @@ import {
   Form,
   FormBtn,
   FormDiv,
+  ImageTitleChoose,
   ImgInput,
 } from "./FormProfileElements";
 import { useSelector } from "react-redux";
@@ -21,7 +22,7 @@ const ImageForm = (props) => {
     let data = new FormData();
     data.append("image", image);
 
-    const res = axios.put(`/${user?.type}/image/upload/${user?.id}`, data, {
+    const res = axios.put(`/trainee/image/upload/${user?.id}`, data, {
       headers: { authorization: "Bearer " + token },
     });
     if (res.data) {
@@ -35,7 +36,9 @@ const ImageForm = (props) => {
       <FormDiv>
         {success && <p style={{ color: "green" }}>{success}</p>}
         <Form onSubmit={onImageUploadHandler} encType="multipart/form-data">
-          <h1>Choose Picture from your local storage</h1>
+          <ImageTitleChoose>
+            Choose Picture from your local storage
+          </ImageTitleChoose>
 
           <ImgInput
             type="file"

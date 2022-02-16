@@ -80,6 +80,7 @@ const Trainee = () => {
       setTraineeDetails(res.data);
     };
     onImageGetHandler();
+    
   }, [user.id, token]);
   const PF = "http://localhost:5000/images/";
 
@@ -87,54 +88,6 @@ const Trainee = () => {
     <TraineeSect>
       <TraineeWrapper>
         <TraineeFlex>
-          <TraineeLeftCol>
-            <h1>Update Your details Here</h1>
-            <TraineeUl>
-              <TraineeLi onClick={showPersonalForm}>Personal Details</TraineeLi>
-              <TraineeLi onClick={showAccountForm}>Account</TraineeLi>
-              <TraineeLi onClick={showImageForm}>
-                Change Profile Picture
-              </TraineeLi>
-              <TraineeLi onClick={showPasswordForm}>Change Password</TraineeLi>
-              <TraineeLi>Your courses</TraineeLi>
-              <TraineeLi onClick={showDeleteAccount}>Delete Account</TraineeLi>
-              {personalForm ? (
-                <Model>
-                  <Form1 personal={showPersonalForm} />
-                </Model>
-              ) : (
-                ""
-              )}
-              {accountForm ? (
-                <Model>
-                  <Form2 personal={showAccountForm} />
-                </Model>
-              ) : (
-                ""
-              )}
-              {changePasswordForm ? (
-                <Model>
-                  <Form3 personal={showPasswordForm} />
-                </Model>
-              ) : (
-                ""
-              )}
-              {deleteAccountForm ? (
-                <Model>
-                  <Form4 personal={showDeleteAccount} />
-                </Model>
-              ) : (
-                ""
-              )}
-              {changeImageForm ? (
-                <Model>
-                  <ImageForm personal={showImageForm} />
-                </Model>
-              ) : (
-                ""
-              )}
-            </TraineeUl>
-          </TraineeLeftCol>
           <TraineeRightCol>
             {traineeDetails?.map((trainee) => (
               <div key={trainee.trainee_id}>
@@ -186,6 +139,54 @@ const Trainee = () => {
               </div>
             ))}
           </TraineeRightCol>
+          <TraineeLeftCol>
+            <h1>Update Your details Here</h1>
+            <TraineeUl>
+              <TraineeLi onClick={showPersonalForm}>Personal Details</TraineeLi>
+              <TraineeLi onClick={showAccountForm}>Account</TraineeLi>
+              <TraineeLi onClick={showImageForm}>
+                Change Profile Picture
+              </TraineeLi>
+              <TraineeLi onClick={showPasswordForm}>Change Password</TraineeLi>
+              <TraineeLi>Your courses</TraineeLi>
+              <TraineeLi onClick={showDeleteAccount}>Delete Account</TraineeLi>
+              {personalForm ? (
+                <Model>
+                  <Form1 personal={showPersonalForm} />
+                </Model>
+              ) : (
+                ""
+              )}
+              {accountForm ? (
+                <Model>
+                  <Form2 personal={showAccountForm} />
+                </Model>
+              ) : (
+                ""
+              )}
+              {changePasswordForm ? (
+                <Model>
+                  <Form3 personal={showPasswordForm} />
+                </Model>
+              ) : (
+                ""
+              )}
+              {deleteAccountForm ? (
+                <Model>
+                  <Form4 personal={showDeleteAccount} />
+                </Model>
+              ) : (
+                ""
+              )}
+              {changeImageForm ? (
+                <Model>
+                  <ImageForm personal={showImageForm} />
+                </Model>
+              ) : (
+                ""
+              )}
+            </TraineeUl>
+          </TraineeLeftCol>
         </TraineeFlex>
       </TraineeWrapper>
       <GoToTop />

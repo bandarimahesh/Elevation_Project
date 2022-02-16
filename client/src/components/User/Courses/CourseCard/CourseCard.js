@@ -23,9 +23,8 @@ import {
   Titles,
   TitlesDesc,
 } from "./CourseCardElements";
-const CourseCard = () => {
+const CourseCard = ({ category }) => {
   const [courses, setCourses] = useState([]);
-  const trainerId = 6;
 
   useEffect(() => {
     const getAllCourse = async () => {
@@ -38,12 +37,28 @@ const CourseCard = () => {
     };
     getAllCourse();
   }, []);
+
+  // useEffect(() => {
+  //   const getAllCourse = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `/course/all-courses?category=${category}`
+  //       );
+  //       setCategoryCourses(response);
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   getAllCourse();
+  // }, [category]);
+
   const user = useSelector((state) => state.user.currentUser);
   const PF = "http://localhost:5000/images/";
+
   return (
     <>
       {courses?.data?.map((course) => (
-        <CourseSectionDiv>
+        <CourseSectionDiv key={course.course_id}>
           <CourseCardDiv>
             <CourseBody>
               <Link
@@ -69,10 +84,6 @@ const CourseCard = () => {
                   <CourseTitleH1>{course.course_title}</CourseTitleH1>
                 </CourseTitleBox>
               </Link>
-              <DurationBoxDiv>
-                <Titles>People Registered:</Titles>
-                <TitlesDesc>{course.course_participants}</TitlesDesc>
-              </DurationBoxDiv>
               <DurationBoxDiv>
                 <Titles>Duration:</Titles>
                 <TitlesDesc> {course.course_duration} Months</TitlesDesc>
@@ -101,12 +112,13 @@ const CourseCard = () => {
                 <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
               </CourseReviewsBox>
               {user ? (
-                <Link
+                <a
+                  target={`_blank`}
                   style={{ textDecoration: "none", color: "black" }}
-                  to={course.course_spayee_link}
+                  href={`${course.course_spayee_link}`}
                 >
                   <CourseAddCart>Register Now</CourseAddCart>
-                </Link>
+                </a>
               ) : (
                 <Link
                   style={{ textDecoration: "none", color: "black" }}
@@ -115,14 +127,25 @@ const CourseCard = () => {
                   <CourseAddCart>Login to Purchase</CourseAddCart>
                 </Link>
               )}
-
               <Link
                 style={{ textDecoration: "none", color: "black" }}
-                to={`/trainers/${trainerId}`}
+                to={`/trainers/details/${course.course_trainer_id}`}
               >
                 <TrainerBox>
+                  <DurationBoxDiv>
+                    <Titles> Experience in Teaching : </Titles>
+                    <TitlesDesc>{course.course_trainer_exp} Year's</TitlesDesc>
+                  </DurationBoxDiv>
+                </TrainerBox>
+                <TrainerBox>
+                  <DurationBoxDiv>
+                    <Titles>Skills : </Titles>
+                    <TitlesDesc>{course.course_trainer_skills}</TitlesDesc>
+                  </DurationBoxDiv>
+                </TrainerBox>
+                <TrainerBox>
                   <TrainerDetails>
-                    <TrainerImg src="https://images.pexels.com/photos/810775/pexels-photo-810775.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+                    <TrainerImg src={PF + course.course_trainer_image} />
                     <TrainerTitleP>{course.course_trainer_name}</TrainerTitleP>
                   </TrainerDetails>
                   <TrainerMore>Know More</TrainerMore>

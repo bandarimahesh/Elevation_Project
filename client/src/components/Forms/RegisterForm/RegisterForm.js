@@ -23,7 +23,6 @@ import {
   ShowIcon,
   HideIcon,
   RegisterFormLeft,
- 
 } from "./RegisterFormElements";
 import GoToTop from "../../GoToTop";
 
@@ -221,7 +220,15 @@ const RegisterForm = () => {
                   </Field>
                   <FormLabelDiv>
                     <FormInput type="checkbox" required />
-                    <FormLabel>I have read all Terms & Conditions.</FormLabel>
+                    <FormLabel>
+                      I have read all{" "}
+                      <Link
+                        to="/terms-conditions"
+                        style={{ textDecoration: "none", color: " #fa4299" }}
+                      >
+                        Terms & Conditions.
+                      </Link>
+                    </FormLabel>
                   </FormLabelDiv>
                   <Field>
                     <InputButton type="submit" disabled={!email || !password}>

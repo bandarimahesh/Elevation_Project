@@ -36,6 +36,7 @@ export const SingleCourseTitle = styled.h1`
   font-size: 35px;
   font-weight: 700;
   padding-top: 10px;
+  text-transform: capitalize;
 `;
 export const SingleCourseFlex = styled.div`
   padding: 50px 0;
@@ -101,6 +102,7 @@ export const HeaderRightImg = styled.img`
   height: 200px;
   cursor: pointer;
   border: 1px solid lightgrey;
+  object-fit: cover;
 `;
 export const HeaderRightPriced = styled.p`
   font-size: 20px;

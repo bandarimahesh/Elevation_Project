@@ -1,6 +1,6 @@
 import React from "react";
 import GoToTop from "../GoToTop";
-import TraineeCard from "./TrainerCard/TrainerCard";
+import TrainerCard from "./TrainerCard/TrainerCard";
 import {
   AllTrainersDiv,
   AllTrainersSection,
@@ -10,7 +10,7 @@ const AllTrainers = () => {
   return (
     <AllTrainersSection>
       <AllTrainersDiv>
-        <TraineeCard /> <TraineeCard /> <TraineeCard />
+        <TrainerCard />
       </AllTrainersDiv>
       <GoToTop />
     </AllTrainersSection>

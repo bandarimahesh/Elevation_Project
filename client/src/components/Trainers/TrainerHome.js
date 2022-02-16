@@ -10,7 +10,7 @@ import {
   TrainerHomeWrapper,
   TrainerHomeTitleDiv,
   JoinButton,
-} from "./TrainerProfileForm/TrainerHomeElements";
+} from "./TrainerHomeElements";
 
 const TrainerHome = () => {
   return (

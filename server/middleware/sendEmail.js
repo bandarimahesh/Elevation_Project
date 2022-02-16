@@ -1,7 +1,7 @@
-const sendEmail = (url, subject, txt) => {
+const sendEmail = (email, url, subject, txt) => {
   return {
     from: "noreply@elevashun.com",
-    to: "msdeverything@gmail.com",
+    to: `${email}`,
     subject: `${subject}`,
     html: `<div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px;   font-size: 110%;">
         <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to the     Elevation Training Programme</h2>

@@ -10,7 +10,6 @@ import {
   MenuItem,
   Nav,
   NavItem,
-  NavLink,
   RightbarContainer,
   SearchForm,
   ProfileImg,
@@ -21,7 +20,6 @@ import {
   CartBox,
   FaSearchIcon,
   FaCartIcon,
-  CartQuantity,
   ProfileBoxRes,
   ProfileBoxRes1,
   CartQuantity1,
@@ -69,14 +67,12 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
         <MenuItem>
           {/* redirect to home page */}
           <NavItem>
-            <NavLink>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={`/${user?.type}`}
-              >
-                Home
-              </Link>
-            </NavLink>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/${user?.type}`}
+            >
+              Home
+            </Link>
           </NavItem>
           <NavItem>
             <Link
@@ -91,7 +87,7 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               style={{ textDecoration: "none", color: "white" }}
               to="/trainers"
             >
-              Trainers
+              Instructor
             </Link>
           </NavItem>
         </MenuItem>
@@ -124,7 +120,7 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               Profile
             </Link>
           </RightbarContainerList>
-          <RightbarContainerList>
+          {/* <RightbarContainerList>
             <CartBox>
               <Link
                 to={`/${user?.type}/cart`}
@@ -134,7 +130,7 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               </Link>
             </CartBox>
             <CartQuantity>{quantity}</CartQuantity>
-          </RightbarContainerList>
+          </RightbarContainerList> */}
           <RightbarContainerList onClick={onLogoutHandler}>
             <Link
               style={{ textDecoration: "none", color: "white" }}

@@ -24,7 +24,7 @@ import {
 } from "./CourseCardElements";
 const SoftwareCourses = ({ searchItem }) => {
   const [catCourses, setCatCourses] = useState([]);
-  const trainerId = 6;
+
   useEffect(() => {
     const getCourseByCatCourse = async () => {
       try {
@@ -70,10 +70,6 @@ const SoftwareCourses = ({ searchItem }) => {
               </CourseTitleBox>
             </Link>
             <DurationBoxDiv>
-              <Titles>People Registered:</Titles>
-              <TitlesDesc>{course.course_participants}</TitlesDesc>
-            </DurationBoxDiv>
-            <DurationBoxDiv>
               <Titles>Duration:</Titles>
               <TitlesDesc> {course.course_duration} Months</TitlesDesc>
             </DurationBoxDiv>
@@ -96,25 +92,36 @@ const SoftwareCourses = ({ searchItem }) => {
                 <i className="fas fa-star"></i>
                 <i className="fas fa-star"></i>
                 <i className="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
+                <i className="fas fa-star-half-alt"></i>
               </CourseReviewsP>
               <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
             </CourseReviewsBox>
-            <Link
-              target={`-blank`}
+            <a
+              target={`_blank`}
               style={{ textDecoration: "none", color: "black" }}
-              to={`https://learn.elevashun.com/s/store/courses/description/RPA-hands-on-live-training-Program-with-live-projects`}
+              href={`${course.course_spayee_link}`}
             >
               <CourseAddCart>Register Now</CourseAddCart>
-            </Link>
-
+            </a>
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/trainers/${trainerId}`}
+              to={`/trainers/details/${course.course_trainer_id}`}
             >
               <TrainerBox>
+                <DurationBoxDiv>
+                  <Titles> Experience in Teaching : </Titles>
+                  <TitlesDesc>{course.course_trainer_exp} Year's</TitlesDesc>
+                </DurationBoxDiv>
+              </TrainerBox>
+              <TrainerBox>
+                <DurationBoxDiv>
+                  <Titles>Skills : </Titles>
+                  <TitlesDesc>{course.course_trainer_skills}</TitlesDesc>
+                </DurationBoxDiv>
+              </TrainerBox>
+              <TrainerBox>
                 <TrainerDetails>
-                  <TrainerImg src="https://images.pexels.com/photos/810775/pexels-photo-810775.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+                  <TrainerImg src={PF + course.course_trainer_image} />
                   <TrainerTitleP>{course.course_trainer_name}</TrainerTitleP>
                 </TrainerDetails>
                 <TrainerMore>Know More</TrainerMore>

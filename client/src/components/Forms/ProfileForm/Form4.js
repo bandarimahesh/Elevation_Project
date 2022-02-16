@@ -6,6 +6,7 @@ import {
   FormAddress,
   FormBtn,
   FormDiv,
+  ImageTitleChoose,
 } from "./FormProfileElements";
 
 const Form4 = (props) => {
@@ -16,10 +17,10 @@ const Form4 = (props) => {
       <CloseButton onClick={props.personal} />
       <FormDiv>
         <Form>
-          <h1>
+          <ImageTitleChoose>
             Once you clicked on delete account you will lost all your data and
             courses that you purchased.
-          </h1>
+          </ImageTitleChoose>
           <FormAddress>Enter your feedback</FormAddress>
           <FormBtn>Delete Account</FormBtn>
         </Form>

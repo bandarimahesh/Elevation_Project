@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -34,7 +34,7 @@ import {
 import StudentImg from "../../../images/student-rm.png";
 import TraineeImg from "../../../images/trainer-rm.png";
 import HireImg from "../../../images/hire-rm.png";
-import TrainerImg from "../../../images/trainer.png";
+import TrainerImg from "../../../images/trainee-rm.png";
 import GoToTop from "../../GoToTop.js";
 // import jwtDecode from "jwt-decode";
 import {
@@ -42,8 +42,9 @@ import {
   loginStart,
   loginSuccess,
 } from "../../../redux/userRedux";
-
+import { useParams } from "react-router-dom";
 const HomeSection = () => {
+  const [success, setSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("trainee");
@@ -52,8 +53,34 @@ const HomeSection = () => {
   const [showIcon, setShowIcon] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // refresh token function for
+  const params = useParams();
 
+  useEffect(() => {
+    const activateEmailAccount = async () => {
+      try {
+        const res = await axios.post(
+          `/auth/email-account-activate/${params.id}`,
+          { signUpToken: params.id }
+        );
+        if (res.data.token) {
+          setError(res.data.token);
+          // navigate(`/login`);
+        }
+        if (res.data.success) {
+          setSuccess(res.data.success);
+        }
+        if (res.data.error) {
+          setError(res.data.error);
+          // navigate(`/login`);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    activateEmailAccount();
+  }, [params.id]);
+
+  // refresh token function for
   // const refreshToken = async () => {
   //   try {
   //     const res = await axios.post(
@@ -102,7 +129,6 @@ const HomeSection = () => {
     );
     if (res.data.success) {
       dispatch(loginSuccess(res.data.success));
-      localStorage.setItem("login", res.data);
       const userType = res.data.success.type;
       navigate(`/${userType}`);
     }
@@ -174,6 +200,7 @@ const HomeSection = () => {
             <WrapperRightImg src={TraineeImg} />
           </WrapperRight>
           <WrapperCenter>
+            {success && <p style={{ color: "green" }}>{success}</p>}
             {error && <p style={{ color: "red" }}>{error}</p>}
             {wrongPwd && <p style={{ color: "red" }}>{wrongPwd}</p>}
             <FormContainer>

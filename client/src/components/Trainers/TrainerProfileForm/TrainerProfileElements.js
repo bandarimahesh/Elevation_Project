@@ -1,3 +1,4 @@
+import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 export const TrainerProfileSect = styled.section`
   height: auto;
@@ -162,4 +163,12 @@ export const SkipButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
+`;
+export const CloseButton = styled(AiOutlineClose)`
+  font-size: 25px;
+  color: #111;
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 16px;
 `;

@@ -4,6 +4,14 @@ import { AiOutlineClose } from "react-icons/ai";
 export const FormDiv = styled.div`
   padding: 50px;
   margin-left: 20px;
+  @media only screen and (max-width: 868px) {
+    padding: 30px 20px;
+    margin-left: 0px;
+  }
+  @media only screen and (max-width: 468px) {
+    padding: 20px 10px;
+    margin-left: 0px;
+  }
 `;
 
 export const Form = styled.form``;
@@ -141,4 +149,7 @@ export const CloseButton = styled(AiOutlineClose)`
 export const HideIcon = styled(BiHide)`
   font-size: 22px;
   color: #111;
+`;
+export const ImageTitleChoose = styled.h1`
+  font-weight: 600;
 `;

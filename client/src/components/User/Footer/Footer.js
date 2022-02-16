@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import {
   Facebook,
   Instagram,
@@ -29,7 +31,10 @@ import {
 } from "./FooterElements";
 import "./footer.css";
 import logo from "../../../images/logo-rm.png";
+import { useSelector } from "react-redux";
+
 const Footer = () => {
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <>
       <SpaceDiv></SpaceDiv>
@@ -43,7 +48,7 @@ const Footer = () => {
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 24 150 28"
               preserveAspectRatio="none"
-              shape-rendering="auto"
+              shapeRendering="auto"
             >
               <defs>
                 <path
@@ -103,16 +108,58 @@ const Footer = () => {
             <Center>
               <Title>Useful Links</Title>
               <List>
-                <ListItem>Home</ListItem>
-                <ListItem>Cart</ListItem>
-                <ListItem>My courses</ListItem>
+                <ListItem>
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to="/"
+                  >
+                    Home
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to="/cart"
+                  >
+                    Cart
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to="/courses"
+                  >
+                    My Courses
+                  </Link>
+                </ListItem>
                 <ListItem>My learning</ListItem>
                 <ListItem>My Wishlist</ListItem>
-                <ListItem>My Account</ListItem>
+                <ListItem>
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to={`/${user?.type}/profile/update/${user?.id}`}
+                  >
+                    My Account
+                  </Link>
+                </ListItem>
                 <ListItem>Resume course</ListItem>
                 <ListItem>Courses</ListItem>
-                <ListItem>Faqs</ListItem>
-                <ListItem>Terms & Conditions</ListItem>
+                <ListItem>
+                  <Link
+                    to="/privacy"
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    Privacy & Policies
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link
+                    to="/terms-conditions"
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    Terms & Conditions
+                  </Link>
+                </ListItem>
               </List>
             </Center>
             <Right>

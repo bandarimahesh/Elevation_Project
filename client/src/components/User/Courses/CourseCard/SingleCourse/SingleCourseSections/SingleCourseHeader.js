@@ -17,22 +17,20 @@ import {
   HeaderRightImg,
   HeaderLeftBox,
   HeaderRightPriced,
-  AddToCartBtn,
-  WishList,
   BuyNowBtn,
 } from "./HeaderElements";
-import { addCourse } from "../../../../../../redux/cartRedux";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+//import { addCourse } from "../../../../../../redux/cartRedux";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import GoToTop from "../../../../../GoToTop";
 const SingleCourseHeader = ({ data }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  
-  const addToCartHandler = (course) => {
-    dispatch(addCourse(course));
-    navigate("/trainee/cart");
-  };
+  //add to cart handler currently commented
+  // const addToCartHandler = (course) => {
+  //   dispatch(addCourse(course));
+  //   navigate("/trainee/cart");
+  // };
   const user = useSelector((state) => state.user.currentUser);
+  const PF = "http://localhost:5000/images/";
   return (
     <SingleCourseSect>
       <SingleCourseSection>
@@ -69,21 +67,33 @@ const SingleCourseHeader = ({ data }) => {
               </HeaderRightCol>
               <HeaderLeftCol>
                 <HeaderLeftBox>
-                  <HeaderRightImg src="https://t3.ftcdn.net/jpg/02/84/02/36/360_F_284023634_KjMhFyIQvm6Skawcp0izYTsJKvhCPLoZ.jpg" />
+                  <HeaderRightImg
+                    src={
+                      course.course_image
+                        ? PF + course.course_image
+                        : "https://t3.ftcdn.net/jpg/02/84/02/36/360_F_284023634_KjMhFyIQvm6Skawcp0izYTsJKvhCPLoZ.jpg"
+                    }
+                  />
                   <FlexBox>
                     <Label>Price:</Label>
                     <HeaderRightPriced>
                       Rs {course.course_price}
                     </HeaderRightPriced>
                   </FlexBox>
-                  <FlexBox>
+                  {/* <FlexBox>
                     <AddToCartBtn onClick={() => addToCartHandler(course)}>
                       Add To Cart
                     </AddToCartBtn>
                     <WishList>Like</WishList>
-                  </FlexBox>
+                  </FlexBox> */}
                   {user ? (
-                    <BuyNowBtn>Buy Now</BuyNowBtn>
+                    <a
+                      target={`_blank`}
+                      style={{ textDecoration: "none", color: "black" }}
+                      href={`${course.course_spayee_link}`}
+                    >
+                      <BuyNowBtn>Buy Now</BuyNowBtn>
+                    </a>
                   ) : (
                     <Link to="/login">
                       <BuyNowBtn>Login</BuyNowBtn>
@@ -95,6 +105,7 @@ const SingleCourseHeader = ({ data }) => {
           ))}
         </SingleCourseWrapper>
       </SingleCourseSection>
+      <GoToTop />
     </SingleCourseSect>
   );
 };

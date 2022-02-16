@@ -265,7 +265,7 @@ export const InputButton = styled.button`
 export const PassLink = styled.div`
   margin-top: 5px;
 `;
-export const PassLinkA = styled.a`
+export const PassLinkA = styled.p`
   text-decoration: none;
   color: #fa4299;
   cursor: pointer;
@@ -277,7 +277,7 @@ export const SignUpLink = styled.div`
   text-align: center;
   margin-top: 30px;
 `;
-export const SignLinkB = styled.a`
+export const SignLinkB = styled.p`
   text-decoration: none;
   color: #fa4299;
   &:hover {

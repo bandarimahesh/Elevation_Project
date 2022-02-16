@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import {
   CourseCardDiv,
@@ -25,7 +24,6 @@ import {
 } from "./CourseCardElements";
 const ItSkillsCourses = ({ searchItem }) => {
   const [catCourses, setCatCourses] = useState([]);
-  const trainerId = 6;
 
   useEffect(() => {
     const getCourseByCatCourse = async () => {
@@ -35,90 +33,109 @@ const ItSkillsCourses = ({ searchItem }) => {
             ? `/courses/search?name=${searchItem}`
             : `/courses/category/it-skills`
         );
-        setCatCourses(response);
+        setCatCourses(response.data);
       } catch (error) {
         console.log(error.message);
       }
     };
     getCourseByCatCourse();
   }, [searchItem]);
+  const PF = "http://localhost:5000/images/";
   return (
     <CourseSectionDiv>
-      {catCourses?.data?.map((course) => (
-        <CourseCardDiv key={course.course_id}>
-          <CourseBody>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_category}/${course.course_id}`}
-            >
-              <CourseImgBox>
-                <CourseImg
-                  src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                  alt="course picture"
-                />
-              </CourseImgBox>
-            </Link>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_category}/${course.course_id}`}
-            >
-              <CourseTitleBox>
-                <CourseTitleH1>{course.course_title}</CourseTitleH1>
-              </CourseTitleBox>
-            </Link>
-            <DurationBoxDiv>
-              <Titles>People Registered:</Titles>
-              <TitlesDesc>{course.course_participants}</TitlesDesc>
-            </DurationBoxDiv>
-            <DurationBoxDiv>
-              <Titles>Duration:</Titles>
-              <TitlesDesc> {course.course_duration} Months</TitlesDesc>
-            </DurationBoxDiv>
-            <DurationBoxDiv>
-              <Titles>Starts Date:</Titles>
-              <TitlesDesc>
-                {new Date(course.course_start_dt).toLocaleDateString()}
-              </TitlesDesc>
-            </DurationBoxDiv>
-            <DurationBoxDiv>
-              <Titles>End Date:</Titles>
-              <TitlesDesc>
-                {new Date(course.course_end_dt).toLocaleDateString()}
-              </TitlesDesc>
-            </DurationBoxDiv>
-            <CourseReviewsBox>
-              <CourseReviewsP>
-                {course.course_rating}
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </CourseReviewsP>
-              <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
-            </CourseReviewsBox>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to={`/courses/${course.course_category}/${course.course_id}`}
-            >
-              <CourseAddCart>Register Now</CourseAddCart>
-            </Link>
-
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to={`/trainers/${trainerId}`}
-            >
-              <TrainerBox>
-                <TrainerDetails>
-                  <TrainerImg src="https://images.pexels.com/photos/810775/pexels-photo-810775.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-                  <TrainerTitleP>{course.course_trainer_name}</TrainerTitleP>
-                </TrainerDetails>
-                <TrainerMore>Know More</TrainerMore>
-              </TrainerBox>
-            </Link>
-          </CourseBody>
-        </CourseCardDiv>
-      ))}
+      {catCourses.length > 0 ? (
+        catCourses?.map((course) => (
+          <CourseCardDiv key={course.course_id}>
+            <CourseBody>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={`/courses/${course.course_category}/${course.course_id}`}
+              >
+                <CourseImgBox>
+                  <CourseImg
+                    src={
+                      course.course_image
+                        ? PF + course.course_image
+                        : "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    }
+                    alt="course picture"
+                  />
+                </CourseImgBox>
+              </Link>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={`/courses/${course.course_category}/${course.course_id}`}
+              >
+                <CourseTitleBox>
+                  <CourseTitleH1>{course.course_title}</CourseTitleH1>
+                </CourseTitleBox>
+              </Link>
+              <DurationBoxDiv>
+                <Titles>Duration:</Titles>
+                <TitlesDesc> {course.course_duration} Months</TitlesDesc>
+              </DurationBoxDiv>
+              <DurationBoxDiv>
+                <Titles>Starts Date:</Titles>
+                <TitlesDesc>
+                  {new Date(course.course_start_dt).toLocaleDateString()}
+                </TitlesDesc>
+              </DurationBoxDiv>
+              <DurationBoxDiv>
+                <Titles>End Date:</Titles>
+                <TitlesDesc>
+                  {new Date(course.course_end_dt).toLocaleDateString()}
+                </TitlesDesc>
+              </DurationBoxDiv>
+              <CourseReviewsBox>
+                <CourseReviewsP>
+                  {course.course_rating}
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star"></i>
+                  <i className="fas fa-star-half-alt"></i>
+                </CourseReviewsP>
+                <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
+              </CourseReviewsBox>
+              <a
+                target={`_blank`}
+                style={{ textDecoration: "none", color: "black" }}
+                href={`${course.course_spayee_link}`}
+              >
+                <CourseAddCart>Register Now</CourseAddCart>
+              </a>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={`/trainers/details/${course.course_trainer_id}`}
+              >
+                <TrainerBox>
+                  <DurationBoxDiv>
+                    <Titles> Experience in Teaching : </Titles>
+                    <TitlesDesc>{course.course_trainer_exp} Year's</TitlesDesc>
+                  </DurationBoxDiv>
+                </TrainerBox>
+                <TrainerBox>
+                  <DurationBoxDiv>
+                    <Titles>Skills : </Titles>
+                    <TitlesDesc>{course.course_trainer_skills}</TitlesDesc>
+                  </DurationBoxDiv>
+                </TrainerBox>
+                <TrainerBox>
+                  <TrainerDetails>
+                    <TrainerImg src={PF + course.course_trainer_image} />
+                    <TrainerTitleP>{course.course_trainer_name}</TrainerTitleP>
+                  </TrainerDetails>
+                  <TrainerMore>Know More</TrainerMore>
+                </TrainerBox>
+              </Link>
+            </CourseBody>
+          </CourseCardDiv>
+        ))
+      ) : (
+        <CourseImgBox>
+          <h1>No courses found in this category</h1>
+        </CourseImgBox>
+      )}
     </CourseSectionDiv>
   );
 };

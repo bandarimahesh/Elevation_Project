@@ -30,38 +30,62 @@ exports.createNewCourse = async (req, res) => {
         const firstName = result[0].user_firstname;
         const lastName = result[0].user_lastname;
         const trainerName = firstName + " " + lastName;
-        file.mv(uploadPath, (err) => {
-          if (err) res.send(err.message);
-          connection.query(
-            "INSERT INTO courses_dtls (course_name, course_price, course_title,course_duration,course_cr_date, course_start_dt,course_end_dt, course_participants,course_category,course_created_by,course_trainer_name,course_tags,course_spayee_link,course_image,course_desc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            [
-              courseName,
-              price,
-              title,
-              duration,
-              creationDate,
-              startsDate,
-              endsDate,
-              participants,
-              category,
-              createdBy,
-              trainerName,
-              tags,
-              link,
-              file.name,
-              description,
-            ],
-            (err, response) => {
-              if (!err) {
-                return res.send({
-                  success: "The course was successfully added.",
-                });
-              } else {
-                return res.send({ error: "There was an error the new course" });
-              }
+        const email = result[0].user_email;
+        connection.query(
+          "SELECT * FROM trainer_profile WHERE trainer_email =?",
+          [email],
+          (err, result) => {
+            if (err) {
+              res.send(err.message);
             }
-          );
-        });
+            if (result.length > 0) {
+              const experience = result[0].trainer_exp_yrs;
+              const skills = result[0].trainer_skills;
+              const image = result[0].trainer_image;
+              const trainerId = result[0].trainer_id;
+              file.mv(uploadPath, (err) => {
+                if (err) res.send(err.message);
+                connection.query(
+                  "INSERT INTO courses_dtls (course_name, course_price, course_title,course_duration,course_cr_date, course_start_dt,course_end_dt, course_participants,course_category,course_created_by,course_trainer_name,course_tags,course_spayee_link,course_image,course_desc,course_trainer_id,course_trainer_exp,course_trainer_skills,course_trainer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  [
+                    courseName,
+                    price,
+                    title,
+                    duration,
+                    creationDate,
+                    startsDate,
+                    endsDate,
+                    participants,
+                    category,
+                    createdBy,
+                    trainerName,
+                    tags,
+                    link,
+                    file.name,
+                    description,
+                    trainerId,
+                    experience,
+                    skills,
+                    image,
+                  ],
+                  (err, response) => {
+                    if (!err) {
+                      return res.send({
+                        success: "The course was successfully added.",
+                      });
+                    } else {
+                      return res.send({
+                        error: err.message,
+                      });
+                    }
+                  }
+                );
+              });
+            } else {
+              res.send({ error: "Please update you trainer profile details" });
+            }
+          }
+        );
       }
     }
   );
@@ -149,7 +173,6 @@ exports.editCourse = async (req, res) => {
     res.send(error.message);
   }
 };
-
 
 // deleting the course
 

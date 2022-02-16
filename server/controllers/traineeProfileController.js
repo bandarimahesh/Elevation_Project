@@ -173,7 +173,6 @@ exports.updateTraineeAccountDetails = (req, res) => {
 // image upload
 exports.uploadUserImage = (req, res) => {
   const file = req.files.image;
-  const username = req.body.username;
   const id = req.params.id;
 
   let uploadPath;

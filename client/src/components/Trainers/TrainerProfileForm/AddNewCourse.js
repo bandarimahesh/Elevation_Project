@@ -18,6 +18,9 @@ import {
   TrainerProfileWrapper,
 } from "./TrainerProfileElements.js";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const AddNewCourse = () => {
   const [title, setTitle] = useState("");
@@ -34,7 +37,7 @@ const AddNewCourse = () => {
   const [success, setSuccess] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
-
+  const navigate = useNavigate();
   const AddNewCourseHandler = async (event) => {
     event.preventDefault();
 
@@ -49,7 +52,6 @@ const AddNewCourse = () => {
     data.append("endsDate", endsDate);
     data.append("spayeeLink", spayeeLink);
     data.append("description", description);
-    console.log(data);
 
     try {
       const res = await axios.post(`/courses/new/add/${user?.id}`, data, {
@@ -59,6 +61,7 @@ const AddNewCourse = () => {
       });
       if (res.data.success) {
         setSuccess(res.data.success);
+        navigate("/courses");
       }
       if (res.data.error) {
         setError(res.data.error);
@@ -180,13 +183,16 @@ const AddNewCourse = () => {
               </FormInputDiv>
               <FormInputDiv>
                 <FormFlex>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel htmlFor="summernote">Description</FormLabel>
                   <FormAddress
+                    id="summernote"
                     required
                     name="description"
                     placeholder=" Give a Brief Description about the course"
                     onChange={(e) => setDescription(e.target.value)}
-                  ></FormAddress>
+                  >
+                    <Editor />
+                  </FormAddress>
                 </FormFlex>
               </FormInputDiv>
               <FormBtn type="submit">Save</FormBtn>

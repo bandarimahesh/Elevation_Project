@@ -20,21 +20,22 @@ const UsersTable = () => {
 
   const trainerApproveHandler = async (trainer) => {
     const res = await axios.put(
-      `/trainer/update/approve/${trainer.trainer_id}`,
+      `/trainer/update/approve`,
+      { id: trainer.trainer_id },
       {
         headers: { authorization: "Bearer " + token },
       }
     );
     if (res.data.approved) {
       alert(res.data.approved);
-      window.location.reload();
       setApprove(!approve);
+      window.location.reload();
     }
   };
   const trainerDisApproveHandler = async (trainer) => {
-    
     const res = await axios.put(
-      `/trainer/update/disapprove/${trainer.trainer_id}`,
+      `/trainer/update/disapprove`,
+      { id: trainer.trainer_id },
       {
         headers: { authorization: "Bearer " + token },
       }
@@ -75,6 +76,9 @@ const UsersTable = () => {
             <th>Last Name</th>
             <th>Mobile Number</th>
             <th>Experience</th>
+            <th>Pref Time</th>
+            <th>Eng Type</th>
+            <th>No of Hours Daily</th>
             <th>Course Id</th>
             <th>Course Category</th>
             <th>Approve or Disapprove</th>
@@ -84,10 +88,15 @@ const UsersTable = () => {
             <tr key={trainer.trainer_id}>
               <td>{trainer.trainer_id}</td>
               <td>{trainer.trainer_email}</td>
-              <td>{trainer.trainer_firstname}</td>
-              <td>{trainer.trainer_lastname}</td>
+              <td>
+                {trainer.trainer_firstname} {trainer.trainer_lastname}
+              </td>
               <td>{trainer.trainer_mobile}</td>
+              <td>{trainer.trainer_qualifications}</td>
               <td>{trainer.trainer_exp_yrs}</td>
+              <td>{trainer.trainer_pref_time}</td>
+              <td>{trainer.trainer_engment_typ}</td>
+              <td>{trainer.trainer_no_of_hrs_daily} Hours</td>
               <td>{trainer.trainer_course_id}</td>
               <td>{trainer.trainer_course_cat_id}</td>
               <td>

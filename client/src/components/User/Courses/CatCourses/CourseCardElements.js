@@ -27,8 +27,12 @@ export const CourseCardDiv = styled.div`
     width: 500px;
     margin: 20px;
   }
+  @media only screen and (max-width: 568px) {
+    width: 450px;
+    margin: 10px;
+  }
   @media only screen and (max-width: 498px) {
-    width: 400px;
+    width: 370px;
     margin: 10px;
   }
   @media only screen and (max-width: 368px) {
@@ -53,6 +57,7 @@ export const Titles = styled.h4`
   }
 `;
 export const TitlesDesc = styled.p`
+  text-transform: capitalize;
   @media only screen and (max-width: 968px) {
     font-size: 21px;
   }
@@ -71,11 +76,11 @@ export const CourseBody = styled.div`
 
 export const CourseImgBox = styled.div`
   width: 99%;
-  height: 230px;
+  height: 200px;
   margin: 2px auto;
   position: relative;
   @media only screen and (max-width: 968px) {
-    height: 300px;
+    height: 150px;
   }
 `;
 export const CourseImg = styled.img`
@@ -84,13 +89,14 @@ export const CourseImg = styled.img`
   object-fit: cover;
 `;
 export const CourseTitleBox = styled.div`
-  padding: 10px;
+  padding: 5px;
   width: 100%;
 `;
 export const CourseTitleH1 = styled.h1`
   padding-right: 10px;
   font-size: 24.5px;
   font-weight: 600;
+  text-transform: capitalize;
   @media only screen and (max-width: 968px) {
     font-size: 27.5px;
   }
@@ -150,7 +156,7 @@ export const TrainerBox = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  padding: 15px 15px;
+  padding: 0px 15px 9px 15px;
 `;
 export const TrainerImg = styled.img`
   width: 50px;

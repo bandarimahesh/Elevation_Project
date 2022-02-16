@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Model from "../Trainee/Model";
+import ConfirmModel from "./ConfirmModel";
+import EditCourse from "./EditCourse";
 
 const AllCourse = () => {
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
   const [allCourses, setAllCourse] = useState([]);
-
+  const [showEditForm, setShowEditForm] = useState(false);
   useEffect(() => {
     const getAllTheCourse = async () => {
       const res = await axios.get(`/courses/new/dashboard/courses`, {
@@ -24,10 +27,11 @@ const AllCourse = () => {
     console.log(res);
   };
   const courseEditHandler = async (course) => {
-    const res = await axios.put(`/courses/new/edit/${course.course_id}`, {
-      headers: { authorization: "Bearer " + token },
-    });
-    console.log(res);
+    // const res = await axios.put(`/courses/new/edit/${course.course_id}`, {
+    //   headers: { authorization: "Bearer " + token },
+    // });
+    // console.log(res);
+    setShowEditForm(true);
   };
   return (
     <div className="rightbarSect">
@@ -35,20 +39,12 @@ const AllCourse = () => {
         <h1>All course</h1>
         <div className="itmes">
           <div className="flex1">
-            <div className="greenBox"></div>
-            <p className="tag"> Application is Approved</p>
-          </div>
-          <div className="flex1">
             <div className="redBox"></div>
-            <p className="tag"> Application is Declined</p>
-          </div>
-          <div className="flex1">
-            <div className="blueBox"></div>
-            <p className="tag"> Application need to be approved</p>
+            <p className="tag"> Course Will be deleted</p>
           </div>
           <div className="flex1">
             <div className="yellowBox"></div>
-            <p className="tag"> Application will be disapproved</p>
+            <p className="tag"> Course Edit</p>
           </div>
         </div>
         <table>

@@ -5,11 +5,11 @@ import NavbarRes from "../components/Navbar/UserNavbar/NavbarRes";
 
 const AllCourses = () => {
   return (
-    <React.Fragment>
+    <>
       <NavbarRes />
       <AllCourse />
       <Footer />
-    </React.Fragment>
+    </>
   );
 };
 

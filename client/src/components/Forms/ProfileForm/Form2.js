@@ -15,6 +15,7 @@ const Form2 = (props) => {
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
 
@@ -22,7 +23,7 @@ const Form2 = (props) => {
     event.preventDefault();
     try {
       const result = await axios.put(
-        `/${user?.type}/profile/account/${user?.id}`,
+        `/trainee/profile/account/${user?.id}`,
         { firstName: firstName, lastName: lastName },
         {
           headers: { authorization: "Bearer " + token },
@@ -43,6 +44,8 @@ const Form2 = (props) => {
     } catch (error) {
       console.log(error.message);
     }
+    setFirstName("");
+    setLastName("");
   };
 
   return (

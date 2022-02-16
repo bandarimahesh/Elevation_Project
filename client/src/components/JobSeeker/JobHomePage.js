@@ -1,26 +1,35 @@
 import React from "react";
-import { JobHomeSect, JobHomePageDiv } from "./JobHomeElements";
+import { Link } from "react-router-dom";
+import {
+  JobHomeSect,
+  JobHomePageDiv,
+  JobHomePageWrapper,
+  JobHomeImg,
+  JobTitleDiv,
+  JobHomeTitles,
+  JobButton,
+} from "./JobHomeElements";
+import Image from "../../images/main-removebg-preview.png";
 
 const JobHomePage = () => {
   return (
     <JobHomeSect>
       <JobHomePageDiv>
-        Home job seeker
-        {/* <JobHomePageWrapper>
-          <JobHomeDiv>
-            <JobHomeTitles>Find the Job that you are looking for</JobHomeTitles>
-          </JobHomeDiv>
-          <JobHomeDiv>
-            <JobHomeSearchForm>
-              <JobHomeSearchInput
-                type="text"
-                placeholder="Search by Roles, key Skills and location"
-                onChange={jobSearchHandler}
-              />
-              <JobHomeSearchBtn>Search</JobHomeSearchBtn>
-            </JobHomeSearchForm>
-          </JobHomeDiv>
-        </JobHomePageWrapper> */}
+        <JobHomePageWrapper>
+          <JobHomeImg src={Image} />
+          <JobTitleDiv>
+            <JobHomeTitles>
+              Currently we are working on this page,
+              <br /> Drop your emails,
+              <br /> We will notify once we are live
+            </JobHomeTitles>
+            <JobButton>
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                Back to Home
+              </Link>
+            </JobButton>
+          </JobTitleDiv>
+        </JobHomePageWrapper>
       </JobHomePageDiv>
     </JobHomeSect>
   );

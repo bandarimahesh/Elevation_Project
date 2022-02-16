@@ -53,7 +53,7 @@ export const NavItem = styled.li`
     margin: 0 18px;
   }
 `;
-export const NavLink = styled.a``;
+
 export const RightbarContainer = styled.div`
   @media only screen and (max-width: 968px) {
     display: none;
@@ -152,7 +152,6 @@ export const ProfileImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-  
 `;
 export const SearchBoxDiv = styled.div`
   @media only screen and (max-width: 1068px) {

@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const TraineeSect = styled.section`
   width: 100%;
   height: 100vh;
+  @media only screen and (max-width: 968px) {
+    height: auto;
+  }
 `;
 export const TraineeWrapper = styled.div`
   width: 80%;
@@ -14,11 +17,19 @@ export const TraineeFlex = styled.div`
   padding: 50px 0;
   align-items: center;
   justify-content: center;
+  @media only screen and (max-width: 868px) {
+    display: block;
+  }
 `;
 export const TraineeRightCol = styled.div`
   flex: 7;
   width: 100%;
-  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
+  margin-right: 40px;
+  @media only screen and (max-width: 968px) {
+    border-right: none;
+    margin-right: none;
+  }
 `;
 export const TraineeLeftCol = styled.div`
   flex: 5;
@@ -38,17 +49,23 @@ export const Img = styled.img`
   border-radius: 50%;
   object-fit: cover;
   border: 5px solid green;
+  @media only screen and (max-width: 868px) {
+    width: 130px;
+    height: 130px;
+  }
 `;
 export const TraineeTitle = styled.h1`
   font-size: 32px;
   font-weight: 500;
   margin-right: 20px;
+  text-transform: capitalize;
 `;
 export const TraineeRole = styled.p`
   font-size: 19px;
   font-weight: 400;
   display: inline;
   margin-right: 20px;
+  text-transform: capitalize;
 `;
 export const TraineeUl = styled.ul``;
 export const TraineeLi = styled.li`
@@ -73,6 +90,10 @@ export const TraineeLi = styled.li`
 
 export const DetailsFlex = styled.div`
   margin-left: 60px;
+  text-transform: capitalize;
+  @media only screen and (max-width: 968px) {
+    margin-left: 0px;
+  }
 `;
 export const DetailsFlex1 = styled.div`
   display: flex;

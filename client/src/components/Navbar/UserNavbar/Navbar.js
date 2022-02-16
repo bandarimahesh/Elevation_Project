@@ -9,7 +9,6 @@ import {
   MenuItem,
   Nav,
   NavItem,
-  NavLink,
   SearchBoxContainer,
   SearchItemText,
   SearchForm,
@@ -42,21 +41,17 @@ const Navbar = ({ toggleMenuItems }) => {
         <MenuItem>
           {/* redirect to home page */}
           <NavItem>
-            <NavLink>
-              <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
-                Home
-              </Link>
-            </NavLink>
+            <Link style={{ textDecoration: "none", color: "white" }} to={`/`}>
+              Home
+            </Link>
           </NavItem>
           <NavItem>
-            <NavLink>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={`/about`}
-              >
-                About us
-              </Link>
-            </NavLink>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/about`}
+            >
+              About us
+            </Link>
           </NavItem>
           <NavItem>
             <Link
@@ -71,7 +66,7 @@ const Navbar = ({ toggleMenuItems }) => {
               style={{ textDecoration: "none", color: "white" }}
               to="/trainers"
             >
-              Trainers
+              Instructor
             </Link>
           </NavItem>
           <NavItem>

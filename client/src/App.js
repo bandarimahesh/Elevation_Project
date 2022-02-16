@@ -18,7 +18,6 @@ import Profile from "./pages/Profile";
 import TraineeHomePage from "./pages/TraineeHomePage";
 import TrainerHomePage from "./pages/TrainerHomePage";
 import { useSelector } from "react-redux";
-import Cart from "./pages/Cart";
 import AddNewCoursePage from "./pages/TrainerPages/AddNewCoursePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,9 +32,10 @@ import Terms from "./pages/T&C";
 import PrivacyPage from "./pages/PrivacyPage";
 import ForgotPwdPage from "./pages/ForgotPwdPage";
 import ResetPwdPage from "./pages/ResetPwdPage";
+import YourCoursePage from "./pages/TrainerPages/YourCoursePage";
+
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
-
   return (
     <React.Fragment>
       <ToastContainer />
@@ -49,32 +49,42 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/trainee/cart" element={<Cart />} />
+          {/* current it is commented out <Route path="/trainee/cart" element={<Cart />} /> */}
           <Route path="/terms-conditions" element={<Terms />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/forgot-password" element={<ForgotPwdPage />} />
           <Route
+            path="/trainer/your-courses/:id"
+            element={<YourCoursePage />}
+          />
+
+          <Route
             path={`/user/activate/reset-password/:id`}
             element={<ResetPwdPage />}
           />
+          <Route path={`/user/activate/account/:id`} element={<Login />} />
           {/* all courses */}
           <Route path="/courses" element={<AllCoursesPage />} />
           {/* single course page */}
-          <Route path="/courses/domain/:id" element={<SingleCoursePage />} />
+          <Route
+            path="/courses/domain-skills/:id"
+            element={<SingleCoursePage />}
+          />
           <Route path="/courses/it-skills/:id" element={<SingleCoursePage />} />
-          <Route path="/courses/rpa/:id" element={<SingleCoursePage />} />
+          <Route
+            path="/courses/software-development/:id"
+            element={<SingleCoursePage />}
+          />
           {/* all trainers route*/}
           <Route path="/trainers" element={<AllTrainerPage />} />
           {/* sp single trainer page */}
-          <Route path="/trainers/:id" element={<SingleTrainerPage />} />
+          <Route path="/trainers/details/:id" element={<SingleTrainerPage />} />
           {/* trainee home page after login */}
-
           {user?.type === "trainee" ? (
             <Route path="/trainee" exact element={<TraineeHomePage />} />
           ) : (
             <Route path="/" exact element={<Home />} />
           )}
-
           <Route path="/trainer/join-now" element={<JoinNow />} />
           {user?.type === "trainee" ? (
             <Route
@@ -84,21 +94,25 @@ const App = () => {
           ) : (
             <Route path="*" element={<Navigate to="/Not-found" />} />
           )}
-
-          {/* trainer home page after login */}
-          {user?.type === "trainer" ? (
-            <Route path="/trainer" exact element={<TrainerHomePage />} />
-          ) : (
-            <Route path="/" exact element={<Home />} />
-          )}
-          {/* trainee home page after login */}
           {user?.type === "trainer" ? (
             <Route
               path="/trainer/profile/update/:id"
               element={<TrainerProfilePage />}
             />
           ) : (
-            <Route path="/login" element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/Not-found" />} />
+          )}
+          {/* trainer home page after login */}
+          {user?.type === "trainer" ? (
+            <Route path="/trainer" exact element={<TrainerHomePage />} />
+          ) : (
+            <Route path="/" exact element={<Home />} />
+          )}
+          {/* trainer home page after login */}
+          {user?.type === "trainer" ? (
+            <Route path="/trainer" exact element={<TrainerHomePage />} />
+          ) : (
+            <Route path="/" exact element={<Home />} />
           )}
           {/* job seeker home page after login */}
           {user?.type === "job-seeker" ? (
@@ -117,7 +131,6 @@ const App = () => {
           ) : (
             <Route path="/login" element={<Navigate to="/login" />} />
           )}
-
           {/* recruiter home page */}
           {user?.type === "recruiter" ? (
             <Route path="/recruiter" exact element={<RecruiterHomePage />} />

@@ -13,6 +13,7 @@ import {
   RegisterFormSect,
   RegisterFormSection,
   RegisterFormWrapper,
+  FormAddress,
 } from "./JoinNowFormElements";
 
 const JoinNowForm = () => {
@@ -23,6 +24,11 @@ const JoinNowForm = () => {
   const [masterCourseNameId, setMasterCourseNameId] = useState("");
   const [experience, setExperience] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [prefTime, setPrefTime] = useState("");
+  const [noOfHrs, setNoOfHrs] = useState("");
+  const [engType, setEngType] = useState("");
+  const [skills, setSkills] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
   const email = user?.email;
@@ -30,6 +36,7 @@ const JoinNowForm = () => {
   const lastName = user?.lastname;
   const joinNowFormHandler = async (event) => {
     event.preventDefault();
+    console.log(masterCourseNameId);
     if (mobileNumber.length === 10) {
       const res = await axios.post(
         "/courses/joinNow",
@@ -40,6 +47,11 @@ const JoinNowForm = () => {
           experience: experience,
           masterCourseNameId: masterCourseNameId,
           mobileNumber: mobileNumber,
+          qualification: qualification,
+          prefTime: prefTime,
+          noOfHrs: noOfHrs,
+          engType: engType,
+          skills: skills,
         },
         {
           headers: { authorization: "Bearer " + token },
@@ -53,12 +65,21 @@ const JoinNowForm = () => {
       }
       if (res.data.error) {
         setError(res.data.error);
-        toast.success(res.data.error, {
+        toast.error(res.data.error, {
           position: "top-center",
         });
       }
       setExperience("");
       setMobileNumber("");
+      setPrefTime("");
+      setCategory("");
+      setMasterCourses("");
+      setMasterCourseNameId("");
+      setQualification("");
+      setPrefTime("");
+      setEngType("");
+      setNoOfHrs("");
+      setSkills("");
     } else {
       return setError(
         "Mobile number must be at least 10 characters or less than 11 characters"
@@ -78,7 +99,7 @@ const JoinNowForm = () => {
     setError("");
     setSuccess("");
   }, 9000);
-  
+
   return (
     <RegisterFormSect>
       <RegisterFormSection>
@@ -107,15 +128,18 @@ const JoinNowForm = () => {
                 required
                 onChange={(e) => setMasterCourseNameId(e.target.value)}
               >
-                <FormOption>Choose an option</FormOption>
-                {masterCourses?.map((course) => (
-                  <FormOption
-                    key={course.course_master_name_id}
-                    value={course.course_master_name_id}
-                  >
-                    {course.course_master_course_name}
-                  </FormOption>
-                ))}
+                {masterCourses?.length > 0 ? (
+                  masterCourses?.map((course) => (
+                    <FormOption
+                      key={course.course_master_name_id}
+                      value={course.course_master_name_id}
+                    >
+                      {course.course_master_course_name}
+                    </FormOption>
+                  ))
+                ) : (
+                  <FormOption>No courses to display</FormOption>
+                )}
               </FormSelect>
             </Field>
             <Field>
@@ -129,7 +153,7 @@ const JoinNowForm = () => {
               />
             </Field>
             <Field>
-              <FormLabel>Enter your Mobile Number :</FormLabel>
+              <FormLabel>Enter Your Mobile Number :</FormLabel>
               <Input
                 required
                 onChange={(e) => setMobileNumber(e.target.value)}
@@ -137,6 +161,67 @@ const JoinNowForm = () => {
                 placeholder="Must be a valid Mobile Number"
                 min="10"
               />
+              {error && <p style={{ color: "red" }}>{error}</p>}
+            </Field>
+            <Field>
+              <FormLabel>Enter Skills</FormLabel>
+              <FormAddress
+                onChange={(e) => setSkills(e.target.value)}
+                defaultValue="Enter your skills separated by commas"
+              ></FormAddress>
+            </Field>
+            <Field>
+              <FormLabel>Your Qualification :</FormLabel>
+              <FormSelect
+                required
+                value={qualification}
+                onChange={(e) => setQualification(e.target.value)}
+              >
+                <FormOption>Choose an option</FormOption>
+                <FormOption value="graduation">Graduation</FormOption>
+                <FormOption value="post-graduation">Post Graduation</FormOption>
+                <FormOption value="ph-d">Ph D</FormOption>
+                <FormOption value="others">Others</FormOption>
+              </FormSelect>
+            </Field>
+            <Field>
+              <FormLabel>Your Preference Time:</FormLabel>
+              <FormSelect
+                required
+                value={prefTime}
+                onChange={(e) => setPrefTime(e.target.value)}
+              >
+                <FormOption>Choose an option</FormOption>
+                <FormOption value="morning">Morning </FormOption>
+                <FormOption value="afternoon">Afternoon</FormOption>
+              </FormSelect>
+            </Field>
+            <Field>
+              <FormLabel>How many hours you can teach ?</FormLabel>
+              <FormSelect
+                required
+                value={noOfHrs}
+                onChange={(e) => setNoOfHrs(e.target.value)}
+              >
+                <FormOption>Choose an option</FormOption>
+                <FormOption value="2">2 </FormOption>
+                <FormOption value="3">3</FormOption>
+                <FormOption value="4">4 </FormOption>
+                <FormOption value="5">5</FormOption>
+                <FormOption value="6">6</FormOption>
+              </FormSelect>
+            </Field>
+            <Field>
+              <FormLabel>Your Engagement Type :</FormLabel>
+              <FormSelect
+                required
+                value={engType}
+                onChange={(e) => setEngType(e.target.value)}
+              >
+                <FormOption>Choose an option</FormOption>
+                <FormOption value="part-time">Part Time </FormOption>
+                <FormOption value="full-time">Full Time </FormOption>
+              </FormSelect>
             </Field>
             <Field>
               <NextButton

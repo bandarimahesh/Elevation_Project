@@ -18,6 +18,7 @@ const userSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isFetching = false;
       state.currentUser = action.payload;
+      localStorage.setItem("user", JSON.stringify(action.payload));
       state.error = null;
       toast.success("You are successfully logging in you", {
         position: "top-center",

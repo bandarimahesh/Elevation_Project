@@ -1,3 +1,4 @@
+import { AiFillLinkedin } from "react-icons/ai";
 import styled from "styled-components";
 
 export const TrainerSect = styled.section`
@@ -29,6 +30,7 @@ export const ImgBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  text-transform: capitalize;
 `;
 export const ImgForm = styled.form``;
 
@@ -63,8 +65,11 @@ export const TrainerLi = styled.li`
   &:nth-child(1) {
     background-color: lightgrey;
   }
-  &:nth-child(6) {
+  &:nth-child(8) {
     border-bottom: none !important;
+  }
+  &:nth-child(7) {
+    display: none;
   }
   &:hover {
     background-color: lightgrey;
@@ -77,6 +82,7 @@ export const DetailsFlex = styled.div`
 export const DetailsFlex1 = styled.div`
   display: flex;
   padding: 7px 10px;
+  text-transform: capitalize;
 `;
 export const DetailsTitles = styled.h4`
   font-weight: 600;
@@ -85,4 +91,30 @@ export const DetailsTitles = styled.h4`
 export const DetailsFromDb = styled.p`
   font-weight: 400;
   margin-left: 5px;
+`;
+
+export const NextButton = styled.button`
+  height: 40px;
+  width: 50%;
+  outline: none;
+  margin-top: 10px;
+  font-size: 17px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  color: #fff;
+  border-bottom-width: 2px;
+  transition: all 0.4s ease;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 0;
+  border: none;
+  cursor: pointer;
+  background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+
+export const LinkedInIcon = styled(AiFillLinkedin)`
+  font-size: 25px;
 `;

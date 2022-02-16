@@ -10,7 +10,6 @@ import {
   MenuItem,
   Nav,
   NavItem,
-  NavLink,
   RightbarContainer,
   SearchForm,
   ProfileImg,
@@ -47,14 +46,12 @@ const JobNavbar = ({ toggleMenuItems }) => {
         <MenuItem>
           {/* redirect to home page */}
           <NavItem>
-            <NavLink>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={`/${user?.type}`}
-              >
-                Home
-              </Link>
-            </NavLink>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/${user?.type}`}
+            >
+              Home
+            </Link>
           </NavItem>
           <NavItem>
             <Link
@@ -69,7 +66,7 @@ const JobNavbar = ({ toggleMenuItems }) => {
               style={{ textDecoration: "none", color: "white" }}
               to="/trainers"
             >
-              Trainers
+              Instructor
             </Link>
           </NavItem>
         </MenuItem>

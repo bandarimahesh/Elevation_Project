@@ -13,6 +13,7 @@ import {
 } from "./FormProfileElements";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const Form3 = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,6 +47,9 @@ const Form3 = (props) => {
       );
       if (res.data.success) {
         setSuccess(res.data.success);
+        toast.success(res.data.success, {
+          position: "top-center",
+        });
         setError("");
       }
       if (res.data.error) {
@@ -53,11 +57,14 @@ const Form3 = (props) => {
         setSuccess("");
       }
     } catch (error) {}
+    setPassword("");
+    setConfirmPassword("");
   };
+
   setTimeout(() => {
     setError("");
     setSuccess("");
-  }, 5000);
+  }, 15000);
   return (
     <>
       <CloseButton onClick={props.personal} />

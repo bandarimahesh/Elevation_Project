@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AllCoursesSection,
   AllCoursesWrapper,
@@ -23,13 +23,21 @@ import CourseCard from "../CourseCard/CourseCard";
 import axios from "axios";
 import GoToTop from "../../../GoToTop";
 const AllCourses = () => {
-  // const [cat, setCat] = useState();
-  const [searchItem, setSearchItem] = useState("");
+  const [category, setCategory] = useState("");
+  const [searchItemAll, setSearchItemAll] = useState("");
+  // useEffect(() => {
+  //   const getCourseByCatCourse = async () => {
+  //     const result = await axios.get();
+  //     console.log(result);
+  //   };
+  // }, [cat]);
+
   const searchEngineAll = async (event) => {
     event.preventDefault();
-    const response = await axios.get("api/courses/");
+    const response = await axios.get(`/courses/find?search=${searchItemAll}`);
     console.log(response.data);
   };
+
   return (
     <AllCoursesSection>
       <AllCoursesWrapper>
@@ -46,21 +54,26 @@ const AllCourses = () => {
               <RightCOlDivItem>
                 <RightColDiv>
                   <SelectText>Category:</SelectText>
-                  <LeftColOptionSelected>
-                    <LeftColOption value="choose">Choose Below</LeftColOption>
-                    <LeftColOption>Software Development</LeftColOption>
-                    <LeftColOption>It Skills</LeftColOption>
-                    <LeftColOption>Domain</LeftColOption>
-                    <LeftColOption>Soft Skills</LeftColOption>
-                    <LeftColOption>Training & Hr</LeftColOption>
+                  <LeftColOptionSelected
+                    name="category"
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <LeftColOption disabled>Choose Below</LeftColOption>
+                    <LeftColOption value="software-development">
+                      Software Development
+                    </LeftColOption>
+                    <LeftColOption value="it-skills">It Skills</LeftColOption>
+                    <LeftColOption value="domain-skills">
+                      Domain Skills
+                    </LeftColOption>
                   </LeftColOptionSelected>
                 </RightColDiv>
               </RightCOlDivItem>
               <RightCOlDivItem>
                 <RightColDiv>
                   <SelectText>Choose the AllCourses:</SelectText>
-                  <LeftColOptionSelected>
-                    <LeftColOption value="choose">Choose Below</LeftColOption>
+                  <LeftColOptionSelected name="course">
+                    <LeftColOption disabled>Choose Below</LeftColOption>
                     <LeftColOption>Python</LeftColOption>
                     <LeftColOption>React Js</LeftColOption>
                     <LeftColOption>CSS</LeftColOption>
@@ -74,8 +87,8 @@ const AllCourses = () => {
                   <SearchForm>
                     <SearchBoxInput
                       placeholder="Search any course"
-                      value={searchItem}
-                      onChange={(event) => setSearchItem(event.target.value)}
+                      value={searchItemAll}
+                      onChange={(event) => setSearchItemAll(event.target.value)}
                     ></SearchBoxInput>
                     <FaSearchIcon onClick={searchEngineAll} />
                   </SearchForm>
@@ -85,7 +98,7 @@ const AllCourses = () => {
           </LeftColHeading>
         </AllCoursesWrapper1>
         <AllCoursesWrapper2>
-          <CourseCard />
+          <CourseCard category={category} searchItemAll={searchItemAll} />
         </AllCoursesWrapper2>
       </AllCoursesWrapper>
       <GoToTop />

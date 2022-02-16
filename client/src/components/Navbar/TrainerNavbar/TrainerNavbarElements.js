@@ -54,7 +54,6 @@ export const NavItem = styled.li`
   color: #fff;
   cursor: pointer;
 `;
-export const NavLink = styled.a``;
 export const RightbarContainer = styled.div`
   display: flex;
   align-items: center;

@@ -10,7 +10,6 @@ import {
   MenuItem,
   Nav,
   NavItem,
-  NavLink,
   RightbarContainer,
   SearchForm,
   ProfileImg,
@@ -25,8 +24,7 @@ import { logOut } from "../../../redux/userRedux.js";
 import axios from "axios";
 
 const TrainerNavbar = ({ toggleMenuItems }) => {
-  const [trainerDetails, setTrainerDetails] = useState([]);
-
+  const [activeMenuBtn, setActiveMenuBtn] = useState(false);
   const user = useSelector((state) => state.user.currentUser);
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,17 +32,19 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
     dispatch(logOut());
     navigate("/");
   };
-  const token = user?.accessToken;
-  // useEffect(() => {
-  //   const onImageGetHandler = async () => {
-  //     const res = await axios.get(`/trainee/details/get/${user?.id}`, {
-  //       headers: { authorization: "Bearer " + token },
-  //     });
-  //     setTrainerDetails(res.data);
-  //   };
-  //   onImageGetHandler();
-  // }, [user.id, token]);
-  const PF = "http://localhost:5000/images/";
+
+  useEffect(() => {
+    const getTrainerProfileDetails = async () => {
+      const res = await axios.get(`/trainer/get/trainer/find/${user?.id}`, {
+        headers: { authorization: "Bearer " + user.accessToken },
+      });
+      if (res.data.approved) {
+        setActiveMenuBtn(true);
+      }
+    };
+    getTrainerProfileDetails();
+  }, [user.id, user.accessToken]);
+
   return (
     <Nav>
       <LogoContainer>
@@ -59,22 +59,38 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
         <MenuItem>
           {/* redirect to home page */}
           <NavItem>
-            <NavLink>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={`/${user?.type}`}
-              >
-                Home
-              </Link>
-            </NavLink>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/${user?.type}`}
+            >
+              Home
+            </Link>
           </NavItem>
           <NavItem>
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to="/my-students"
+              to="/about"
             >
-              My Students
+              About us
             </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={`/trainer/your-courses/${user?.id}`}
+            >
+              Your courses
+            </Link>
+          </NavItem>
+          <NavItem>
+            {activeMenuBtn && (
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/user/admin/dashboard/add-new-course"
+              >
+                Add New Course
+              </Link>
+            )}
           </NavItem>
         </MenuItem>
       </MenuContainer>
@@ -87,14 +103,6 @@ const TrainerNavbar = ({ toggleMenuItems }) => {
                 <FaSearchIcon />
               </SearchForm>
             </SearchBoxDiv>
-          </RightbarContainerList>
-          <RightbarContainerList>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to={`/my-learning`}
-            >
-              My Courses
-            </Link>
           </RightbarContainerList>
           <RightbarContainerList>
             <Link

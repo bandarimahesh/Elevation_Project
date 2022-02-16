@@ -10,11 +10,14 @@ const {
   emailAccountActivation,
   refreshToken,
   logout,
+  emailRegister,
+  emailAccountActivate,
 } = require("../controllers/authControllers.js");
 
 // register for a user
 router.post("/register", register);
-
+router.post("/email-register", emailRegister);
+router.post("/email-account-activate/:id", emailAccountActivate);
 // login routes
 router.post("/login", login);
 //logout account

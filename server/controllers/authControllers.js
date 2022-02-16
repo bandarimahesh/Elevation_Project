@@ -222,8 +222,7 @@ exports.login = async (req, res, next) => {
                   type: result[0].user_type,
                   isSuperAdmin: result[0].user_is_superadmin,
                 },
-                process.env.JWT_LOGIN_SECRET_KEY,
-                { expiresIn: "1d" }
+                process.env.JWT_LOGIN_SECRET_KEY
               );
               const refreshToken = jwt.sign(
                 {
@@ -235,7 +234,6 @@ exports.login = async (req, res, next) => {
                 process.env.JWT_REFRESH_TOKEN
               );
               refreshTokenArray.push(refreshToken);
-
               res.json({
                 success: {
                   id: result[0].user_dtls_id,
@@ -329,6 +327,7 @@ exports.forgotpassword = (req, res, next) => {
         );
         const url = `${process.env.FRONT_END_LINK}/user/activate/reset-password/${forgotPasswordToken}`;
         const data = sendEmail(
+          "msdeverything@gmail.com",
           url,
           "Forgot password link",
           "Click to reset password"
@@ -351,7 +350,6 @@ exports.forgotpassword = (req, res, next) => {
 
 exports.resetpassword = async (req, res, next) => {
   const password = req.body.password;
-
   if (!password) {
     res.send({ error: "The password must be required" });
   }
@@ -460,3 +458,139 @@ exports.resetpassword = async (req, res, next) => {
 //     return res.status(401).send("incorrect or expired link");
 //   }
 // };
+
+exports.emailRegister = async (req, res, next) => {
+  const email = req.body.email;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const type = req.body.type;
+  const lowEmail = email.toLowerCase();
+  const password = req.body.password;
+  let hashedPassword = await bcrypt.hash(password, 12);
+
+  if (!lowEmail && !password && firstName && !lastName && !type) {
+    res.json({
+      required: "ALl details must be required",
+    });
+  }
+  try {
+    connection.query(
+      "SELECT * FROM user_dtls WHERE user_email=?",
+      [email],
+      (err, user) => {
+        if (err) {
+          res.send(err.message);
+        }
+        if (user.length > 0) {
+          res.json({
+            exists:
+              "This email address is already in use, Please use another email address",
+          });
+          // stop executions when user has same mail
+        } else {
+          const emailActivationToken = jwt.sign(
+            {
+              email: lowEmail,
+              firstName: firstName,
+              lastName: lastName,
+              type: type,
+              password: hashedPassword,
+            },
+            process.env.JWT_EMAIL_ACTIVATION_KEY,
+            { expiresIn: "30m" }
+          );
+          const url = `${process.env.FRONT_END_LINK}/user/activate/account/${emailActivationToken}`;
+          const data = sendEmail(
+            email,
+            url,
+            "Account Activation Link",
+            "Click to Activate the account"
+          );
+          mg.messages().send(data, function (error, body) {
+            if (error) {
+              res.send({ error: "There was an error sending the link" });
+            }
+            if (body) {
+              res.send({
+                success:
+                  "Email has been sent to your email account,Link will be expired in 10 minutes",
+              });
+            }
+          });
+        }
+      }
+    );
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
+exports.emailAccountActivate = async (req, res, next) => {
+  const id = req.params.id;
+  const signupToken = req.body.signUpToken;
+
+  if (signupToken) {
+    jwt.verify(
+      signupToken,
+      process.env.JWT_EMAIL_ACTIVATION_KEY,
+      (err, decodedToken) => {
+        if (err) {
+          res.send(err.status);
+        } else {
+          const { email, firstName, lastName, type, password } = decodedToken;
+          try {
+            connection.query(
+              "SELECT * FROM user_dtls WHERE user_email=?",
+              [email],
+              (err, user) => {
+                if (user.length > 0) {
+                  return res.send(
+                    "This email address is already in use, Please use another email address"
+                  );
+                  // stop executions when user has same mail
+                } else {
+                  var mysqlTimestamp = moment(Date.now()).format(
+                    "YYYY-MM-DD HH:mm:ss"
+                  );
+                  connection.query(
+                    "INSERT INTO user_dtls (user_email, user_pwd, user_logindate,user_logintime, user_firstname, user_lastname, user_status, user_creation,user_modified_by, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)",
+                    [
+                      email,
+                      password,
+                      new Date(),
+                      mysqlTimestamp,
+                      firstName,
+                      lastName,
+                      1,
+                      new Date(),
+                      "admin",
+                      type,
+                    ],
+                    (err, result) => {
+                      if (err) {
+                        res.send({
+                          error:
+                            "There was an error creating the user please try again later",
+                        });
+                      } else {
+                        res.send({
+                          success:
+                            "Successfully created the new account Please login your account update all your details",
+                        });
+                      }
+                    }
+                  );
+                }
+              }
+            );
+          } catch (error) {
+            console.log(error.message);
+            res.send("There was an error while signing up.Please try again");
+          }
+        }
+      }
+    );
+  } else {
+    return res.status(401).send("incorrect or expired link");
+  }
+};

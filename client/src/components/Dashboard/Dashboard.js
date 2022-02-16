@@ -18,18 +18,27 @@ import {
   Settings,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import UsersTable from "./UsersTable";
+import UsersTable from "./AllTrainersTable";
 import AllCourse from "./AllCourse";
+import Allusers from "./Allusers";
 const Dashboard = () => {
   const [showCourses, setShowCourse] = useState(false);
   const [showAllTrainers, setShowAllTrainers] = useState(true);
+  const [showAllUsers, setShowAllUsers] = useState(false);
   const ShowCourseHandler = (event) => {
     setShowCourse(!showCourses);
     setShowAllTrainers(false);
+    setShowAllUsers(false);
   };
   const ShowTrainersHandler = (event) => {
     setShowAllTrainers(!showAllTrainers);
     setShowCourse(false);
+    setShowAllUsers(false);
+  };
+  const ShowAllUsersHandler = (event) => {
+    setShowAllUsers(!showAllUsers);
+    setShowCourse(false);
+    setShowAllTrainers(false);
   };
   return (
     <>
@@ -102,9 +111,9 @@ const Dashboard = () => {
                   All Courses
                 </li>
 
-                <li className="sidebarListItem">
+                <li className="sidebarListItem" onClick={ShowAllUsersHandler}>
                   <AttachMoney className="sidebarIcon" />
-                  Transactions
+                  All users
                 </li>
                 <li className="sidebarListItem">
                   <BarChart className="sidebarIcon" />
@@ -151,6 +160,7 @@ const Dashboard = () => {
 
         {showCourses && <AllCourse />}
         {showAllTrainers && <UsersTable />}
+        {showAllUsers && <Allusers />}
       </div>
     </>
   );

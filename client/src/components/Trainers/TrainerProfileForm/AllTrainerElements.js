@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const AllTrainersSection = styled.section`
   height: auto !important;
   width: 100%;
