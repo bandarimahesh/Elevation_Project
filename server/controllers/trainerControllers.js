@@ -7,7 +7,7 @@ const mg = mailgun({ apiKey: process.env.MAIL_GUN_API_KEY, domain: DOMAIN });
 exports.getAllTrainerDetails = (req, res, next) => {
   try {
     connection.query(
-      "SELECT * FROM trainer_details_approve ORDER BY trainer_id DESC;",
+      "SELECT * FROM trainer_details_approve ORDER BY trainer_details_id DESC;",
       (err, result) => {
         if (err) {
           return res.send(err.message);
@@ -27,16 +27,19 @@ exports.updateTrainerApprove = (req, res, next) => {
   const id = req.body.id;
   try {
     connection.query(
-      "SELECT * FROM trainer_details_approve WHERE trainer_id=? ",
+      "SELECT * FROM trainer_details_approve WHERE trainer_details_id=?",
       [id],
       (err, result) => {
         if (err) {
           return res.send(err.message);
+        }
+        if (!result) {
+          return;
         } else {
           const approveRow = result[0].trainer_approve;
           if (approveRow === "no") {
             const sqlUpdate =
-              "UPDATE trainer_details_approve SET trainer_approve =? WHERE trainer_id=?";
+              "UPDATE trainer_details_approve SET trainer_approve=? WHERE trainer_details_id=?";
             const approve = "yes";
             connection.query(sqlUpdate, [approve, id], (err, result) => {
               if (err) {
@@ -80,7 +83,7 @@ exports.updateTrainerDisApprove = (req, res, next) => {
   const id = req.body.id;
   try {
     connection.query(
-      "SELECT * FROM trainer_details_approve WHERE trainer_id=?",
+      "SELECT * FROM trainer_details_approve WHERE trainer_details_id=?",
       [id],
       (err, result) => {
         if (err) {
@@ -89,7 +92,7 @@ exports.updateTrainerDisApprove = (req, res, next) => {
           const approveRow = result[0].trainer_approve;
           if (approveRow === "yes") {
             const sqlUpdate =
-              "UPDATE trainer_details_approve SET trainer_approve =? WHERE trainer_id=?";
+              "UPDATE trainer_details_approve SET trainer_approve =? WHERE trainer_details_id=?";
             const disapprove = "no";
             connection.query(sqlUpdate, [disapprove, id], (err, result) => {
               if (err) {
@@ -136,6 +139,8 @@ exports.getTrainerDetailsApproveOrNot = async (req, res, next) => {
       (err, result) => {
         if (result) {
           res.send("result");
+        } else {
+          return;
         }
         if (err) {
           res.send(err.message);
@@ -156,6 +161,7 @@ exports.updateTechnicalDetails = async (req, res) => {
   }
 };
 
+// in navbar
 exports.getOnlyTrainerDetails = async (req, res) => {
   const id = req.params.id;
   connection.query(
@@ -174,8 +180,9 @@ exports.getOnlyTrainerDetails = async (req, res) => {
             if (err) {
               res.send(err.message);
             }
-            if (res) {
+            if (result.length > 0) {
               const approved = result[0].trainer_approve;
+              console.log(approved);
               if (approved === "yes") {
                 res.send({
                   approved: approved,
@@ -194,18 +201,8 @@ exports.getOnlyTrainerDetails = async (req, res) => {
 };
 
 exports.getAllTrainersDetailsInTrainers = async (req, res) => {
-  connection.query(
-    "SELECT * FROM trainer_details_approve WHERE trainer_approve=?",
-    ["yes"],
-    (err, result) => {
-      if (err) {
-        res.send({ error: err.message });
-      }
-      if (result.length > 0) {
-        const approvedTrainersEmails = result[0].trainer_email;
-        connection.query(
-          "SELECT * FROM trainer_profile WHERE trainer_email=?",
-          [approvedTrainersEmails],
+   connection.query(
+          "SELECT * FROM trainer_profile",
           (err, result) => {
             if (err) {
               return res.send(err.message);
@@ -214,11 +211,31 @@ exports.getAllTrainersDetailsInTrainers = async (req, res) => {
             }
           }
         );
-      } else {
-        return;
-      }
-    }
-  );
+  // connection.query(
+  //   "SELECT * FROM trainer_details_approve WHERE trainer_approve=?",
+  //   ["yes"],
+  //   (err, result) => {
+  //     if (err) {
+  //       res.send({ error: err.message });
+  //     }
+  //     if (result.length > 0) {
+  //       const approvedTrainersEmails = result[0].trainer_email;
+  //       connection.query(
+  //         "SELECT * FROM trainer_profile WHERE trainer_email=?",
+  //         [approvedTrainersEmails],
+  //         (err, result) => {
+  //           if (err) {
+  //             return res.send(err.message);
+  //           } else {
+  //             return res.send(result);
+  //           }
+  //         }
+  //       );
+  //     } else {
+  //       return;
+  //     }
+  //   }
+  //);
 
   // try {
 

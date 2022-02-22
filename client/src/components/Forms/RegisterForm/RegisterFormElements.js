@@ -113,8 +113,17 @@ export const Input = styled.input`
     border-color: #fc83bb;
   }
 `;
+export const RadioWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
 export const InputRadio = styled.input`
-  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  &:focus {
+    border-color: #fc83bb;
+  }
 `;
 
 export const InputButton = styled.button`
@@ -134,6 +143,10 @@ export const InputButton = styled.button`
   border: none;
   cursor: pointer;
   background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
+`;
+export const InputRadLabel = styled.label`
+  font-size: 16px;
+  margin-left: 7px;
 `;
 export const PassLink = styled.div`
   margin-top: 5px;

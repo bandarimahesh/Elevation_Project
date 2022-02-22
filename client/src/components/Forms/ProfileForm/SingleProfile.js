@@ -21,7 +21,7 @@ import {
 } from "./SingleProfileElements";
 import { useSelector } from "react-redux";
 import GoToTop from "../../GoToTop";
-
+import { toast } from "react-toastify";
 const SingleProfile = () => {
   const [hideForm, setFormHide] = useState(false);
   const [mobile, setMobile] = useState("");
@@ -54,13 +54,16 @@ const SingleProfile = () => {
       );
       if (res.data.success) {
         setSuccess(res.data.success);
+        setFormHide(true);
+        toast.success(res.data.success, { position: "top-center" });
       }
       if (res.data.error) {
         setFormHide(false);
         setError(res.data.error);
+        toast.error(res.data.error, { position: "top-center" });
       }
     } catch (error) {
-      console.log(error.message);
+      return;
     }
   };
 
@@ -71,11 +74,9 @@ const SingleProfile = () => {
       });
       if (res.data.found) {
         setFormHide(true);
-        console.log(res.data.found);
       }
       if (res.data.notFound) {
         setFormHide(false);
-        console.log(res.data.notFound);
       }
     };
     checkTraineeDetails();
@@ -91,9 +92,11 @@ const SingleProfile = () => {
     <SingleProfileSect>
       {!hideForm && (
         <SingleProfileSection>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {success && <p style={{ color: "green" }}>{success}</p>}
           <SingleProfileWrapper>
+            {error && <p style={{ color: "red", fontSize: "20px" }}>{error}</p>}
+            {success && (
+              <p style={{ color: "green", fontSize: "20px" }}>{success}</p>
+            )}
             <FormDiv>
               <Form onSubmit={profileSubmitHandler}>
                 <FormInputDiv>

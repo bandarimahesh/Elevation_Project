@@ -28,7 +28,7 @@ const TraineeCard = () => {
     <TrainersWrapper1>
       {allTrainers?.length > 0
         ? allTrainers?.map((trainer) => (
-            <TrainerDiv>
+            <TrainerDiv key={trainer.trainer_profile_id}>
               <TrainerUpDiv></TrainerUpDiv>
               <TrainerDownDiv>
                 <TrainerImgDiv>
@@ -44,14 +44,14 @@ const TraineeCard = () => {
                 <TrainerName>
                   {trainer.trainer_firstname + " " + trainer.trainer_lastname}
                 </TrainerName>
-                <TrainerRole>RPA Trainer</TrainerRole>
+                <TrainerRole>Trainer</TrainerRole>
                 <TrainerDescription>
                   {trainer.trainer_description}
                 </TrainerDescription>
                 <TrainerKnowMore>
                   <Link
                     style={{ textDecoration: "none", color: "black" }}
-                    to={`/trainers/details/${trainer.trainer_id}`}
+                    to={`/trainers/details/${trainer.trainer_profile_id}`}
                   >
                     Know More
                   </Link>

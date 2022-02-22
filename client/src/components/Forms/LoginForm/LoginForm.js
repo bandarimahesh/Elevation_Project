@@ -74,7 +74,7 @@ const HomeSection = () => {
           // navigate(`/login`);
         }
       } catch (error) {
-        console.log(error.message);
+        return;
       }
     };
     activateEmailAccount();
@@ -123,7 +123,7 @@ const HomeSection = () => {
       },
       (err, data) => {
         if (err) {
-          console.log(err.message);
+          return;
         }
       }
     );
@@ -179,7 +179,6 @@ const HomeSection = () => {
     setIsActive1(false);
     setIsActive4(false);
     const name = e.target.innerHTML;
-    console.log(name);
     setType(name.toLowerCase());
   };
   const isActiveToggle4 = (e) => {

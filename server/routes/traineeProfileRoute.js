@@ -19,7 +19,7 @@ const {
 // creating the new trainee profile details to the trainee_dtls table
 router.post("/profile/create/:id", verifyToken, createTraineeProfile);
 
-// get details of the trainee
+// get details of the trainee showing the profile from
 router.get("/profile/check/:id", verifyToken, checkTraineeDetails);
 
 //updating the personal trainee details  in the database

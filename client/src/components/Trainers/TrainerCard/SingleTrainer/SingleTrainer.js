@@ -38,6 +38,7 @@ const SingleTrainer = () => {
 
   const location = useLocation();
   const path = location.pathname.split("/")[3];
+  console.log(path);
   useEffect(() => {
     const getTrainerFullDetails = async () => {
       try {
@@ -49,7 +50,7 @@ const SingleTrainer = () => {
     };
     getTrainerFullDetails();
   }, [path]);
-
+  console.log(trainerDetails);
   useEffect(() => {
     const getOnlyTrainerCourses = async () => {
       try {
@@ -61,7 +62,6 @@ const SingleTrainer = () => {
     };
     getOnlyTrainerCourses();
   }, [path]);
-  console.log(trainerCourses);
   const user = useSelector((state) => state.user.currentUser);
   const PF = "http://localhost:5000/images/";
   const defaultImage = "";

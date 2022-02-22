@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   CourseCardDiv,
   CourseSectionDiv,
@@ -21,6 +22,7 @@ import {
   DurationBoxDiv,
   Titles,
   TitlesDesc,
+  CourseNotFoundHeading,
 } from "./CourseCardElements";
 const DomainCourses = ({ searchItem }) => {
   const [catCourses, setCatCourses] = useState([]);
@@ -40,6 +42,7 @@ const DomainCourses = ({ searchItem }) => {
     getCourseByCatCourse();
   }, [searchItem]);
   const PF = "http://localhost:5000/images/";
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <CourseSectionDiv>
       {catCourses?.data?.length > 0 ? (
@@ -96,16 +99,21 @@ const DomainCourses = ({ searchItem }) => {
                 </CourseReviewsP>
                 <CoursePrice>Price : ₹ {course.course_price}</CoursePrice>
               </CourseReviewsBox>
-              <a
-                target={`_blank`}
-                style={{ textDecoration: "none", color: "black" }}
-                href={`${course.course_spayee_link}`}
-              >
-                <CourseAddCart>Register Now</CourseAddCart>
-              </a>
+              {!user ? (
+                <CourseAddCart>Login Now</CourseAddCart>
+              ) : (
+                <a
+                  target={`_blank`}
+                  style={{ textDecoration: "none", color: "black" }}
+                  href={`${course.course_spayee_link}`}
+                >
+                  <CourseAddCart>Register Now</CourseAddCart>
+                </a>
+              )}
+
               <Link
                 style={{ textDecoration: "none", color: "black" }}
-                to={`/trainers/details/${course.course_trainer_id}`}
+                to={`/trainers/details/${course.course_trainer_profile_id}`}
               >
                 <TrainerBox>
                   <DurationBoxDiv>
@@ -131,7 +139,13 @@ const DomainCourses = ({ searchItem }) => {
           </CourseCardDiv>
         ))
       ) : (
-        <h1>No Course to display</h1>
+        <CourseSectionDiv>
+          <CourseCardDiv>
+            <CourseNotFoundHeading>
+              No courses found this name, Please Try again with a different name
+            </CourseNotFoundHeading>
+          </CourseCardDiv>
+        </CourseSectionDiv>
       )}
     </CourseSectionDiv>
   );

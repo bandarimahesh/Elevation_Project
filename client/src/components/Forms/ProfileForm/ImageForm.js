@@ -8,6 +8,7 @@ import {
   ImgInput,
 } from "./FormProfileElements";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import axios from "axios";
 const ImageForm = (props) => {
@@ -25,9 +26,11 @@ const ImageForm = (props) => {
     const res = axios.put(`/trainee/image/upload/${user?.id}`, data, {
       headers: { authorization: "Bearer " + token },
     });
-    if (res.data) {
-      setSuccess(res.data);
-      console.log(res.data);
+    if (res.data.success) {
+      setSuccess(res.data.success);
+      toast.success(res.data.success, {
+        position: "top-center",
+      });
     }
   };
   return (

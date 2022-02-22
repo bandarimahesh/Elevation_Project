@@ -77,6 +77,7 @@ exports.checkTraineeDetails = (req, res) => {
   );
 };
 
+// to get trainee image in navbar
 exports.getTraineeAllDetails = (req, res) => {
   const id = req.params.id;
   connection.query(
@@ -89,10 +90,13 @@ exports.getTraineeAllDetails = (req, res) => {
           "SELECT * FROM trainee_dtls WHERE trainee_email=? ",
           [email],
           (err, user) => {
+            if (err) {
+              res.send(err);
+            }
             if (user.length > 0) {
               res.send(user);
             } else {
-              res.send(err.message);
+              return;
             }
           }
         );
@@ -102,7 +106,7 @@ exports.getTraineeAllDetails = (req, res) => {
     }
   );
 };
-// working
+// win trainer profile section updating the personal details working
 exports.updateTraineeProfile = async (req, res, next) => {
   const id = req.params.id;
   const mobile = req.body.mobile;
@@ -133,7 +137,9 @@ exports.updateTraineeProfile = async (req, res, next) => {
                       success: "Successfully updated the personal details",
                     });
                   } else {
-                    res.send(err.message);
+                    res.send({
+                      error: "There was an error updating the personal details",
+                    });
                   }
                 }
               );

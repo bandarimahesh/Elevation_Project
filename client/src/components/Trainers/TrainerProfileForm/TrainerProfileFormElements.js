@@ -68,7 +68,7 @@ export const TrainerLi = styled.li`
   &:nth-child(8) {
     border-bottom: none !important;
   }
-  &:nth-child(7) {
+  &:nth-child(8) {
     display: none;
   }
   &:hover {

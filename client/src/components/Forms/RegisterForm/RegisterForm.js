@@ -13,8 +13,6 @@ import {
   SignUpLink,
   SignLinkB,
   FormLabel,
-  FormSelect,
-  FormOption,
   FormInput,
   FormLabelDiv,
   PasswordDiv,
@@ -23,14 +21,18 @@ import {
   ShowIcon,
   HideIcon,
   RegisterFormLeft,
+  InputRadio,
+  RadioWrapper,
+  InputRadLabel,
 } from "./RegisterFormElements";
 import GoToTop from "../../GoToTop";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("trainee");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -44,10 +46,12 @@ const RegisterForm = () => {
   let pwdHasSplChar = /(?=.*?[#?!@$%^&*-].*)/.test(password);
   let pwdHasNumChar = /(?=.*?[0-9].*)/.test(password);
   let pwdMaxCharLen = password.length <= 16;
+  const typeHandler = (event) => {
+    setType(event.target.value);
+  };
   const registerSubmitHandler = async (event) => {
     event.preventDefault();
     // http:localhost:5000/api/auth/register
-
     try {
       const res = await axios.post("/auth/register", {
         email: email,
@@ -67,6 +71,7 @@ const RegisterForm = () => {
       }
       if (res.data.success) {
         setSuccess(res.data.success);
+        toast.success(res.data.success, { position: "top-center" });
       }
       setEmail("");
       setPassword("");
@@ -75,12 +80,12 @@ const RegisterForm = () => {
       setLastName("");
       setConfirmPassword("");
     } catch (error) {
-      console.log(error.message);
+      return;
     }
   };
   setTimeout(() => {
     setError("");
-  }, 4000);
+  }, 7000);
 
   return (
     <React.Fragment>
@@ -205,6 +210,51 @@ const RegisterForm = () => {
                     </PasswordDiv>
                   )}
                   <Field>
+                    <RadioWrapper>
+                      <RadioWrapper>
+                        <InputRadio
+                          type="radio"
+                          id="trainee"
+                          value="trainee"
+                          checked={type === "trainee"}
+                          onChange={typeHandler}
+                        />
+                        <InputRadLabel for="trainee">Trainee</InputRadLabel>
+                      </RadioWrapper>
+
+                      <RadioWrapper>
+                        <InputRadio
+                          type="radio"
+                          id="trainer"
+                          value="trainer"
+                          checked={type === "trainer"}
+                          onChange={typeHandler}
+                        />
+                        <InputRadLabel for="trainee">Trainer</InputRadLabel>
+                      </RadioWrapper>
+                      <RadioWrapper>
+                        <InputRadio
+                          type="radio"
+                          id="job-seeker"
+                          value="job-seeker"
+                          checked={type === "job-seeker"}
+                          onChange={typeHandler}
+                        />
+                        <InputRadLabel for="trainee">Job-seeker</InputRadLabel>
+                      </RadioWrapper>
+                      <RadioWrapper>
+                        <InputRadio
+                          type="radio"
+                          id="recruiter"
+                          value="recruiter"
+                          checked={type === "recruiter"}
+                          onChange={typeHandler}
+                        />
+                        <InputRadLabel for="trainee">Recruiter</InputRadLabel>
+                      </RadioWrapper>
+                    </RadioWrapper>
+                  </Field>
+                  {/* <Field>
                     <FormLabel>Choose One Option </FormLabel>
                     <FormSelect
                       required
@@ -217,11 +267,11 @@ const RegisterForm = () => {
                       <FormOption value="job-seeker">Job Seeker</FormOption>
                       <FormOption value="recruiter">Recruiter</FormOption>
                     </FormSelect>
-                  </Field>
+                  </Field> */}
                   <FormLabelDiv>
                     <FormInput type="checkbox" required />
                     <FormLabel>
-                      I have read all{" "}
+                      I have read all
                       <Link
                         to="/terms-conditions"
                         style={{ textDecoration: "none", color: " #fa4299" }}

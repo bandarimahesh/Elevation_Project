@@ -169,7 +169,7 @@ exports.addJoinNowCourse = (req, res) => {
       if (result.length > 0) {
         const masterCourseId = result[0].course_master_name_id;
         connection.query(
-          "SELECT * FROM trainer_details_post_reg WHERE trainer_email = ? AND trainer_course_id =?",
+          "SELECT * FROM trainer_details_approve WHERE trainer_email = ? AND trainer_course_id =?",
           [email, masterCourseId],
           (err, result) => {
             if (err) {
@@ -198,7 +198,7 @@ exports.addJoinNowCourse = (req, res) => {
                         "YYYY-MM-DD HH:mm:ss"
                       );
                       connection.query(
-                        "INSERT INTO trainer_details_post_reg (trainer_email,trainer_firstname,trainer_lastname,trainer_mobile,trainer_qualifications,trainer_skills,trainer_exp_yrs,trainer_pref_time,trainer_engment_typ,trainer_no_of_hrs_daily,trainer_creation_date,trainer_course_id,trainer_course_cat_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        "INSERT INTO trainer_details_approve (trainer_email,trainer_firstname,trainer_lastname,trainer_mobile,trainer_qualifications,trainer_skills,trainer_exp_yrs,trainer_pref_time,trainer_engment_typ,trainer_no_of_hrs_daily,trainer_creation_date,trainer_course_id,trainer_course_cat_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
                         [
                           email,
                           firstName,

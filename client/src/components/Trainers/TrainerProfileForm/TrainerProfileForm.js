@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TrainerForm2 from "./TrainerForm2.js";
 import Form3 from "../../Forms/ProfileForm/Form3.js";
-import Form4 from "../../Forms/ProfileForm/Form4.js";
 import GoToTop from "../../GoToTop.js";
 import Model from "./Model";
 import TrainerDetailForm from "./TrainerProfileDetailForm";
@@ -28,6 +27,7 @@ import {
 } from "./TrainerProfileFormElements.js";
 import TrainerImageForm from "./TrainerImageForm.js";
 import TrainerProfileUpdateForm from "./TrainerProfileUpdateForm.js";
+import BankDetails from "./BankDetails.js";
 
 const Trainer = () => {
   const [personalForm, setPersonalForm] = useState(false);
@@ -68,7 +68,7 @@ const Trainer = () => {
     setDeleteAccountForm(false);
     setChangeImageForm(false);
   };
-  const showDeleteAccount = () => {
+  const showBankAccountForm = () => {
     setAccountForm(false);
     setDeleteAccountForm(!deleteAccountForm);
     setPersonalForm(false);
@@ -108,9 +108,11 @@ const Trainer = () => {
                 Change Profile Picture
               </TrainerLi>
               <TrainerLi onClick={showPasswordForm}>Change Password</TrainerLi>
+              <TrainerLi onClick={showBankAccountForm}>
+                Bank Account Details
+              </TrainerLi>
               <TrainerLi>Your Earnings</TrainerLi>
               <TrainerLi>Your courses</TrainerLi>
-              <TrainerLi onClick={showDeleteAccount}>Delete Account</TrainerLi>
               <TrainerLi onClick={showAdditionalForm}>
                 Additional Details
               </TrainerLi>
@@ -144,7 +146,7 @@ const Trainer = () => {
               )}
               {deleteAccountForm ? (
                 <Model>
-                  <Form4 personal={showDeleteAccount} />
+                  <BankDetails personal={showBankAccountForm} />
                 </Model>
               ) : (
                 ""

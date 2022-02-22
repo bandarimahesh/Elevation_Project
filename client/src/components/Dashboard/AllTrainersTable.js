@@ -21,13 +21,13 @@ const UsersTable = () => {
   const trainerApproveHandler = async (trainer) => {
     const res = await axios.put(
       `/trainer/update/approve`,
-      { id: trainer.trainer_id },
+      { id: trainer.trainer_details_id },
       {
         headers: { authorization: "Bearer " + token },
       }
     );
     if (res.data.approved) {
-      alert(res.data.approved);
+      alert("This will make trainer will be approved");
       setApprove(!approve);
       window.location.reload();
     }
@@ -35,13 +35,13 @@ const UsersTable = () => {
   const trainerDisApproveHandler = async (trainer) => {
     const res = await axios.put(
       `/trainer/update/disapprove`,
-      { id: trainer.trainer_id },
+      { id: trainer.trainer_details_id },
       {
         headers: { authorization: "Bearer " + token },
       }
     );
     if (res.data.disapproved) {
-      alert(res.data.disapproved);
+      alert("This will make trainer has been disapproved");
       setApprove(!approve);
       window.location.reload();
     }

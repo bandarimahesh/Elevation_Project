@@ -31,6 +31,7 @@ const TrainerCourse = () => {
     <TrainerCourseSect>
       <TrainerCourseSection>
         <TrainerCourseWrapper>
+          {trainerCourses?.length === 0 && <h1>No courses found </h1>}
           <TrainerCourseTables>
             <TrainerCourseTr>
               <TrainerCourseTh>Id</TrainerCourseTh>
@@ -43,6 +44,7 @@ const TrainerCourse = () => {
               <TrainerCourseTh>Tags</TrainerCourseTh>
               <TrainerCourseTh>Spayee link</TrainerCourseTh>
             </TrainerCourseTr>
+
             {trainerCourses?.map((trainer) => (
               <TrainerCourseTr key={trainer.course_id}>
                 <TrainerCourseTd>{trainer.course_id}</TrainerCourseTd>
@@ -58,7 +60,6 @@ const TrainerCourse = () => {
                 <TrainerCourseTd>{trainer.course_category}</TrainerCourseTd>
                 <TrainerCourseTd>{trainer.course_trainer_name}</TrainerCourseTd>
                 <TrainerCourseTd>{trainer.course_tags}</TrainerCourseTd>
-                <TrainerCourseTd>{trainer.course_spayee_link}</TrainerCourseTd>
               </TrainerCourseTr>
             ))}
           </TrainerCourseTables>

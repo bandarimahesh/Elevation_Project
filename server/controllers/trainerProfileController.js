@@ -1,4 +1,6 @@
 const connection = require("../dbConnection.js");
+const moment = require("moment");
+const bcrypt = require("bcrypt");
 
 exports.updateTrainerProfileDetailsController = (req, res, next) => {
   const id = req.params.id;
@@ -75,31 +77,31 @@ exports.updateTrainerProfileDetailsController = (req, res, next) => {
 exports.getTrainerProfileDetailsController = (req, res) => {
   const id = req.params.id;
   connection.query(
-    "SELECT * FROM trainer_profile WHERE  trainer_id=?",
+    "SELECT * FROM user_dtls WHERE user_dtls_id =?",
     [id],
     (err, result) => {
       if (err) {
         res.send({ error: err.message });
       }
       if (result.length > 0) {
-        res.send(result);
-      } else {
-        return;
+        const email = result[0].user_email;
+        connection.query(
+          "SELECT * FROM trainer_profile WHERE  trainer_email=?",
+          [email],
+          (err, result) => {
+            if (err) {
+              res.send({ error: err.message });
+            }
+            if (result.length > 0) {
+              res.send(result);
+            } else {
+              return;
+            }
+          }
+        );
       }
     }
   );
-  // connection.query(
-  //   "SELECT * FROM user_dtls WHERE user_dtls_id =?",
-  //   [id],
-  //   (err, result) => {
-  //     if (err) {
-  //       res.send({ error: err.message });
-  //     }
-  //     if (result.length > 0) {
-  //       const email = result[0].user_email;
-  //     }
-  //   }
-  // );
 };
 
 // update in the users table firstname and lastname
@@ -244,32 +246,160 @@ exports.updateTechnicalDetails = (req, res) => {
   });
 };
 
+// get courses by trainer in the single trainer pages
 exports.getOnlyTrainerCourses = (req, res) => {
   const id = req.params.id;
   connection.query(
-    "SELECT * FROM user_dtls WHERE user_dtls_id =?",
+    "SELECT * FROM courses_dtls WHERE course_trainer_profile_id=?",
     [id],
     (err, result) => {
       if (err) {
         res.send({ error: err.message });
       }
       if (result.length > 0) {
-        const email = result[0].user_email;
-        connection.query(
-          "SELECT * FROM courses_dtls WHERE course_trainer_id=?",
-          [id],
-          (err, result) => {
-            if (err) {
-              res.send({ error: err.message });
-            }
-            if (result.length > 0) {
-              res.send(result);
-            } else {
-              return;
-            }
-          }
-        );
+        res.send(result);
+      } else {
+        return;
       }
     }
   );
+  // connection.query(
+  //   "SELECT * FROM user_dtls WHERE user_dtls_id =?",
+  //   [id],
+  //   (err, result) => {
+  //     if (err) {
+  //       res.send({ error: err.message });
+  //     }
+  //     if (result.length > 0) {
+  //       const email = result[0].user_email;
+  //     }
+  //   }
+  // );
+};
+
+// add bank account details to the dbConnection
+exports.addBankAccountDetails = async (req, res, next) => {
+  const id = req.params.id;
+  let { accountNumber, ifscCode, fullName } = req.body;
+  fullName = fullName.toUpperCase();
+  const hashedIfscCode = await bcrypt.hash(ifscCode, 12);
+  const hashedAccountNumber = await bcrypt.hash(accountNumber, 12);
+  console.log(hashedIfscCode, hashedAccountNumber);
+  try {
+    connection.query(
+      "SELECT * FROM user_dtls WHERE user_dtls_id =?",
+      [id],
+      (err, result) => {
+        if (err) {
+          res.send(err.message);
+        }
+        if (result.length > 0) {
+          const email = result[0].user_email;
+          const userId = result[0].user_dtls_id;
+          connection.query(
+            "SELECT * FROM trainer_profile WHERE trainer_email=?",
+            [email],
+            (err, result) => {
+              if (err) {
+                res.send(err.message);
+              }
+              if (result.length > 0) {
+                const trainerProfileId = result[0].trainer_profile_id;
+                var mysqlTimestamp = moment(Date.now()).format(
+                  "YYYY-MM-DD HH:mm:ss"
+                );
+                connection.query(
+                  "SELECT * FROM trainer_bank_ac_dtls WHERE trainer_bank_ac_user_id=? AND  trainer_bank_ac_trainer_profile_id=? AND trainer_bank_ac_trainer_email=? ",
+                  [userId, trainerProfileId, email],
+                  (err, data) => {
+                    if (err) {
+                      res.send({
+                        error:
+                          "There was and was an error while uploading the account details",
+                      });
+                    }
+                    if (data.length > 0) {
+                      res.send({
+                        success:
+                          "You have all ready fill this bank account details",
+                      });
+                    } else {
+                      connection.query(
+                        "INSERT INTO trainer_bank_ac_dtls (trainer_bank_ac_user_id, trainer_bank_ac_trainer_profile_id,trainer_bank_ac_trainer_email,trainer_bank_ac_fullname, trainer_bank_ac_number,trainer_bank_ac_ifsc,trainer_bank_ac_cr_date) VALUES(?, ?, ?, ?, ?, ?, ?) ",
+                        [
+                          userId,
+                          trainerProfileId,
+                          email,
+                          fullName,
+                          hashedAccountNumber,
+                          hashedIfscCode,
+                          mysqlTimestamp,
+                        ],
+                        (err, result) => {
+                          if (err) {
+                            res.send({
+                              error:
+                                "There was and was an error while uploading the account details",
+                            });
+                          }
+                          if (result) {
+                            res.send({
+                              success:
+                                "Bank account details added successfully,Thank You!",
+                            });
+                          }
+                        }
+                      );
+                    }
+                  }
+                );
+              } else {
+                res.send({
+                  error: "No user found Please update the profile details",
+                });
+              }
+            }
+          );
+        } else {
+          res.send({
+            error: "No user found Please update the profile details",
+          });
+        }
+      }
+    );
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
+// get trainer courses in single trainer page
+exports.getTrainerProfileDetailsInSinglePage = (req, res) => {
+  const id = req.params.id;
+  connection.query(
+    "SELECT * FROM trainer_profile WHERE trainer_profile_id=?",
+    [id],
+    (err, result) => {
+      if (err) {
+        res.send({ error: err.message });
+      }
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        return;
+      }
+    }
+  );
+  // connection.query(
+  //   "SELECT * FROM user_dtls WHERE user_dtls_id =?",
+  //   [id],
+  //   (err, result) => {
+  //     if (err) {
+  //       res.send({ error: err.message });
+  //     }
+  //     if (result.length > 0) {
+  //       const email = result[0].user_email;
+
+  //     }
+  //   }
+  // );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AllCoursesSection,
   AllCoursesWrapper,
@@ -9,8 +9,6 @@ import {
   LeftColHeadingText,
   LeftColOption,
   LeftColOptionSelected,
-  LineAfter,
-  MainTitle,
   RightColOptions,
   SearchBoxDiv,
   SearchBoxInput,
@@ -20,29 +18,18 @@ import {
   RightCOlDivItem,
 } from "./AllCoursesElements";
 import CourseCard from "../CourseCard/CourseCard";
-import axios from "axios";
 import GoToTop from "../../../GoToTop";
 const AllCourses = () => {
   const [category, setCategory] = useState("");
   const [searchItemAll, setSearchItemAll] = useState("");
-  // useEffect(() => {
-  //   const getCourseByCatCourse = async () => {
-  //     const result = await axios.get();
-  //     console.log(result);
-  //   };
-  // }, [cat]);
-
+  
   const searchEngineAll = async (event) => {
     event.preventDefault();
-    const response = await axios.get(`/courses/find?search=${searchItemAll}`);
-    console.log(response.data);
   };
 
   return (
     <AllCoursesSection>
       <AllCoursesWrapper>
-        <MainTitle>All our courses</MainTitle>
-        <LineAfter />
         <AllCoursesWrapper1>
           <LeftColHeading>
             <LeftColHeadingText>

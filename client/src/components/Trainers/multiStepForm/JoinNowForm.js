@@ -99,7 +99,6 @@ const JoinNowForm = () => {
     setError("");
     setSuccess("");
   }, 9000);
-
   return (
     <RegisterFormSect>
       <RegisterFormSection>
@@ -110,7 +109,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Choose the course Category :</FormLabel>
               <FormSelect
-                required
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -125,17 +123,19 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Choose the Course Name :</FormLabel>
               <FormSelect
-                required
                 onChange={(e) => setMasterCourseNameId(e.target.value)}
               >
+                <FormOption>Choose an option</FormOption>
                 {masterCourses?.length > 0 ? (
                   masterCourses?.map((course) => (
-                    <FormOption
-                      key={course.course_master_name_id}
-                      value={course.course_master_name_id}
-                    >
-                      {course.course_master_course_name}
-                    </FormOption>
+                    <>
+                      <FormOption
+                        key={course.course_master_name_id}
+                        value={course.course_master_name_id}
+                      >
+                        {course.course_master_course_name}
+                      </FormOption>
+                    </>
                   ))
                 ) : (
                   <FormOption>No courses to display</FormOption>
@@ -145,7 +145,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Min Years of Experience :</FormLabel>
               <Input
-                required
                 onChange={(e) => setExperience(e.target.value)}
                 type="number"
                 placeholder="Minimum 10 years of experience"
@@ -155,7 +154,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Enter Your Mobile Number :</FormLabel>
               <Input
-                required
                 onChange={(e) => setMobileNumber(e.target.value)}
                 type="number"
                 placeholder="Must be a valid Mobile Number"
@@ -166,6 +164,7 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Enter Skills</FormLabel>
               <FormAddress
+                value={skills}
                 onChange={(e) => setSkills(e.target.value)}
                 defaultValue="Enter your skills separated by commas"
               ></FormAddress>
@@ -173,7 +172,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Your Qualification :</FormLabel>
               <FormSelect
-                required
                 value={qualification}
                 onChange={(e) => setQualification(e.target.value)}
               >
@@ -187,7 +185,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Your Preference Time:</FormLabel>
               <FormSelect
-                required
                 value={prefTime}
                 onChange={(e) => setPrefTime(e.target.value)}
               >
@@ -199,7 +196,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>How many hours you can teach ?</FormLabel>
               <FormSelect
-                required
                 value={noOfHrs}
                 onChange={(e) => setNoOfHrs(e.target.value)}
               >
@@ -214,7 +210,6 @@ const JoinNowForm = () => {
             <Field>
               <FormLabel>Your Engagement Type :</FormLabel>
               <FormSelect
-                required
                 value={engType}
                 onChange={(e) => setEngType(e.target.value)}
               >
@@ -224,11 +219,7 @@ const JoinNowForm = () => {
               </FormSelect>
             </Field>
             <Field>
-              <NextButton
-                disabled={!experience || !mobileNumber || !masterCourseNameId}
-              >
-                Submit
-              </NextButton>
+              <NextButton>Submit</NextButton>
             </Field>
           </Form>
         </RegisterFormWrapper>

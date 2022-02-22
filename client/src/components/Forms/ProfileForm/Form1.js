@@ -56,13 +56,14 @@ const Form1 = (props) => {
         });
       }
     } catch (error) {
-      console.log(error.message);
+      return;
     }
     setProfession("");
     setDob("");
     setMobile("");
     setGraduate("");
     setExperience("");
+    setAddress("");
   };
   setTimeout(() => {
     setError("");
@@ -76,6 +77,7 @@ const Form1 = (props) => {
         {success && <p style={{ color: "green" }}>{success}</p>}
         <Form onSubmit={profileAccountHandler}>
           <FormInput
+            required
             type="number"
             placeholder="Enter your Mobile Name"
             minLength="10"
@@ -84,13 +86,17 @@ const Form1 = (props) => {
           <FormFlex>
             <FormLabel htmlFor="">Enter your Dob :</FormLabel>
             <FormInputDate
+              required
               type="date"
               onChange={(e) => setDob(e.target.value)}
             />
           </FormFlex>
           <FormFlex>
             <FormLabel>Education:</FormLabel>
-            <FormSelect onChange={(event) => setGraduate(event.target.value)}>
+            <FormSelect
+              required
+              onChange={(event) => setGraduate(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="1">Pursing</FormOption>
               <FormOption value="2">Graduate</FormOption>
@@ -100,7 +106,10 @@ const Form1 = (props) => {
           </FormFlex>
           <FormFlex>
             <FormLabel> Profession:</FormLabel>
-            <FormSelect onChange={(event) => setProfession(event.target.value)}>
+            <FormSelect
+              required
+              onChange={(event) => setProfession(event.target.value)}
+            >
               <FormOption>Choose a below option</FormOption>
               <FormOption value="graduation">
                 Completed the graduation

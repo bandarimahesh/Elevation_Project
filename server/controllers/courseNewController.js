@@ -17,6 +17,7 @@ exports.createNewCourse = async (req, res) => {
   const participants = 20;
   const createdBy = "Navrik Team";
   const description = req.body.description;
+
   connection.query(
     "SELECT * FROM user_dtls WHERE user_dtls_id = ?",
     [id],
@@ -42,11 +43,11 @@ exports.createNewCourse = async (req, res) => {
               const experience = result[0].trainer_exp_yrs;
               const skills = result[0].trainer_skills;
               const image = result[0].trainer_image;
-              const trainerId = result[0].trainer_id;
+              const trainerId = result[0].trainer_profile_id;
               file.mv(uploadPath, (err) => {
                 if (err) res.send(err.message);
                 connection.query(
-                  "INSERT INTO courses_dtls (course_name, course_price, course_title,course_duration,course_cr_date, course_start_dt,course_end_dt, course_participants,course_category,course_created_by,course_trainer_name,course_tags,course_spayee_link,course_image,course_desc,course_trainer_id,course_trainer_exp,course_trainer_skills,course_trainer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  "INSERT INTO courses_dtls (course_name, course_price, course_title,course_duration,course_cr_date, course_start_dt,course_end_dt, course_participants,course_category,course_created_by,course_trainer_name,course_tags,course_spayee_link,course_image,course_desc,course_trainer_profile_id,course_trainer_exp,course_trainer_skills,course_trainer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                   [
                     courseName,
                     price,

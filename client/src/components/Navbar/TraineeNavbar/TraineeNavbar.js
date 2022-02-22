@@ -144,7 +144,7 @@ const TraineeNavbar = ({ toggleMenuItems }) => {
               style={{ textDecoration: "none", color: "white" }}
               to={`/${user?.type}/profile/update/${user?.id}`}
             >
-              <ProfileImg src={PF + trainee.trainee_image} alt="" />
+              <ProfileImg src={PF + trainee.trainee_image} alt="Profile" />
             </Link>
           ))}
         </RightbarContainerMenu>

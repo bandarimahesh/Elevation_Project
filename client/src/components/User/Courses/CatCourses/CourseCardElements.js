@@ -65,7 +65,9 @@ export const TitlesDesc = styled.p`
     font-size: 19px;
   }
 `;
-
+export const CourseNotFoundHeading = styled.h1`
+  padding: 50px;
+`;
 // card styles
 export const CourseBody = styled.div`
   width: 100%;
